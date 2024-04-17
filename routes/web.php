@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApartmentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,6 +18,10 @@ use Illuminate\Support\Facades\Route;
 // Pagina per utente non loggato(metti bottone per login)
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function () {
+    Route::resource('apartments', ApartmentController::class)->withTrashed(['show', 'edit', 'update']);
 });
 
 

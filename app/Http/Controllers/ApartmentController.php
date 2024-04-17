@@ -12,7 +12,7 @@ class ApartmentController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.apartments.index');
     }
 
     /**
@@ -20,7 +20,7 @@ class ApartmentController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.apartments.create');
     }
 
     /**
@@ -28,7 +28,7 @@ class ApartmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return to_route('admin.apartments.show');
     }
 
     /**
@@ -36,7 +36,7 @@ class ApartmentController extends Controller
      */
     public function show(Apartment $apartment)
     {
-        //
+        return view('admin.apartments.show');
     }
 
     /**
@@ -44,7 +44,7 @@ class ApartmentController extends Controller
      */
     public function edit(Apartment $apartment)
     {
-        //
+        return view('admin.apartments.edit');
     }
 
     /**
@@ -52,7 +52,7 @@ class ApartmentController extends Controller
      */
     public function update(Request $request, Apartment $apartment)
     {
-        //
+        return to_route('admin.apartments.show');
     }
 
     /**
@@ -60,6 +60,6 @@ class ApartmentController extends Controller
      */
     public function destroy(Apartment $apartment)
     {
-        //
+        return to_route('admin.apartments.index');
     }
 }
