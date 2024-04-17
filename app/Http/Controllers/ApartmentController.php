@@ -12,7 +12,10 @@ class ApartmentController extends Controller
      */
     public function index()
     {
-        return view('admin.apartments.index');
+        // Recupero tutti gli appartamenti dal DB
+        $apartments = Apartment::orderByDesc('updated_at')->orderByDesc('created_at')->get();
+
+        return view('admin.apartments.index', compact('apartments'));
     }
 
     /**
