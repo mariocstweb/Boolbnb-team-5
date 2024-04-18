@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Apartment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ApartmentController extends Controller
 {
@@ -111,6 +112,59 @@ class ApartmentController extends Controller
     public function destroy(Apartment $apartment)
     {
         $apartment->delete();
+        return to_route('admin.apartments.index');
+    }
+
+
+    public function trash()
+    {
+        $apartments = Apartment::onlyTrashed()->get();
+        return view('admin.apartments.trash', compact('apartments'));
+    }
+
+    public function restore(Apartment $apartment)
+    {
+        $apartment->restore();
+        return to_route('admin.apartments.index');
+    }
+
+    public function drop(Apartment $apartment)
+    {
+        $apartment->forceDelete();
+
+
+        return to_route('admin.apartments.trash');
+    }
+
+
+    // Svuota completamente il cestino
+    public function empty()
+    {
+        $apartments = Apartment::onlyTrashed()->get();
+
+
+        foreach ($apartments as $apartment) {
+
+            if ($apartment->title) {
+                Storage::delete($apartment->title);
+            }
+
+            $apartment->forceDelete();
+        }
+        return to_route('admin.apartments.trash');
+    }
+
+
+    // Ripristina completamente il cestino
+    public function returned()
+    {
+        $apartments = Apartment::onlyTrashed()->get();
+
+
+        foreach ($apartments as $apartment) {
+
+            $apartment->restore();
+        }
         return to_route('admin.apartments.index');
     }
 }

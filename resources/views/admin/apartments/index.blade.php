@@ -12,7 +12,7 @@
     <a href="{{route('admin.apartments.create')}}" class="btn btn-light bg-base-color me-2 rounded-4 text-white">Aggiungi appartamento <i class="fa-solid fa-house-medical ms-1"></i></a>
 
     {{-- Cestino --}}
-    <a class="btn btn-light border round-50" href=""><i class="fa-regular fa-trash-can"></i></a>  
+    <a class="btn btn-light border round-50" href="{{route('admin.apartments.trash')}}"><i class="fa-regular fa-trash-can"></i></a>  
   </div>
 </div>
 
@@ -70,7 +70,7 @@
                     <form method="POST" action="{{route('admin.apartments.destroy', $apartment->id)}}">
                       @csrf
                       @method('DELETE')
-                      <button class="bg-danger text-white w-100 border-0 rounded-3 p-1"><i class="fa-regular fa-trash-can"></i> Elimina</button>
+                      <button class="bg-danger text-white w-100 border-0 rounded-3 p-1"><i class="fa-regular fa-trash-can"></i> Cestina</button>
                     </form>
                   </li>
                 </ul>
@@ -80,7 +80,7 @@
         </tr>
       @empty
       <tr>
-        <td colspan="6"></td>
+        <td colspan="6"><h3>Non hai aggiunto appartamenti</h3></td>
       </tr>
       @endforelse
     </tbody>
