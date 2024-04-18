@@ -21,6 +21,17 @@ Route::get('/', function () {
 });
 
 Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function () {
+    // Rotta per spostare un elemento nel cestino
+    Route::get('/apartments/trash', [ApartmentController::class, 'trash'])->name('apartments.trash');
+    // Rotta ripristino elemento dal cestino
+    Route::patch('/apartments/{apartment}/restore', [ApartmentController::class, 'restore'])->name('apartments.restore')->withTrashed();
+    // Rotta per l'eliminazione definitiva di un elemento
+    Route::delete('/apartments/{apartment}/drop', [ApartmentController::class, 'drop'])->name('apartments.drop')->withTrashed();
+    // Svuota tutto il cestino
+    Route::delete('/apartments/empty', [ApartmentController::class, 'empty'])->name('apartments.empty');
+    // Ripristina tutto il cestino
+    Route::patch('/apartments/returned', [ApartmentController::class, 'returned'])->name('apartments.returned');
+    // Resources list
     Route::resource('apartments', ApartmentController::class)->withTrashed(['show', 'edit', 'update']);
 });
 
