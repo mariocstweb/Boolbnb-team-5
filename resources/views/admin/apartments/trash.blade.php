@@ -66,11 +66,11 @@
                     <button type="submit" class="btn btn-success round-50"><i class="fa-solid fa-rotate"></i></button>
                   </form>
 
-                    {{-- Form cancellazione soft --}}
-                    <form method="POST" action="{{route('admin.apartments.drop', $apartment->id)}}">
+                    {{-- Form cancellazione --}}
+                    <form method="POST" action="{{route('admin.apartments.drop', $apartment->id)}}" data-bs-toggle="modal" data-bs-target="#modal" data-apartment="{{ $apartment->title }}" class="del-form">
                       @csrf
                       @method('DELETE')
-                      <button class="btn btn-danger round-50"><i class="fa-regular fa-trash-can"></i> </button>
+                      <button type="submit" class="btn btn-danger round-50"><i class="fa-regular fa-trash-can"></i> </button>
                     </form>
               </div>
             </div>
@@ -83,4 +83,8 @@
       @endforelse
     </tbody>
   </table>
+@endsection
+
+@section('scripts')
+  @vite('resources/js/delete_confirmation.js')
 @endsection
