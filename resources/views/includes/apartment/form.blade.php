@@ -180,8 +180,8 @@
 
     <div class="col-2 mt-5">
         <div class="form-check form-switch">
-            <input value="1" type="checkbox" class="form-check-input" id="is_visible" name="is_visible"
-                @if (old('is_visible')) checked @endif>
+            <input value="1" type="checkbox" class="form-check-input" id="is_visible" name="is_visible" role="button"
+                @if (old('is_visible', $apartment->is_visible)) checked @endif>
             <label for="is_visible" class="form-check-label">Pubblica</label>
         </div>
     </div>

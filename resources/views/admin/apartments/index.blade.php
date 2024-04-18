@@ -40,7 +40,7 @@
           <td>{{$apartment->title}}</td>
 
           {{-- Stato --}}
-          <td>{{$apartment->is_visible}}</td>
+          <td>{!!$apartment->is_visible ? '<i class="fa-solid fa-circle-check text-success"></i>' : '<i class="fa-solid fa-circle-xmark text-danger"></i>'!!}</td>
 
           {{-- Creazione --}}
           <td>{{$apartment->created_at}}</td>
