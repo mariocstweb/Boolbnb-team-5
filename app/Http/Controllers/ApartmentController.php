@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Apartment;
+use App\Http\Requests\UpdateApartmentRequest;
+use App\Http\Requests\StoreApartmentRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -31,25 +33,11 @@ class ApartmentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreApartmentRequest $request)
     {
-        $request->validate(
-            [
-                'title' => 'required|string|min:5|max:50|unique:apartments',
-                'address' => 'required|string|min:5|max:50',
-                'cover' => 'required|image',
-                'is_visible' => 'nullable|boolean',
-            ],
-            [
-                'title.required' => 'Il titolo è obbligatorio',
-                'title.unique' => 'Non possono esistere più progetti con lo stesso titolo',
-                // 'description.required' => 'La descrizione è obbligatoria',
-                'cover.image' => 'Il file inserito non è un\'immagine',
-                'cover.mimes' => 'Le estensione possono essere .png, .jpg, .jpeg',
-            ]
-        );
+        $data = $request->validate;
 
-        $data = $request->all();
+
         $apartment = new Apartment();
         $apartment->fill($data);
         $apartment->is_visible = array_key_exists('is_visible', $data);
@@ -78,25 +66,11 @@ class ApartmentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Apartment $apartment)
+    public function update(UpdateApartmentRequest $request, Apartment $apartment)
     {
-        $request->validate(
-            [
-                'title' => 'required|string|min:5|max:50|unique:apartments',
-                // 'content' => 'required|string',
-                'cover' => 'nullable|image',
-                'is_visible' => 'nullable|boolean',
-            ],
-            [
-                'title.required' => 'Il titolo è obbligatorio',
-                'title.unique' => 'Non possono esistere più progetti con lo stesso titolo',
-                // 'description.required' => 'La descrizione è obbligatoria',
-                'cover.image' => 'Il file inserito non è un\'immagine',
-                'cover.mimes' => 'Le estensione possono essere .png, .jpg, .jpeg',
-            ]
-        );
+        $data = $request->validate;
 
-        $data = $request->all();
+
 
         $apartment->fill($data);
         $apartment->is_visible = array_key_exists('is_visible', $data);
