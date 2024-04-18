@@ -36,8 +36,8 @@ class ApartmentController extends Controller
         $request->validate(
             [
                 'title' => 'required|string|min:5|max:50|unique:apartments',
-                // 'content' => 'required|string',
-                'cover' => 'nullable|image',
+                'address' => 'required|string|min:5|max:50',
+                'cover' => 'required|image',
                 'is_visible' => 'nullable|boolean',
             ],
             [
