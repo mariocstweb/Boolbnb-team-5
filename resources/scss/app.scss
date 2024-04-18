@@ -47,6 +47,18 @@ ul {
   }
 }
 
+
+
+.search {
+  border: 1px solid rgb(216, 216, 216);
+  padding: 10px;
+  border-radius: 60px;
+}
+
+.search-button {
+  border-radius: 38px;
+}
+
 .dropdown-toggle::after {
   content: none;
 }

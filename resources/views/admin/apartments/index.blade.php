@@ -4,8 +4,20 @@
 
 @section('content')
 
+<div class="row d-flex justify-content-center align-items-center mt-5">
+  <div class="col-6">
+      <form method="GET" action="">
+          <div class="d-flex search">
+              <input type="search" class="form-control border-0 " placeholder=" Cerca..." name="search"
+              value="">
+              <button class="btn text-white search-button bg-base-color" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+          </div>
+      </form>
+  </div>
+</div>
 <div class="d-flex justify-content-between align-items-center my-4">
   <h3 class="mb-0">I tuoi appartamenti</h3>
+
 
   <div>
     {{-- Aggiungi appartamento --}}
