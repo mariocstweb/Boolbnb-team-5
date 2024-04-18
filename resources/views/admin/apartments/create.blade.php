@@ -3,5 +3,5 @@
 @section('title', 'Aggiungi Appartamento')
 
 @section('content')
-  <h1>Create</h1>
+  @include('includes.apartment.form')
 @endsection
