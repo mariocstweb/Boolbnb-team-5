@@ -29,7 +29,7 @@
                 <div><i class="fa-solid fa-door-closed"></i> Stanze: <strong>{{$apartment->rooms}}</strong></div>
                 <div><i class="fa-solid fa-bed"></i> Letti: <strong>{{$apartment->beds}}</strong></div>
                 <div><i class="fa-solid fa-bath"></i> Bagni: <strong>{{$apartment->bathrooms}}</strong></div>
-                <div><i class="fa-solid fa-house"></i> <strong>{{$apartment->sqm}}</strong> mq2</div>
+                <div><i class="fa-solid fa-ruler-combined"></i> <strong>{{$apartment->sqm}}</strong> mq2</div>
                 <div><i class="fa-solid fa-location-dot"></i> Indirizzo: <strong>{{$apartment->address}}</strong></div>
             </div>
           </div>
