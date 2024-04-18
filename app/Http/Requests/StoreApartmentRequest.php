@@ -24,7 +24,7 @@ class StoreApartmentRequest extends FormRequest
     {
 
         /* RECUPERO IL VALORE DELLA ROTTA */
-        $apartment = $this->route('apartment');
+
 
         /* RESTITUISCO CIO' CHE DA ERRORE */
         return [

@@ -28,7 +28,7 @@ class UpdateApartmentRequest extends FormRequest
 
         /* RESTITUISCO CIO' CHE DA ERRORE */
         return [
-            'title' => 'required|string', Rule::unique('apartments')->ignore($apartment),
+            'title' => 'required|string', Rule::unique('apartments')->ignore($apartment->id),
             'rooms' => 'required|integer|min:1',
             'beds' => 'required|integer|min:1',
             'bathrooms' => 'required|integer|min:1',

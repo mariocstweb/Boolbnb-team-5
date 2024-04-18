@@ -35,7 +35,7 @@ class ApartmentController extends Controller
      */
     public function store(StoreApartmentRequest $request)
     {
-        $data = $request->validate;
+        $data = $request->validated();
 
 
         $apartment = new Apartment();
@@ -68,7 +68,7 @@ class ApartmentController extends Controller
      */
     public function update(UpdateApartmentRequest $request, Apartment $apartment)
     {
-        $data = $request->validate;
+        $data = $request->validated();
 
 
 
