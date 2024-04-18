@@ -23,7 +23,8 @@ class ApartmentController extends Controller
      */
     public function create()
     {
-        return view('admin.apartments.create');
+        $apartment = new Apartment;
+        return view('admin.apartments.create', compact('apartment'));
     }
 
     /**
@@ -31,7 +32,30 @@ class ApartmentController extends Controller
      */
     public function store(Request $request)
     {
-        return to_route('admin.apartments.show');
+        $request->validate(
+            [
+                'title' => 'required|string|min:5|max:50|unique:apartments',
+                // 'content' => 'required|string',
+                'cover' => 'nullable|image',
+                'is_visible' => 'nullable|boolean',
+            ],
+            [
+                'title.required' => 'Il titolo è obbligatorio',
+                'title.unique' => 'Non possono esistere più progetti con lo stesso titolo',
+                // 'description.required' => 'La descrizione è obbligatoria',
+                'cover.image' => 'Il file inserito non è un\'immagine',
+                'cover.mimes' => 'Le estensione possono essere .png, .jpg, .jpeg',
+            ]
+        );
+
+        $data = $request->all();
+        $apartment = new Apartment();
+        $apartment->fill($data);
+        $apartment->is_visible = array_key_exists('is_visible', $data);
+
+
+        $apartment->save();
+        return to_route('admin.apartments.show', $apartment->id)->with('message', 'Nuova parola inserita con successo')->with('type', 'success');
     }
 
     /**
@@ -55,7 +79,30 @@ class ApartmentController extends Controller
      */
     public function update(Request $request, Apartment $apartment)
     {
-        return to_route('admin.apartments.show');
+        $request->validate(
+            [
+                'title' => 'required|string|min:5|max:50|unique:apartments',
+                // 'content' => 'required|string',
+                'cover' => 'nullable|image',
+                'is_visible' => 'nullable|boolean',
+            ],
+            [
+                'title.required' => 'Il titolo è obbligatorio',
+                'title.unique' => 'Non possono esistere più progetti con lo stesso titolo',
+                // 'description.required' => 'La descrizione è obbligatoria',
+                'cover.image' => 'Il file inserito non è un\'immagine',
+                'cover.mimes' => 'Le estensione possono essere .png, .jpg, .jpeg',
+            ]
+        );
+
+        $data = $request->all();
+
+        $apartment->fill($data);
+        $apartment->is_visible = array_key_exists('is_visible', $data);
+
+
+        $apartment->update($data);
+        return to_route('admin.apartments.show', $apartment->id);
     }
 
     /**

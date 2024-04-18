@@ -11,4 +11,6 @@ class Apartment extends Model
     use HasFactory;
     /* ELIMINAZIONE SOFT */
     use SoftDeletes;
+
+    protected $fillable = ['title', 'cover', 'beds', 'rooms', 'bathrooms', 'address', 'sqm', 'longitude', 'latitude'];
 }
