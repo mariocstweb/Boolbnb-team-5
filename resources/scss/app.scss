@@ -41,6 +41,10 @@ ul {
 
 .bg-base-color {
   background-color: #FF385C;
+
+  &:hover {
+    background-color: #ff768f;
+  }
 }
 
 .dropdown-toggle::after {
