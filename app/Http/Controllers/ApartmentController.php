@@ -39,7 +39,7 @@ class ApartmentController extends Controller
      */
     public function show(Apartment $apartment)
     {
-        return view('admin.apartments.show');
+        return view('admin.apartments.show', compact('apartment'));
     }
 
     /**
@@ -47,7 +47,7 @@ class ApartmentController extends Controller
      */
     public function edit(Apartment $apartment)
     {
-        return view('admin.apartments.edit');
+        return view('admin.apartments.edit', compact('apartment'));
     }
 
     /**
@@ -63,6 +63,7 @@ class ApartmentController extends Controller
      */
     public function destroy(Apartment $apartment)
     {
+        $apartment->delete();
         return to_route('admin.apartments.index');
     }
 }

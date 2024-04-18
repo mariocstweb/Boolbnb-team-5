@@ -14,7 +14,7 @@ return $apartments = [
   ],
   [
     'title' => 'Casa Bella Vista',
-    'cover' => 'https://example.com/images/casa_bella_vista.jpg',
+    'cover' => 'https://www.miprendoemiportovia.it/wp-content/uploads/2020/10/Casa-Nea-Sardegna.jpg',
     'is_visible' => true,
     'rooms' => 3,
     'beds' => 6,
@@ -26,7 +26,7 @@ return $apartments = [
   ],
   [
     'title' => 'Appartamento del Trastevere',
-    'cover' => 'https://example.com/images/appartamento_del_trastevere.jpg',
+    'cover' => 'https://i.pinimg.com/564x/a9/54/0b/a9540ba59ab48369fcb847eec1393084.jpg',
     'is_visible' => true,
     'rooms' => 2,
     'beds' => 4,
@@ -38,7 +38,7 @@ return $apartments = [
   ],
   [
     'title' => 'Villa dei Fiori',
-    'cover' => 'https://example.com/images/villa_dei_fiori.jpg',
+    'cover' => 'https://i.pinimg.com/736x/62/99/1b/62991bce34667995c52a33da134383b4.jpg',
     'is_visible' => true,
     'rooms' => 5,
     'beds' => 10,
@@ -50,7 +50,7 @@ return $apartments = [
   ],
   [
     'title' => 'Casetta Romantica',
-    'cover' => 'https://example.com/images/casetta_romantica.jpg',
+    'cover' => 'https://st3.idealista.it/news/archivie/styles/open_graph/public/2017-09/houzz1.png?VersionId=A9xFG2zFuIbLdOvphoG8GYWzELhuDMRT&itok=27me4Oe_',
     'is_visible' => true,
     'rooms' => 1,
     'beds' => 2,
