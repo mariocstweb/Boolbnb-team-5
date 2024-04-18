@@ -1,27 +1,32 @@
 @import '~bootstrap/scss/bootstrap';
 
-body{
+body {
   visibility: visible;
 }
-nav{
-  #nav-logo{
+
+nav {
+  #nav-logo {
     // height: 32px;
     width: 32px;
 
   }
-  #link-logo{
+
+  #link-logo {
     color: #FF385C;
     text-decoration: none;
   }
 
 }
 
-td, th{
+td,
+th {
   vertical-align: middle;
 }
 
+ul {
+  list-style-type: none;
+}
 
-
-.table-img{
+.table-img {
   width: 150px;
 }
