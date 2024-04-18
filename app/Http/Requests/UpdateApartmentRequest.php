@@ -1,0 +1,85 @@
+<?php
+
+namespace App\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class UpdateApartmentRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     */
+    public function rules(): array
+    {
+
+        /* RECUPERO IL VALORE DELLA ROTTA */
+        $apartment = $this->route('apartment');
+
+        /* RESTITUISCO CIO' CHE DA ERRORE */
+        return [
+            'title' => 'required|string', Rule::unique('apartments')->ignore($apartment),
+            'rooms' => 'required|integer|min:1',
+            'beds' => 'required|integer|min:1',
+            'bathrooms' => 'required|integer|min:1',
+            'sqm' => 'nullable|integer|min:0',
+            'cover' => 'nullable|image:jpg, jpeg, png, svg, webp, pdf',
+            'address' => 'required|string',
+            'latitude' => 'required|decimal:0,6',
+            'longitude' => 'required|decimal:0,6',
+            'is_visible' => 'nullable|boolean',
+            // 'category_id' => 'nullable|exists:categories,id',
+            // 'services' => 'required|exists:services,id',
+        ];
+    }
+
+    public function messages(): array
+    {
+
+        /* RECUPERO TUTTO I DATI */
+        $data = $this->all();
+
+        /* RESTITUISCO CIO' CHE DARA' IL MESSAGGIO DI ERRORE */
+        return [
+            'title.required' => 'Il titolo è obbligatorio',
+            'title.string' => 'Il titolo non è valido',
+
+            'rooms.required' => 'Il numero di stanze è obbligatorio',
+            'rooms.integer' => 'Inserisci un numero valido',
+            'rooms.min' => 'Inserisci un numero maggiore di uno',
+
+            'beds.required' => 'Il numero di letti è obbligatorio',
+            'beds.integer' => 'Inserisci un numero valido',
+            'beds.min' => 'Inserisci un numero maggiore di uno',
+
+            'bathrooms.required' => 'Il numero di bagni è obbligatorio',
+            'bathrooms.integer' => 'Inserisci un numero valido',
+            'bathrooms.min' => 'Inserisci un numero maggiore di uno',
+
+            'sqm.integer' => 'Inserisci un numero valido',
+            'sqm.min' => 'Inserisci un numero maggiore di zero',
+
+            'address.required' => 'L\'indirizzo è obbligatorio',
+            'address.string' => 'L\'indirizzo non è valido',
+
+            'cover.image' => "l\'immagine inserita non è valida",
+
+            'is_visible.boolean' => 'Il valore non è valido',
+
+            // 'category_id.exists' => "La categoria è inesistente",
+
+            // 'services.required' => 'Inserisci almeno un servizio',
+            // 'services.exists' => 'Il servizio è inesistente',
+        ];
+    }
+}
