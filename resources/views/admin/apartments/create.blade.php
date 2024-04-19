@@ -8,4 +8,5 @@
 
 @section('scripts')
 @vite('resources/js/image_preview.js')
+@vite('resources/js/address.js')
 @endsection

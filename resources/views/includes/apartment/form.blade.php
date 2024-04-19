@@ -8,6 +8,7 @@
 
 @csrf
 
+{{-- Nome appartamento --}}
 <div class="row my-5">
     <div class="col-6">
         <div class="mb-3">
@@ -24,52 +25,59 @@
             @enderror
         </div>
     </div>
-    <div class="col-6">
-        <div class="mb-3">
-            <label for="address" class="form-label">Indirizzo <i class="fa-solid fa-location-dot"></i></label>
-            <input type="text"
-                class="form-control @error('address') is-invalid
-              @elseif (old('address', '')) is-valid 
-            @enderror"
-                id="address" name="address" value="{{ old('address', $apartment->address) }}">
-            @error('address')
-                <div class="invalid-feedback">
-                    {{ $message }}
+
+
+     {{-- # Indirizzo --}}
+     {{-- <div class="col-12 mb-2">
+        <div class="card">
+            <label for="address-search" class="form-label">
+                <h4>Indirizzo
+                    <span class="form-text text-danger">*</span>
+                </h4>
+            </label>
+            <div class="d-block card-data">
+                <div class="position-relative"> 
+                    
+                    
+                    <input id="search-address" name="address" autocomplete="off" value="{{ old('address', $apartment->address) }}"
+                        type="text" class="form-control @error('address') is-invalid @enderror">
+
+
+
+
+
+                    @error('address')
+                        <span class="invalid-feedback error-message" role="alert">{{ $message }}</span>
+                    @enderror
+
+
+
+
+                    <ul id="suggestions" class="suggestions-list"></ul>
                 </div>
-            @enderror
+                <span id="address-error" class="text-danger error-message"></span>
+
+                <input type="hidden" name="latitude" id="latitude"
+                    value="{{ old('latitude', $apartment->latitude) }}">
+                <input type="hidden" name="longitude" id="longitude"
+                    value="{{ old('longitude', $apartment->longitude) }}">
+            </div>
         </div>
     </div>
 
-    <div class="col-6">
-        <div class="mb-3">
-            <label for="latitude" class="form-label">Latitudine <i class="fa-solid fa-house"></i></label>
-            <input type="text"
-                class="form-control @error('latitude') is-invalid
-              @elseif (old('latitude', '')) is-valid 
-            @enderror"
-                id="latitude" name="latitude" value="{{ old('latitude', $apartment->latitude) }}">
-            @error('latitude')
-                <div class="invalid-feedback">
-                    {{ $message }}
-                </div>
-            @enderror
+    <div class="col-12 mb-2">
+        <div class="dropdown mb-3">
+            <button class="button-info" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa-solid fa-question fa-xs"></i>
+            </button>
+            <div class="dropdown-menu text-danger  ">
+                I campi contrassegnati (*) sono obbligatori.
+            </div>
         </div>
-    </div>
-    <div class="col-6">
-        <div class="mb-3">
-            <label for="longitude" class="form-label">Longitudine <i class="fa-solid fa-location-dot"></i></label>
-            <input type="text"
-                class="form-control @error('longitude') is-invalid
-              @elseif (old('longitude', '')) is-valid 
-            @enderror"
-                id="longitude" name="longitude" value="{{ old('longitude', $apartment->longitude) }}">
-            @error('longitude')
-                <div class="invalid-feedback">
-                    {{ $message }}
-                </div>
-            @enderror
-        </div>
-    </div>
+    </div> --}}
+
+    {{-- Descrizione appartamento --}}
+
     {{-- <div class="col-12">
         <div class="mb-3">
             <label for="description" class="form-label">Descrizione</label>
@@ -86,6 +94,7 @@
         </div>
     </div> --}}
 
+    {{-- Camere --}}
     <div class="col-3">
         <div class="mb-3">
             <label for="rooms" class="form-label">Camere <i class="fa-solid fa-door-closed"></i></label>
@@ -102,6 +111,7 @@
         </div>
     </div>
 
+    {{-- Letti --}}
     <div class="col-3">
         <div class="mb-3">
             <label for="beds" class="form-label">Letti <i class="fa-solid fa-bed"></i></label>
@@ -118,6 +128,7 @@
         </div>
     </div>
 
+    {{-- Bagni --}}
     <div class="col-3">
         <div class="mb-3">
             <label for="bathrooms" class="form-label">Bagni <i class="fa-solid fa-bath"></i></label>
@@ -134,6 +145,7 @@
         </div>
     </div>
 
+    {{-- Metri quadrati --}}
     <div class="col-3">
         <div class="mb-3">
             <label for="sqm" class="form-label">Metri Quadrati <i class="fa-solid fa-ruler-combined"></i></label>
@@ -150,6 +162,7 @@
         </div>
     </div>
     
+    {{-- Immagine --}}
     <div class="col-11">
         <div class="my-3">
             <label for="cover" class="form-label">Immagine</label>
@@ -188,6 +201,8 @@
 
 
 </div>
+
+{{-- Bottoni Svuota/Salva --}}
 <div class="d-flex align-items-center justify-content-between">
     <a href="{{ route('admin.apartments.index') }}" class="btn btn-primary"><i class="fa-solid fa-arrow-left me-2"></i>Torna
         indietro</a>
