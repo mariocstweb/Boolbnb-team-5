@@ -35,6 +35,9 @@
         @include('includes.layouts.navbar')
 
         <main class="container">
+            {{-- Alert per feed operazioni crud --}}
+            @include('includes.alert')
+
             @yield('content')
         </main>
     </div>

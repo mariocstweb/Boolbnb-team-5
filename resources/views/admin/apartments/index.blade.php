@@ -28,6 +28,7 @@
   </div>
 </div>
 
+@if($apartments->count() > 0)
   {{-- Tabella appartamenti --}}
   <table class="table table-hover">
     <thead>
@@ -42,7 +43,7 @@
       </tr>
     </thead>
     <tbody>
-      @forelse ($apartments as $apartment)
+      @foreach ($apartments as $apartment)
         <tr>
 
           {{-- Cover --}}
@@ -90,11 +91,10 @@
             </div>
           </td>
         </tr>
-      @empty
-      <tr>
-        <td colspan="6"><h3>Non hai aggiunto appartamenti</h3></td>
-      </tr>
-      @endforelse
+      @endforeach
     </tbody>
   </table>
+@else
+  <h2 class=" text-center">Non ci sono appartamenti registrati</h2>
+@endif
 @endsection

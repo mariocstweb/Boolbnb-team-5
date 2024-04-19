@@ -16,10 +16,10 @@ class ApartmentController extends Controller
      */
     public function index(Request $request)
     {
-        
+
         /* Recupero valore */
         $search = $request->query('search');
-        
+
         if (!$search) {
             // Recupero tutti gli appartamenti dal DB
             $apartments = Apartment::orderByDesc('updated_at')->orderByDesc('created_at')->get();
@@ -27,7 +27,7 @@ class ApartmentController extends Controller
             /* Filtro per nome */
             $apartments = Apartment::where('title', 'LIKE', "$search%")->get();
         }
-        
+
         return view('admin.apartments.index', compact('apartments', 'search'));
     }
 
@@ -54,7 +54,9 @@ class ApartmentController extends Controller
 
 
         $apartment->save();
-        return to_route('admin.apartments.show', $apartment->id)->with('message', 'Nuova parola inserita con successo')->with('type', 'success');
+        return to_route('admin.apartments.show', $apartment->id)
+            ->with('message', 'Hai inserito correttamente un nuovo appartamento')
+            ->with('type', 'success');
     }
 
     /**
@@ -87,7 +89,9 @@ class ApartmentController extends Controller
 
 
         $apartment->update($data);
-        return to_route('admin.apartments.show', $apartment->id);
+        return to_route('admin.apartments.show', $apartment->id)
+            ->with('type', 'warning')
+            ->with('message', "'$apartment->title' modificato con successo.");
     }
 
     /**
@@ -96,7 +100,9 @@ class ApartmentController extends Controller
     public function destroy(Apartment $apartment)
     {
         $apartment->delete();
-        return to_route('admin.apartments.index');
+        return to_route('admin.apartments.index')
+            ->with('type', 'danger')
+            ->with('message', "Hai spostato '$apartment->title' nel cestino.");
     }
 
 
@@ -109,7 +115,9 @@ class ApartmentController extends Controller
     public function restore(Apartment $apartment)
     {
         $apartment->restore();
-        return to_route('admin.apartments.index');
+        return to_route('admin.apartments.index')
+            ->with('type', 'success')
+            ->with('message', "Hai ripristinato '$apartment->title' con successo.");
     }
 
     public function drop(Apartment $apartment)
@@ -117,7 +125,9 @@ class ApartmentController extends Controller
         $apartment->forceDelete();
 
 
-        return to_route('admin.apartments.trash');
+        return to_route('admin.apartments.trash')
+            ->with('type', 'danger')
+            ->with('message', "Hai eliminato '$apartment->title' definitivamente.");
     }
 
 
@@ -135,7 +145,9 @@ class ApartmentController extends Controller
 
             $apartment->forceDelete();
         }
-        return to_route('admin.apartments.trash');
+        return to_route('admin.apartments.trash')
+            ->with('type', 'danger')
+            ->with('message', "Cestino svuotato");
     }
 
 
@@ -149,6 +161,8 @@ class ApartmentController extends Controller
 
             $apartment->restore();
         }
-        return to_route('admin.apartments.index');
+        return to_route('admin.apartments.index')
+            ->with('type', 'info')
+            ->with('message', "Hai ripristinato tutti gli appartamenti");
     }
 }
