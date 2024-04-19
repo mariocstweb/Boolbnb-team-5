@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Apartment;
 use App\Http\Requests\UpdateApartmentRequest;
 use App\Http\Requests\StoreApartmentRequest;
+use Dotenv\Repository\Adapter\ApacheAdapter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -13,12 +14,21 @@ class ApartmentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        // Recupero tutti gli appartamenti dal DB
-        $apartments = Apartment::orderByDesc('updated_at')->orderByDesc('created_at')->get();
-
-        return view('admin.apartments.index', compact('apartments'));
+        
+        /* Recupero valore */
+        $search = $request->query('search');
+        
+        if (!$search) {
+            // Recupero tutti gli appartamenti dal DB
+            $apartments = Apartment::orderByDesc('updated_at')->orderByDesc('created_at')->get();
+        } else {
+            /* Filtro per nome */
+            $apartments = Apartment::where('title', 'LIKE', "$search%")->get();
+        }
+        
+        return view('admin.apartments.index', compact('apartments', 'search'));
     }
 
     /**

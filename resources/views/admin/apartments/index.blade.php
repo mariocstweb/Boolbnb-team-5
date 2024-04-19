@@ -6,10 +6,10 @@
 
 <div class="row d-flex justify-content-center align-items-center mt-5">
   <div class="col-6">
-      <form method="GET" action="">
+      <form method="GET" action="{{ route('admin.apartments.index')}}">
           <div class="d-flex search">
               <input type="search" class="form-control border-0 " placeholder=" Cerca..." name="search"
-              value="">
+              value="{{ $search }}">
               <button class="btn text-white search-button bg-base-color" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
           </div>
       </form>
