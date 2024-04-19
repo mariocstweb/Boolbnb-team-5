@@ -18,6 +18,6 @@ class DatabaseSeeder extends Seeder
             'name' => 'boolbnb',
             'email' => 'bool@gmail.com',
         ]);
-        $this->call(ApartmentSeeder::class);
+        $this->call([ApartmentSeeder::class, ServiceSeeder::class]);
     }
 }
