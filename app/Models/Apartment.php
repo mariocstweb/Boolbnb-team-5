@@ -13,4 +13,9 @@ class Apartment extends Model
     use SoftDeletes;
 
     protected $fillable = ['title', 'cover', 'beds', 'rooms', 'bathrooms', 'address', 'sqm', 'longitude', 'latitude'];
+
+    public function services()
+    {
+        return $this->belongsToMany(Service::class);
+    }
 }
