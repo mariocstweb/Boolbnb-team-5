@@ -33,6 +33,7 @@
     <div id="app">
         {{-- Navbar --}}
         @include('includes.layouts.navbar')
+        @yield('login-form')
 
         <main class="container">
             {{-- Alert per feed operazioni crud --}}
