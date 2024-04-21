@@ -61,3 +61,36 @@ ul {
 .dropdown-toggle::after {
   content: none;
 }
+
+.card-header{
+  background-color: #fff;
+}
+
+
+nav{
+  height: 65px;
+}
+
+
+#login-form{
+  height: calc(100vh - 65px);
+  overflow-y: hidden;
+  overflow-x: hidden;
+
+}
+
+#img-login{
+  height:700px; 
+  width:650px;
+}
+
+#cose{
+  position: relative
+}
+
+#recensione{
+  position: absolute;
+  top: 30px;
+  right: 40px;
+  width: 160px;
+}
