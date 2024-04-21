@@ -61,3 +61,10 @@ ul {
 .dropdown-toggle::after {
   content: none;
 }
+
+#suggestions{
+  background-color: #f3f2f2;
+  position: absolute;
+  width: 100%;
+  cursor: pointer;
+}
