@@ -74,7 +74,7 @@
   
                           <div class="mb-4 row mb-0">
                               <div class="col">
-                                  <button type="submit" class="btn bg-main w-100 text-white">
+                                  <button type="submit" class="btn bg-hover w-100 text-white">
                                       {{ __('Continua') }}
                                   </button>
                               </div>
