@@ -11,11 +11,14 @@
 
 body {
   visibility: visible;
+
+  font-family: 'Manrope Variable', sans-serif;
+
 }
 
 
 
-#suggestions{
+#suggestions {
   background-color: #f3f2f2;
   position: absolute;
   width: 100%;
@@ -23,15 +26,15 @@ body {
   z-index: 1;
 }
 
-.c-main{
-  color:$main500;
+.c-main {
+  color: $main500;
 }
 
-.c-main-6{
+.c-main-6 {
   color: #cc484c;
 }
 
-.btn-sec{
+.btn-sec {
   border: 1px solid #FF5A5F;
 }
 
