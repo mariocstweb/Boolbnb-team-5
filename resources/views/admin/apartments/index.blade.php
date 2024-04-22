@@ -3,16 +3,30 @@
 @section('title', 'Appartamenti')
 
 @section('content')
-<h1 class="mt-4 mb-5">I tuoi appartamenti</h1>
+
+{{-- Navigazione pagine --}}
+<nav class="mt-3 ">
+  <ol class="breadcrumb">
+      <li><span><i class="fa-solid fa-chevron-left me-2 fs-5 mt-1"></i></span></li>
+      <li class="breadcrumb-item"><a class="color-link" href="{{ url('/') }}">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">
+        Appartamenti
+      </li>
+  </ol>
+</nav>
+
+
+
+<h1 class="mb-5">I tuoi appartamenti</h1>
 
 
 <div class="d-flex justify-content-between align-items-center mb-5">
   {{-- Barra di ricerca --}}
   <form method="GET" action="{{ route('admin.apartments.index')}}">
-    <div class="d-flex border p-2 rounded w-search">
+    <div class="d-flex border p-1 rounded w-search">
         <input type="search" class="form-control border-0 me-2" placeholder="Cerca un appartamento" name="search"
         value="{{ $search }}">
-        <button class="btn text-white bg-hover" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+        <button class="btn btn-sm text-white bg-hover px-2" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
     </div>
   </form>
 
@@ -56,7 +70,9 @@
           <td class="text-start fs-4">{!!$apartment->is_visible ? '<i class="fa-solid fa-circle-check text-success"></i>' : '<i class="fa-solid fa-circle-xmark text-danger"></i>'!!}</td>
 
           {{-- Sponsorizzazione --}}
-          <td>Sponsorizzazione</td>
+          <td>Sponsorizzazione
+            {{-- <a href="{{route('')}}"></a> --}}
+          </td>
 
           {{-- Cestino/Modifica/Dettaglio --}}
           <td>

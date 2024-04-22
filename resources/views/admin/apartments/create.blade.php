@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Aggiungi Appartamento')
+@section('title', 'Aggiungi appartamento')
 
 @section('content')
   @include('includes.apartment.form')
