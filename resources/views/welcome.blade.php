@@ -92,9 +92,6 @@
       </div>
   </div>
     <div class="col-5 text-end" id="img-login">
-     
-      {{-- <img src="{{Vite::asset('resources/img/form.png')}}" alt="" class="img-fluid" id="img-login"> --}}
-     
     </div>
   </div>
 </section>
