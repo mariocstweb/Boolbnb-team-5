@@ -70,8 +70,8 @@
           <td class="text-start fs-4">{!!$apartment->is_visible ? '<i class="fa-solid fa-circle-check text-success"></i>' : '<i class="fa-solid fa-circle-xmark text-danger"></i>'!!}</td>
 
           {{-- Sponsorizzazione --}}
-          <td>Sponsorizzazione
-            {{-- <a href="{{route('')}}"></a> --}}
+          <td>
+            <a href="{{route('sponsors.index')}}">Sponsorizzazione</a>
           </td>
 
           {{-- Cestino/Modifica/Dettaglio --}}

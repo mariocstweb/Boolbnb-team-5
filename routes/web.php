@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ApartmentController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SponsorController;
+use App\Models\Sponsor;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,12 +33,12 @@ Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function () {
     Route::delete('/apartments/empty', [ApartmentController::class, 'empty'])->name('apartments.empty');
     // Ripristina tutto il cestino
     Route::patch('/apartments/returned', [ApartmentController::class, 'returned'])->name('apartments.returned');
-    // Rotta sponsorizzazioni
-    // Route::get('/apartments/sponsor', [ApartmentController::class, 'trash'])->name('apartments.trash');
     // Resources list
     Route::resource('apartments', ApartmentController::class)->withTrashed(['show', 'edit', 'update']);
 });
 
+// Rotta sponsorizzazioni
+Route::get('/sponsor', [SponsorController::class, 'index'])->name('sponsors.index');
 
 
 
