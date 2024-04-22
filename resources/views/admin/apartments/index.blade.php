@@ -3,43 +3,40 @@
 @section('title', 'Appartamenti')
 
 @section('content')
-{{-- Barra di ricerca --}}
-<div class="row d-flex justify-content-center align-items-center mt-5">
-  <div class="col-6">
-      <form method="GET" action="{{ route('admin.apartments.index')}}">
-          <div class="d-flex search">
-              <input type="search" class="form-control border-0 search me-2 " placeholder=" Cerca..." name="search"
-              value="{{ $search }}">
-              <button class="btn text-white search-button bg-base-color" type="submit"><i class="fa-solid fa-magnifying-glass rounded-circle"></i></button>
-          </div>
-      </form>
-  </div>
-</div>
-<div class="d-flex justify-content-between align-items-center my-4">
-  <h3 class="mb-0">I tuoi appartamenti</h3>
+<h1 class="mt-4 mb-5">I tuoi appartamenti</h1>
 
+
+<div class="d-flex justify-content-between align-items-center mb-5">
+  {{-- Barra di ricerca --}}
+  <form method="GET" action="{{ route('admin.apartments.index')}}">
+    <div class="d-flex">
+        <input type="search" class="form-control me-2" placeholder=" Cerca..." name="search"
+        value="{{ $search }}">
+        <button class="btn text-white bg-main" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </div>
+  </form>
 
   <div>
     {{-- Aggiungi appartamento --}}
-    <a href="{{route('admin.apartments.create')}}" class="btn btn-light bg-base-color me-2 rounded-4 text-white">Aggiungi appartamento <i class="fa-solid fa-house-medical ms-1"></i></a>
+    <a href="{{route('admin.apartments.create')}}" class="btn bg-main me-2 text-white p-2"><i class="fa-solid fa-house-medical ms-1"></i> Aggiungi appartamento</a>
 
     {{-- Cestino --}}
-    <a class="btn btn-light border round-50" href="{{route('admin.apartments.trash')}}"><i class="fa-regular fa-trash-can"></i></a>  
+    <a class="btn c-main p-2 btn-sec" href="{{route('admin.apartments.trash')}}"><i class="fa-regular fa-trash-can"></i> Cestino</a>  
+    </div>
   </div>
-</div>
+
 
 @if($apartments->count() > 0)
   {{-- Tabella appartamenti --}}
   <table class="table table-hover">
-    <thead>
+    <thead class="border-top">
       <tr>
         <th scope="col" class="text-start">Anteprima</th>
-        <th scope="col">Titolo</th>
-        <th scope="col">Stato</th>
-        <th scope="col">Data Creazione</th>
-        <th scope="col">Ultima Midifica</th>
-        <th scope="col">
-        </th>
+        <th scope="col">ID</th>
+        <th scope="col">Nome Appartamento</th>
+        <th scope="col">Pubblicato</th>
+        <th scope="col">Sponsorizzazione</th>
+        <th scope="col" class="text-start">Azioni</th>
       </tr>
     </thead>
     <tbody>
@@ -49,45 +46,33 @@
           {{-- Cover --}}
           <td class="text-start"><img src="{{$apartment->cover}}" alt="{{$apartment->title}}" class="img-fluid table-img rounded-1"></td>
 
+          {{-- ID --}}
+          <td>{{$apartment->id}}</td>
+
           {{-- Titolo --}}
           <td>{{$apartment->title}}</td>
 
           {{-- Stato --}}
           <td>{!!$apartment->is_visible ? '<i class="fa-solid fa-circle-check text-success"></i>' : '<i class="fa-solid fa-circle-xmark text-danger"></i>'!!}</td>
 
-          {{-- Creazione --}}
-          <td>{{$apartment->created_at}}</td>
+          {{-- Sponsorizzazione --}}
+          <td>Sponsorizzazione</td>
 
-          {{-- Modifica --}}
-          <td>{{$apartment->updated_at}}</td>
+          {{-- Cestino/Modifica/Dettaglio --}}
           <td>
-            <div class="d-flex justify-content-end align-items-center gap-1">
-
-              {{-- Show appartamento --}}
-              <a href="{{route('admin.apartments.show', $apartment->id)}}" class="btn btn-sm bg-base-color border border-light text-white round-50 d-flex align-items-center justify-content-center"><i class="fa-regular fa-eye"></i></a>
-              <div>
-
-                {{-- Dropdown --}}
-                <button type="button" class="btn btn-light dropdown-toggle round-50 border" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fa-solid fa-gear"></i>  
-                </button>
-                <ul class="dropdown-menu p-2">
-                  <li>
-
-                    {{-- Form modifica --}}
-                    <a href="{{route('admin.apartments.edit', $apartment->id)}}" class="dropdown-item bg-warning text-white rounded-3 mb-2 text-center"><i class="fa-regular fa-pen-to-square"></i> Modifica</a>
-                  </li>
-                  <li>
-
-                    {{-- Form cancellazione soft --}}
-                    <form method="POST" action="{{route('admin.apartments.destroy', $apartment->id)}}">
-                      @csrf
-                      @method('DELETE')
-                      <button class="bg-danger text-white w-100 border-0 rounded-3 p-1"><i class="fa-regular fa-trash-can"></i> Cestina</button>
-                    </form>
-                  </li>
-                </ul>
+            <div class="d-flex justify-content-between">
+              <div class="d-flex align-items-center justify-content-center gap-2">
+                {{-- Cestino --}}
+                <form method="POST" action="{{route('admin.apartments.destroy', $apartment->id)}}">
+                  @csrf
+                  @method('DELETE')
+                  <button class="btn bg-sec c-main-6"><i class="fa-regular fa-trash-can"></i></button>
+                </form>
+                {{-- Modifica --}}
+                <a href="{{route('admin.apartments.edit', $apartment->id)}}" class="btn bg-sec c-main-6"><i class="fa-regular fa-pen-to-square"></i></a>
               </div>
+              {{-- Dettaglio --}}
+              <a href="{{route('admin.apartments.show', $apartment->id)}}" class="btn"><i class="fa-solid fa-chevron-right"></i></a>
             </div>
           </td>
         </tr>
