@@ -2,6 +2,7 @@
 return $apartments = [
   [
     'title' => 'Villetta delle Rose',
+    'description' => 'descrizone',
     'cover' => 'https://octorate.com/wordpress/wp-content/uploads/2022/02/siti-come-airbnb-migliori-siti-per-affittare-case-vacanze.webp',
     'is_visible' => true,
     'rooms' => 4,
@@ -14,6 +15,7 @@ return $apartments = [
   ],
   [
     'title' => 'Casa Bella Vista',
+    'description' => 'descrizone',
     'cover' => 'https://www.miprendoemiportovia.it/wp-content/uploads/2020/10/Casa-Nea-Sardegna.jpg',
     'is_visible' => true,
     'rooms' => 3,
@@ -26,6 +28,7 @@ return $apartments = [
   ],
   [
     'title' => 'Appartamento del Trastevere',
+    'description' => 'descrizone',
     'cover' => 'https://i.pinimg.com/564x/a9/54/0b/a9540ba59ab48369fcb847eec1393084.jpg',
     'is_visible' => true,
     'rooms' => 2,
@@ -38,6 +41,7 @@ return $apartments = [
   ],
   [
     'title' => 'Villa dei Fiori',
+    'description' => 'descrizone',
     'cover' => 'https://i.pinimg.com/736x/62/99/1b/62991bce34667995c52a33da134383b4.jpg',
     'is_visible' => true,
     'rooms' => 5,
@@ -50,6 +54,7 @@ return $apartments = [
   ],
   [
     'title' => 'Casetta Romantica',
+    'description' => 'descrizone',
     'cover' => 'https://st3.idealista.it/news/archivie/styles/open_graph/public/2017-09/houzz1.png?VersionId=A9xFG2zFuIbLdOvphoG8GYWzELhuDMRT&itok=27me4Oe_',
     'is_visible' => true,
     'rooms' => 1,
