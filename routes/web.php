@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 // Pagina per utente non loggato(metti bottone per login)
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function () {
     // Rotta per spostare un elemento nel cestino
