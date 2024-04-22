@@ -6,8 +6,8 @@ use App\Models\Apartment;
 use App\Http\Requests\UpdateApartmentRequest;
 use App\Http\Requests\StoreApartmentRequest;
 use App\Models\Service;
-use Dotenv\Repository\Adapter\ApacheAdapter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 
 class ApartmentController extends Controller
@@ -38,7 +38,7 @@ class ApartmentController extends Controller
         }
 
         $apartments = $query->paginate(2);
-        return view('admin.apartments.index', compact('apartments', 'search'));
+        return view('admin.apartments.index', compact('apartments', 'search',));
     }
 
     /**
@@ -46,8 +46,14 @@ class ApartmentController extends Controller
      */
     public function create()
     {
+
+        /* RECUPERO TUTTI I SERVIZI */
+        $services = Service::select('label', 'id')->get();
+
+        $array_services = array();
+
         $apartment = new Apartment;
-        return view('admin.apartments.create', compact('apartment'));
+        return view('admin.apartments.create', compact('apartment', 'services', 'array_services'));
     }
 
     /**
@@ -64,6 +70,14 @@ class ApartmentController extends Controller
 
 
         $apartment->save();
+
+
+        /* VERIFICO SE ESISTE NELL'ARRAY LA CHIAVE SERVICES, SE ESTISTE */
+        if (Arr::exists($data, 'services')) {
+            /* ATTACCO I RECORD DELL'APPARTAMWENTO AI RECORD DELI SERVIZI */
+            $apartment->services()->attach($data['services']);
+        }
+
         return to_route('admin.apartments.show', $apartment->id)
             ->with('message', 'Hai inserito correttamente un nuovo appartamento')
             ->with('type', 'success');
@@ -84,7 +98,13 @@ class ApartmentController extends Controller
      */
     public function edit(Apartment $apartment)
     {
-        return view('admin.apartments.edit', compact('apartment'));
+
+        /* CREO ARRAY CON GLI ID DI SERVICES */
+        $array_services = $apartment->services->pluck('id')->toArray();
+
+        $services = Service::select('label', 'id')->get();
+
+        return view('admin.apartments.edit', compact('apartment', 'services', 'array_services'));
     }
 
     /**
@@ -101,6 +121,18 @@ class ApartmentController extends Controller
 
 
         $apartment->update($data);
+
+        /* VERIFICO SE ESISTE NELL'ARRAY LA CHIAVE SERVICES, SE ESTISTE , ALTRIMENTI SE NON ESISTE E CI SONO RELAZIONI */
+        if (Arr::exists($data, 'services')) {
+            /* SINCRONIZZO I RECORD DELL'APPARTAMENTO AI RECORD DEI SERVIZI*/
+            $apartment->services()->sync($data['services']);
+        } elseif (!Arr::exists($data, 'services') && $apartment->has('services')) {
+
+            /* DISSOCIA I RECORD DELL'APPARTAMENTO AI RECORD DEI SERVIZI */
+            $apartment->services()->detach($data['services']);
+        }
+
+
         return to_route('admin.apartments.show', $apartment->id)
             ->with('type', 'warning')
             ->with('message', "'$apartment->title' modificato con successo.");

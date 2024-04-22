@@ -225,11 +225,23 @@
             {{-- CHECKBOX SERVIZI --}}
             <div class="col-12">
                 <h2 class="mt-4">Servizi appartamento</h2>
-                <div class="form-check mt-3">
-                    <input class="form-check-input rounded-5" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label" for="flexCheckDefault">
-                        Default checkbox
-                    </label>
+                <div class="mb-3">
+                    <div class="form-group @error('services') is-invalid 
+                    @enderror">
+                    @foreach ($services as $service)
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="{{ $service->id }}"
+                                value="{{ $service->id }}" name="services[]" @if (in_array($service->id , old('services', $array_services))) checked @endif>
+                            <label class="form-check-label"
+                                for="{{ $service->id }}">{{ $service->label }}</label>
+                        </div>
+                    @endforeach
+                </div>
+                @error('services')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
                 </div>
             </div>
         </div>

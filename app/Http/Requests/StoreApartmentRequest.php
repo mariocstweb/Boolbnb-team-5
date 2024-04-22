@@ -40,7 +40,7 @@ class StoreApartmentRequest extends FormRequest
             'longitude' => 'required|decimal:0,6',
             'is_visible' => 'nullable|boolean',
             // 'category_id' => 'nullable|exists:categories,id',
-            // 'services' => 'required|exists:services,id',
+            'services' => 'required|exists:services,id',
         ];
     }
 
@@ -82,8 +82,8 @@ class StoreApartmentRequest extends FormRequest
 
             // 'category_id.exists' => "La categoria è inesistente",
 
-            // 'services.required' => 'Inserisci almeno un servizio',
-            // 'services.exists' => 'Il servizio è inesistente',
+            'services.required' => 'Inserisci almeno un servizio',
+             'services.exists' => 'Il servizio è inesistente',
         ];
     }
 }
