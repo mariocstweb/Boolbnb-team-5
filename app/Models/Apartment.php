@@ -12,7 +12,7 @@ class Apartment extends Model
     /* ELIMINAZIONE SOFT */
     use SoftDeletes;
 
-    protected $fillable = ['title', 'cover', 'beds', 'rooms', 'bathrooms', 'address', 'sqm', 'longitude', 'latitude'];
+    protected $fillable = ['title', 'cover', 'beds', 'rooms', 'bathrooms', 'address', 'sqm', 'longitude', 'latitude', 'description'];
 
     public function services()
     {
