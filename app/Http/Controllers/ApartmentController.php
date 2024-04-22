@@ -20,14 +20,23 @@ class ApartmentController extends Controller
         /* Recupero valore */
         $search = $request->query('search');
 
-        if (!$search) {
-            // Recupero tutti gli appartamenti dal DB
-            $apartments = Apartment::orderByDesc('updated_at')->orderByDesc('created_at')->get();
-        } else {
-            /* Filtro per nome */
-            $apartments = Apartment::where('title', 'LIKE', "$search%")->get();
+        // if (!$search) {
+        //     // Recupero tutti gli appartamenti dal DB
+        //     $apartments = Apartment::orderByDesc('updated_at')->orderByDesc('created_at')->get();
+        // } else {
+        //     /* Filtro per nome */
+        //     $apartments = Apartment::where('title', 'LIKE', "$search%")->get();
+        // }
+
+        // Query per gli appartamenti
+        $query = Apartment::orderByDesc('updated_at')->orderByDesc('created_at');
+
+        // Applica filtro di ricerca se presente
+        if ($search) {
+            $query->where('title', 'LIKE', "%$search%");
         }
 
+        $apartments = $query->paginate(2);
         return view('admin.apartments.index', compact('apartments', 'search'));
     }
 
