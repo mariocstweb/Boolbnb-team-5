@@ -2,13 +2,30 @@
   background-color:$main500;
 }
 
-.bg-sec{
-  background-color:$main100;
-}
-
 // Effetto hover button principali
 .bg-hover {
   background-color: $main500;
+
+  &:hover {
+    background-color: $main300;
+  }
+}
+//  Cestino
+.bg-hover-rev {
+  background-color:white;
+  border: 1px solid $main500;
+
+  &:hover {
+  border: 1px solid $main200;
+  color: $main700;
+  background-color:$main200;
+  }
+}
+
+// Button edit/trash
+.bg-icon {
+  background-color: $main100;
+  color: $main600;
 
   &:hover {
     background-color: $main300;

@@ -9,8 +9,8 @@
 <div class="d-flex justify-content-between align-items-center mb-5">
   {{-- Barra di ricerca --}}
   <form method="GET" action="{{ route('admin.apartments.index')}}">
-    <div class="d-flex">
-        <input type="search" class="form-control" placeholder=" Cerca..." name="search"
+    <div class="d-flex border p-2 rounded w-search">
+        <input type="search" class="form-control border-0 me-2" placeholder="Cerca un appartamento" name="search"
         value="{{ $search }}">
         <button class="btn text-white bg-hover" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
     </div>
@@ -21,7 +21,7 @@
     <a href="{{route('admin.apartments.create')}}" class="btn bg-hover me-2 text-white p-2"><i class="fa-solid fa-house-medical ms-1"></i> Aggiungi appartamento</a>
 
     {{-- Cestino --}}
-    <a class="btn c-main p-2 btn-sec" href="{{route('admin.apartments.trash')}}"><i class="fa-regular fa-trash-can"></i> Cestino</a>  
+    <a class="btn c-main p-2 bg-hover-rev" href="{{route('admin.apartments.trash')}}"><i class="fa-regular fa-trash-can"></i> Cestino</a>  
     </div>
   </div>
 
@@ -53,7 +53,7 @@
           <td>{{$apartment->title}}</td>
 
           {{-- Stato --}}
-          <td>{!!$apartment->is_visible ? '<i class="fa-solid fa-circle-check text-success"></i>' : '<i class="fa-solid fa-circle-xmark text-danger"></i>'!!}</td>
+          <td class="text-start fs-4">{!!$apartment->is_visible ? '<i class="fa-solid fa-circle-check text-success"></i>' : '<i class="fa-solid fa-circle-xmark text-danger"></i>'!!}</td>
 
           {{-- Sponsorizzazione --}}
           <td>Sponsorizzazione</td>
@@ -66,10 +66,10 @@
                 <form method="POST" action="{{route('admin.apartments.destroy', $apartment->id)}}">
                   @csrf
                   @method('DELETE')
-                  <button class="btn bg-sec c-main-6"><i class="fa-regular fa-trash-can"></i></button>
+                  <button class="btn bg-icon"><i class="fa-regular fa-trash-can"></i></button>
                 </form>
                 {{-- Modifica --}}
-                <a href="{{route('admin.apartments.edit', $apartment->id)}}" class="btn bg-sec c-main-6"><i class="fa-regular fa-pen-to-square"></i></a>
+                <a href="{{route('admin.apartments.edit', $apartment->id)}}" class="btn bg-icon"><i class="fa-regular fa-pen-to-square"></i></a>
               </div>
               {{-- Dettaglio --}}
               <a href="{{route('admin.apartments.show', $apartment->id)}}" class="btn"><i class="fa-solid fa-chevron-right"></i></a>
@@ -79,6 +79,12 @@
       @endforeach
     </tbody>
   </table>
+  <div class="row">
+   <div class="col-4"><p class="text-start">{{ $apartments->firstItem() }} - {{ $apartments->lastItem() }} di {{ $apartments->total() }} risultati</p></div>
+    <div class="col-4 d-flex justify-content-center">
+    {{ $apartments->links('pagination::bootstrap-4', ['prev_page_url' => 'Precedente', 'next_page_url' => 'Successivo']) }}
+    </div>
+  </div>
 @else
   <h2 class=" text-center">Non ci sono appartamenti registrati</h2>
 @endif
