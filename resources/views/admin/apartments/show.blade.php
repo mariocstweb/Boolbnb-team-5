@@ -67,9 +67,12 @@
           <div class="card-body">
             <h2 class="card-title mb-4">Servizi appartamento</h2>
             <ul class="p-0 m-0">
-            @foreach ($apartment->services as $service)
-              <li class="fw-medium mb-3"><img src="" alt="">{{$service->label}}</li>
-            @endforeach  
+            @foreach ($services as $service)
+            <li class="fw-medium mb-3"><img src="" alt="">{{$service->label}}</li>
+            @if ($apartment->services->contains($service))
+              <h1>ciao</h1>
+            @endif
+          @endforeach
             </ul>
           </div>
         </div>
