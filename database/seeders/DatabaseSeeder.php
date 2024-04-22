@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,6 +19,6 @@ class DatabaseSeeder extends Seeder
             'name' => 'boolbnb',
             'email' => 'bool@gmail.com',
         ]);
-        $this->call([ApartmentSeeder::class, ServiceSeeder::class]);
+        $this->call([ApartmentSeeder::class, ServiceSeeder::class, SponsorSeeder::class]);
     }
 }

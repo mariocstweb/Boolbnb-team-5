@@ -12,7 +12,8 @@ class SponsorController extends Controller
      */
     public function index()
     {
-        //
+        $sponsors = Sponsor::all();
+        return view('sponsor.index', compact('sponsors'));
     }
 
     /**
