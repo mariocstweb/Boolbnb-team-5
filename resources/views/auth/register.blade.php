@@ -76,7 +76,7 @@
                             </form>
                             <div class="mb-4 row mb-0">
                                 <div class="col d-flex gap-1">
-                                    <p>Hai già un account?</p><a href="{{ route('register') }}" class="text-decoration-none"><span class="c-main ">Accedi</span></a>
+                                    <p>Hai già un account?</p><a href="{{ route('welcome') }}" class="text-decoration-none"><span class="c-main ">Accedi</span></a>
                                 </div>
                             </div>
                         </div>
