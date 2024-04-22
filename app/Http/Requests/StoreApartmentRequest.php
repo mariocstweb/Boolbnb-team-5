@@ -29,10 +29,11 @@ class StoreApartmentRequest extends FormRequest
         /* RESTITUISCO CIO' CHE DA ERRORE */
         return [
             'title' => 'required|string',
+            'description' => 'required|string',
             'rooms' => 'required|integer|min:1',
             'beds' => 'required|integer|min:1',
             'bathrooms' => 'required|integer|min:1',
-            'sqm' => 'nullable|integer|min:0',
+            'sqm' => 'required|integer|min:1',
             'cover' => 'nullable|image:jpg, jpeg, png, svg, webp, pdf',
             'address' => 'required|string',
             'latitude' => 'required|decimal:0,6',
@@ -54,6 +55,8 @@ class StoreApartmentRequest extends FormRequest
             'title.required' => 'Il titolo è obbligatorio',
             'title.string' => 'Il titolo non è valido',
 
+            'description.required' => "La descrizone dell'appartamento è obbligatorio",
+            
             'rooms.required' => 'Il numero di stanze è obbligatorio',
             'rooms.integer' => 'Inserisci un numero valido',
             'rooms.min' => 'Inserisci un numero maggiore di uno',
@@ -66,6 +69,7 @@ class StoreApartmentRequest extends FormRequest
             'bathrooms.integer' => 'Inserisci un numero valido',
             'bathrooms.min' => 'Inserisci un numero maggiore di uno',
 
+            'sqm.required' => 'Il numero di metri quadri è obbligatorio',
             'sqm.integer' => 'Inserisci un numero valido',
             'sqm.min' => 'Inserisci un numero maggiore di zero',
 
