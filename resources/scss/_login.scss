@@ -1,17 +1,22 @@
-
-#login-form{
+#login-form {
   height: calc(100vh - 65px);
   overflow-y: hidden;
   overflow-x: hidden;
 
 }
 
-#img-login{
-  height:700px; 
-  width:650px;
+#img-login {
+  background-image: url(../img/form.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .white {
   --bs-bg-opacity: 0;
   background-color: #fff;
+}
+
+#row-login {
+  height: calc(100vh - 30px);
 }
