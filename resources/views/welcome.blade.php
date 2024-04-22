@@ -11,7 +11,7 @@
 @guest
 @section('login-form')
 <section id="login-form">
-  <div class="row">
+  <div class="row" id="row-login">
     <div class="col-7 d-flex justify-content-center align-items-center">
       <div class="row justify-content-center">
           <div class="col">
@@ -91,11 +91,10 @@
           </div>
       </div>
   </div>
-    <div class="col-5 text-end" id="cose">
-      {{-- <img src="{{Vite::asset('resources/img/login.png')}}" alt="" class="img-fluid" id="img-login"> --}}
-      <img src="{{Vite::asset('resources/img/form.png')}}" alt="" class="img-fluid" id="img-login">
-      {{-- <img src="{{Vite::asset('resources/img/recensione.png')}}" alt="" class="img-fluid" id="recensione">
-      <img src="{{Vite::asset('resources/img/card.png')}}" alt="" class="img-fluid" id="recensione"> --}}
+    <div class="col-5 text-end" id="img-login">
+     
+      {{-- <img src="{{Vite::asset('resources/img/form.png')}}" alt="" class="img-fluid" id="img-login"> --}}
+     
     </div>
   </div>
 </section>
