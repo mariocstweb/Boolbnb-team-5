@@ -33,8 +33,8 @@
                   <a class="btn bg-hover text-white" href="{{ route('welcome') }}">{{ __('Login') }}</a>
               </li>
               @if (Route::has('register'))
-              <li class="nav-item">
-                  <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+              <li class="nav-item ms-1">
+                  <a class="btn c-main btn-sec" href="{{ route('register') }}">{{ __('Register') }}</a>
               </li>
               @endif
               @else
