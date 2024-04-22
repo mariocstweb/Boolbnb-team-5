@@ -6,7 +6,7 @@
         <div class="col-7 d-flex justify-content-center align-items-center">
             <div class="row justify-content-center">
                 <div class="col">
-                    <div class="card">
+                    <div class="card rounded-4">
                         <div class="card-header border-bottom-0  bg-white white px-3 py-0 pt-3">
                             <img src="{{Vite::asset('resources/img/minologo.png')}}" alt="">
                             <h3 class="mt-4">Benvenuto</h3>
