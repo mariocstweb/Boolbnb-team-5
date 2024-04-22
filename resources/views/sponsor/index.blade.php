@@ -5,7 +5,6 @@
 @section('content')
   <img src="{{Vite::asset('resources/img/plus.png')}}" alt="" class="img-fluid mt-4">
   <h3 class="my-4">Acquista uno dei nostri pacchetti e ottieni dei vantaggi esclusivi sui tuoi appartamenti</h3>
-
   <div class="row">
     @foreach ($sponsors as $sponsor)
     <div class="col">

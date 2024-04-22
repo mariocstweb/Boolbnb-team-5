@@ -1,13 +1,12 @@
 <?php
 return [
-    // Essential
-    ['label' => 'Wi-Fi', 'icon' => 'bigtop_updates.svg'],
-    ['label' => 'Piscina', 'icon' => 'pool.svg'],
-    ['label' => 'Vasca da bagno', 'icon' => 'hot_tub.svg'],
-    ['label' => 'Aria condizionata', 'icon' => 'mode_fan.svg'],
-    ['label' => 'Parcheggio', 'icon' => 'garage.svg'],
-    ['label' => 'Cucina', 'icon' => 'cooking.svg'],
-    ['label' => 'Animali domestici ammessi', 'icon' => 'sound_detection_dog_barking.svg'],
-    ['label' => 'Lavatrice', 'icon' => 'dishwasher_gen.svg'],
-    ['label' => 'TV', 'icon' => 'desktop_windows.svg'],
+    ['label' => 'Wi-fi', 'icon' => 'wifi'],
+    ['label' => 'Piscina', 'icon' => 'pool'],
+    ['label' => 'Vasca da bagno', 'icon' => 'bathtub'],
+    ['label' => 'Aria condizionata', 'icon' => 'air'],
+    ['label' => 'Parcheggio', 'icon' => 'garage_home'],
+    ['label' => 'Cucina', 'icon' => 'cooking'],
+    ['label' => 'Animali ammessi', 'icon' => 'pets'],
+    ['label' => 'Lavatrice', 'icon' => 'dishwasher'],
+    ['label' => 'TV', 'icon' => 'tv']
 ];
