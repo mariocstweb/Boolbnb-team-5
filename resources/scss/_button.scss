@@ -1,5 +1,5 @@
-.bg-main{
-  background-color:$main500;
+.bg-main {
+  background-color: $main500;
 }
 
 // Effetto hover button principali
@@ -10,15 +10,16 @@
     background-color: $main300;
   }
 }
+
 //  Cestino
 .bg-hover-rev {
-  background-color:white;
+  background-color: white;
   border: 1px solid $main500;
 
   &:hover {
-  border: 1px solid $main200;
-  color: $main700;
-  background-color:$main200;
+    border: 1px solid $main200;
+    color: $main700;
+    background-color: $main200;
   }
 }
 

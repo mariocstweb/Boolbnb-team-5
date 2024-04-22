@@ -22,6 +22,12 @@
               <a class="nav-link" href="{{route('admin.apartments.index')}}">{{ __('Appartamenti') }}</a>
 
             </li>
+            <li class="nav-item">
+                {{-- Aggiungere link index admin(tabella appartamenti) --}}
+                {{-- <a class="nav-link" href="{{url('/') }}">{{ __('Appartamenti') }}</a> --}}
+                <a class="nav-link" href="{{route('sponsors.index')}}">{{ __('Promo') }}</a>
+  
+              </li>
             @endauth
           </ul>
 
