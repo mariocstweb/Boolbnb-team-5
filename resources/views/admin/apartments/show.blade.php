@@ -70,15 +70,15 @@
             @foreach ($services as $service)
             {{-- <li class="fw-medium mb-3"><img src="" alt="">{{$service->label}}</li> --}}
             @if ($apartment->services->contains($service))
-            <li class="fw-medium mb-3 d-flex gap-2 align-items-center fs-5">
-              <i class="fa-solid fa-circle-check text-success"></i>
+            <li class="fw-medium mb-3 d-flex gap-3 align-items-center fs-5">
+              <i class="fa-solid fa-circle-check icon-show"></i>
               <span class="material-symbols-outlined">{{$service->icon}}</span>
                {{$service->label}}
             </li>
             @else
-            <li class="fw-medium mb-3 d-flex gap-2 align-items-center fs-5">
-              <i class="fa-solid fa-circle-xmark text-danger"></i>
-              <span class="material-symbols-outlined">{{$service->icon}}</span>
+            <li class="fw-medium mb-3 d-flex gap-3 align-items-center fs-5 disable">
+              <i class="fa-regular fa-circle text-secondary"></i>
+              <span class="material-symbols-outlined ">{{$service->icon}}</span>
                {{$service->label}}
             </li>
             @endif
