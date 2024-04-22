@@ -15,15 +15,15 @@
     <div class="col-7 d-flex justify-content-center align-items-center">
       <div class="row justify-content-center">
           <div class="col">
-              <div class="card rounded-4">
+              <div class="card rounded-4 p-0">
                 {{-- Card Header --}}
-                  <div class="card-header border-bottom-0">
+                  <div class="card-header border-bottom-0  bg-white white px-3 py-0 pt-3">
                     <img src="{{Vite::asset('resources/img/minologo.png')}}" alt="">
-                    <h3>Bentornato</h3>
+                    <h3 class="mt-4">Bentornato</h3>
                     <p>Gestisci e sponsorizza i tuoi appartamenti con Boolbnb</p>
                   </div>
   
-                  <div class="card-body">
+                  <div class="card-body px-3 py-0">
                       <form method="POST" action="{{ route('login') }}">
                           @csrf
   
@@ -65,7 +65,7 @@
                                     
                                   </div>
                                   @if (Route::has('password.request'))
-                                  <a class="btn btn-link p-0" href="{{ route('password.request') }}">
+                                  <a class="btn btn-link p-0 c-main text-decoration-none mt-2" href="{{ route('password.request') }}">
                                       {{ __('Ho dimenticato la password') }}
                                   </a>
                                   @endif
@@ -74,7 +74,7 @@
   
                           <div class="mb-4 row mb-0">
                               <div class="col">
-                                  <button type="submit" class="btn btn-primary w-100">
+                                  <button type="submit" class="btn bg-main w-100 text-white">
                                       {{ __('Continua') }}
                                   </button>
                               </div>
@@ -83,7 +83,7 @@
                       {{-- Registrati --}}
                       <div class="mb-4 row mb-0">
                         <div class="col d-flex gap-1">
-                            <p>Non hai un account?</p><a href="{{ route('register') }}">Registrati</a>
+                            <p>Non hai un account?</p><a href="{{ route('register') }}" class="text-decoration-none"><span class="c-main ">Registrati</span></a>
                         </div>
                     </div>
                   </div>
