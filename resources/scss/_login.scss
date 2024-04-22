@@ -1,0 +1,17 @@
+
+#login-form{
+  height: calc(100vh - 65px);
+  overflow-y: hidden;
+  overflow-x: hidden;
+
+}
+
+#img-login{
+  height:700px; 
+  width:650px;
+}
+
+.white {
+  --bs-bg-opacity: 0;
+  background-color: #fff;
+}

@@ -1,0 +1,16 @@
+.bg-main{
+  background-color:$main500;
+}
+
+.bg-sec{
+  background-color:$main100;
+}
+
+// Effetto hover button principali
+.bg-hover {
+  background-color: $main500;
+
+  &:hover {
+    background-color: $main300;
+  }
+}
