@@ -83,7 +83,7 @@
                     </form>
   
                       {{-- Form cancellazione --}}
-                      <form method="POST" action="{{route('admin.apartments.drop', $apartment->id)}}" data-bs-toggle="modal" data-bs-target="#modal" data-apartment="{{ $apartment->title }}" class="del-form">
+                      <form method="POST" action="{{route('admin.apartments.drop', $apartment->id)}}">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn bg-icon"><i class="fa-regular fa-trash-can"></i> </button>
@@ -98,8 +98,4 @@
   @else
     <h2 class=" text-center">Cestino vuoto</h2>
   @endif
-@endsection
-
-@section('scripts')
-  @vite('resources/js/delete_confirmation.js')
 @endsection
