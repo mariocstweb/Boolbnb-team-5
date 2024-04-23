@@ -6,8 +6,8 @@
 
 {{-- LISTA LINK --}}
 <div class="d-flex align-items-center justify-content-between mt-4">
-  <nav class="mt-3">
-      <ol class="breadcrumb">
+  <nav class="d-flex align-items-center">
+      <ol class="breadcrumb m-0">
           <li><span><i class="fa-solid fa-chevron-left me-2 fs-5 mt-1"></i></span></li>
           <li class="breadcrumb-item"><a class="color-link" href="{{ url('/') }}">Home</a></li>
           <li class="breadcrumb-item"><a class="color-link" href="{{ route('admin.apartments.index') }}">Appartamenti</a></li>
