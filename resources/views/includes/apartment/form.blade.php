@@ -32,19 +32,19 @@
                 <div class="col-5">
                     <div class="mb-3">
                         <label for="title" class="form-label"> Nome Appartamento <span
-                                class="form-text text-danger">*</span></label>
-                                <div class="input-container">
-                                    <input type="text"
-                                        class="form-control @error('title') is-invalid @elseif (old('title', '')) is-valid @enderror"
-                                        id="title" name="title" value="{{ old('title', $apartment->title) }}">
-                                    @error('title')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                        @else
-                                        <i class="fa-solid fa-house-chimney icon"></i>
-                                    @enderror
+                        class="form-text text-danger">*</span></label>
+                        <div class="input-container">
+                            <input type="text"
+                                class="form-control @error('title') is-invalid @elseif (old('title', '')) is-valid @enderror"
+                                id="title" name="title" value="{{ old('title', $apartment->title) }}">
+                            @error('title')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
                                 </div>
+                            @else
+                                <i class="fa-solid fa-house-chimney icon"></i>
+                            @enderror
+                        </div>
                     </div>
                 </div>
                 {{-- INDIRIZZO --}}
@@ -202,8 +202,8 @@
         </div>
     </div>
     {{--  --}}
-    <div class="row w-75">
-        <div class="card">
+    <div class="row gap-3 w-75">
+        <div class="card pb-3">
             {{-- DESCRIZIONE APPARTAMENTO --}}
             <div class="col-12">
                 <h2 class="mt-4">Descrizione appartamento</h2>
@@ -222,20 +222,28 @@
                     @enderror
                 </div>
             </div>
+        </div>
+
             {{-- CHECKBOX SERVIZI --}}
+        <div class="card">
             <div class="col-12">
                 <h2 class="mt-4">Servizi appartamento</h2>
                 <div class="mb-3">
                     <div class="form-group @error('services') is-invalid 
                     @enderror">
-                    @foreach ($services as $service)
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="{{ $service->id }}"
+                    <ul class="p-0">
+                        @foreach ($services as $service)
+                        <li class="m-4">
+                            <div class="form-check form-check-inline d-flex align-items-center gap-3 fs-5">
+                                <input class="form-check-input" type="checkbox" id="{{ $service->id }}"
                                 value="{{ $service->id }}" name="services[]" @if (in_array($service->id , old('services', $array_services))) checked @endif>
-                            <label class="form-check-label"
+                                <span class="material-symbols-outlined">{{$service->icon}}</span>
+                                <label class="form-check-label"
                                 for="{{ $service->id }}">{{ $service->label }}</label>
-                        </div>
-                    @endforeach
+                            </div>
+                            @endforeach
+                        </li>
+                    </ul>
                 </div>
                 @error('services')
                     <div class="invalid-feedback">

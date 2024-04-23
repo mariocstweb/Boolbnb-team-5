@@ -18,3 +18,7 @@
     }
 }
 
+.form-check-input:checked {
+    background-color: $main500;
+    border-color: $main500;
+}

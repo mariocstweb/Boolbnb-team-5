@@ -48,7 +48,7 @@ class ApartmentController extends Controller
     {
 
         /* RECUPERO TUTTI I SERVIZI */
-        $services = Service::select('label', 'id')->get();
+        $services = Service::all();
 
         $array_services = array();
 
@@ -102,7 +102,7 @@ class ApartmentController extends Controller
         /* CREO ARRAY CON GLI ID DI SERVICES */
         $array_services = $apartment->services->pluck('id')->toArray();
 
-        $services = Service::select('label', 'id')->get();
+        $services = Service::all();
 
         return view('admin.apartments.edit', compact('apartment', 'services', 'array_services'));
     }
