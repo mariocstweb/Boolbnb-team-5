@@ -2,6 +2,7 @@
 return $apartments = [
   [
     'title' => 'Villetta delle Rose',
+    'user_id' => 1,
     'description' => 'Affascinante loft nel cuore della città, con travi a vista e una vista panoramica che abbraccia i tetti antichi. Perfetto per una fuga romantica, offre un\'atmosfera intima e accogliente, arricchita da dettagli storici e moderni comfort.',
     'cover' => 'https://octorate.com/wordpress/wp-content/uploads/2022/02/siti-come-airbnb-migliori-siti-per-affittare-case-vacanze.webp',
     'is_visible' => true,
@@ -15,6 +16,7 @@ return $apartments = [
   ],
   [
     'title' => 'Casa Bella Vista',
+    'user_id' => 1,
     'description' => 'Monolocale moderno con una terrazza privata che si affaccia sul mare cristallino, regalando tramonti mozzafiato e momenti di puro relax. Ideale per una vacanza tranquilla, offre la possibilità di godere della brezza marina e dell\'atmosfera mediterranea.',
     'cover' => 'https://www.miprendoemiportovia.it/wp-content/uploads/2020/10/Casa-Nea-Sardegna.jpg',
     'is_visible' => true,
@@ -28,6 +30,7 @@ return $apartments = [
   ],
   [
     'title' => 'Appartamento del Trastevere',
+    'user_id' => 1,
     'description' => 'Appartamento nel cuore del centro storico, arricchito da un camino e arredi rustici che creano un\'atmosfera calda e autentica. Perfetto per chi desidera vivere un\'esperienza immersiva nel tessuto storico della città, con tutti i comfort moderni a portata di mano.',
     'cover' => 'https://i.pinimg.com/564x/a9/54/0b/a9540ba59ab48369fcb847eec1393084.jpg',
     'is_visible' => true,
@@ -41,6 +44,7 @@ return $apartments = [
   ],
   [
     'title' => 'Villa dei Fiori',
+    'user_id' => 1,
     'description' => 'Un loft minimalista dal design contemporaneo, caratterizzato da spazi luminosi e ampie finestre che offrono una vista mozzafiato sulla città. Con soffitti alti e arredi moderni, è l\'ideale per chi ama lo stile urbano e la comodità di un ambiente raffinato.',
     'cover' => 'https://i.pinimg.com/736x/62/99/1b/62991bce34667995c52a33da134383b4.jpg',
     'is_visible' => true,
@@ -54,6 +58,7 @@ return $apartments = [
   ],
   [
     'title' => 'Casetta Romantica',
+    'user_id' => 1,
     'description' => 'Circondato da giardini rigogliosi e alberi secolari, questo appartamento immerso nel verde è un\'oasi di pace e tranquillità. Perfetto per una pausa rigenerante dalla frenesia cittadina, offre la possibilità di riconnettersi con la natura senza rinunciare al comfort della vita moderna. Con spazi luminosi e arredi accoglienti, è il rifugio ideale per rigenerare mente e corpo.',
     'cover' => 'https://st3.idealista.it/news/archivie/styles/open_graph/public/2017-09/houzz1.png?VersionId=A9xFG2zFuIbLdOvphoG8GYWzELhuDMRT&itok=27me4Oe_',
     'is_visible' => true,

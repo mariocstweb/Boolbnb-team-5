@@ -68,6 +68,7 @@ class ApartmentController extends Controller
         $apartment = new Apartment();
         $apartment->fill($data);
         $apartment->is_visible = array_key_exists('is_visible', $data);
+        $apartment->user_id = Auth::id();
 
 
         $apartment->save();
