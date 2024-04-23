@@ -36,9 +36,8 @@
 
             {{-- Descrizione appartamento --}}
             <h2 class="card-title mb-3">Descrizione appartamento</h2>
-            <p class="card-text">Lorem ipsum dolor sit amet consectetur. In imperdiet iaculis enim lorem. Nibh nulla vulputate cursus ligula mauris. Rhoncus sit arcu accumsan sed tempor. Ut orci egestas at tincidunt. Faucibus odio diam aliquam odio neque aliquet massa. Nulla mauris nisl diam sit fusce. Turpis rutrum urna leo semper donec fermentum.
-              Tincidunt vel velit vulputate laoreet justo non hendrerit faucibus in pellentesque.
-
+            <p class="card-text">
+              {{$apartment->description}}
               {{-- Indirizzo --}}
               <div class="road fw-bold"><i class="fa-solid fa-location-dot me-2"></i>{{$apartment->address}}</div>
             </p>
