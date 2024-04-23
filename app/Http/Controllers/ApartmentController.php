@@ -90,6 +90,13 @@ class ApartmentController extends Controller
      */
     public function show(Apartment $apartment)
     {
+        // VERIFICA ID UTENTE CON ID APPARTAMENTO
+        if (
+            Auth::id() !== $apartment->user_id //&& ($apartment->is_visible === 0)
+        ) {
+            return to_route('admin.apartments.index')->with('type', 'warning')->with('message', 'Non sei autorizzato!');
+        }
+
         $services = Service::all();
 
         return view('admin.apartments.show', compact('apartment', 'services'));
@@ -100,6 +107,12 @@ class ApartmentController extends Controller
      */
     public function edit(Apartment $apartment)
     {
+        // VERIFICA ID UTENTE CON ID APPARTAMENTO
+        if (
+            Auth::id() !== $apartment->user_id //&& ($apartment->is_visible === 0)
+        ) {
+            return to_route('admin.apartments.index')->with('type', 'warning')->with('message', 'Non sei autorizzato!');
+        }
 
         /* CREO ARRAY CON GLI ID DI SERVICES */
         $array_services = $apartment->services->pluck('id')->toArray();
