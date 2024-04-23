@@ -79,10 +79,10 @@
             <div class="d-flex justify-content-between">
               <div class="d-flex align-items-center justify-content-center gap-2">
                 {{-- Cestino --}}
-                <form method="POST" action="{{route('admin.apartments.destroy', $apartment->id)}}">
+                <form method="POST" action="{{route('admin.apartments.destroy', $apartment->id)}}" data-bs-toggle="modal" data-bs-target="#modal" data-apartment="{{ $apartment->title }}" class="del-form">
                   @csrf
                   @method('DELETE')
-                  <button class="btn bg-icon"><i class="fa-regular fa-trash-can"></i></button>
+                  <button type="submit" class="btn bg-icon"><i class="fa-regular fa-trash-can"></i></button>
                 </form>
                 {{-- Modifica --}}
                 <a href="{{route('admin.apartments.edit', $apartment->id)}}" class="btn bg-icon"><i class="fa-regular fa-pen-to-square"></i></a>
@@ -104,4 +104,8 @@
 @else
   <h2 class=" text-center">Non ci sono appartamenti registrati</h2>
 @endif
+@endsection
+
+@section('scripts')
+  @vite('resources/js/delete_confirmation.js')
 @endsection
