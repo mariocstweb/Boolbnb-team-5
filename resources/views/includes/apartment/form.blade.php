@@ -81,7 +81,7 @@
                         <div class="input-container">
                             <input type="number"
                                 class="form-control @error('rooms') is-invalid @elseif (old('rooms', '')) is-valid @enderror"
-                                id="rooms" name="rooms" value="{{ old('rooms', $apartment->rooms) }}">
+                                id="rooms" name="rooms" value="{{ old('rooms', $apartment->rooms) }}" min="0">
                                 @error('rooms')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -102,7 +102,7 @@
                                 class="form-control @error('beds') is-invalid
                             @elseif (old('beds', '')) is-valid 
                             @enderror"
-                                id="beds" name="beds" value="{{ old('beds', $apartment->beds) }}">
+                                id="beds" name="beds" value="{{ old('beds', $apartment->beds) }}" min="0">
                             @error('beds')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -125,7 +125,7 @@
                                 class="form-control @error('bathrooms') is-invalid
                             @elseif (old('bathrooms', '')) is-valid 
                             @enderror"
-                                id="bathrooms" name="bathrooms" value="{{ old('bathrooms', $apartment->bathrooms) }}">
+                                id="bathrooms" name="bathrooms" value="{{ old('bathrooms', $apartment->bathrooms) }}" min="0">
                             @error('bathrooms')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -146,7 +146,7 @@
                                 class="form-control @error('sqm') is-invalid
                             @elseif (old('sqm', '')) is-valid 
                             @enderror"
-                                id="sqm" name="sqm" value="{{ old('sqm', $apartment->sqm) }}">
+                                id="sqm" name="sqm" value="{{ old('sqm', $apartment->sqm) }}" min="0">
                             @error('sqm')
                                 <div class="invalid-feedback">
                                     {{ $message }}
