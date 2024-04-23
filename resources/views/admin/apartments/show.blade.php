@@ -6,7 +6,7 @@
   <div class="row mt-5">
     <div class="col-8">
       <section id="detail">
-        <div class="card p-4">
+        <div class="card rounded-4   p-4">
 
           {{-- Titolo appartamento --}}
           <h1 class="mb-4">{{$apartment->title}}</h1>
@@ -63,7 +63,7 @@
     </div>
     <div class="col-4">
       <section id="services">
-        <div class="card p-3">
+        <div class="card rounded-4 p-3">
           <div class="card-body">
             <h2 class="card-title mb-4">Servizi appartamento</h2>
             <ul class="p-0 m-0">
