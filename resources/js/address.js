@@ -37,7 +37,7 @@ const fetchApi = query => {
 
     /* SE NON E' STATO MESSO L'INDIRIZZO */
     if (!query) {
-        
+
         /* METTO A NULLI I VALORI DELLA LATITUDINE E LONGITUDINE */
         latInput.value = null;
         lonInput.value = null;
@@ -64,36 +64,37 @@ const fetchApi = query => {
         /* RISPOSTA DELL'API */
     }).then(res => {
 
-            /* ESTAGGO DA RES.DATA IL RESULTS */
-            const { results } = res.data;
+        /* ESTRAGGO DA RES.DATA IL RESULTS */
+        const { results } = res.data;
 
-            /* SE LA LUNGEZZA E' VUOTA RESTITUISCO (BLOCCO) */
-            if (!results.length) return;
+        /* SE LA LUNGEZZA E' VUOTA RESTITUISCO (BLOCCO) */
+        if (!results.length) return;
 
-            /* CANCELLO IL CONTENUTO NEL HTML (LOADER) */
-            suggestionAddress.innerHTML = '';
+        /* CANCELLO IL CONTENUTO NEL HTML (LOADER) */
+        suggestionAddress.innerHTML = '';
 
-            /* CICLO SULL'ARRAY ESTRATTO PER RECUPERARE OGNI SINGOLO ELEMENTO */
-            results.forEach(result => {
-                
-                /* RECUPERO VIA,LATITUDINE,LONGITUDINE */
-                const palce = {
-                    address: result.address.freeformAddress,
-                    lat: result.position.lat,
-                    lon: result.position.lon
-                };
+        /* CICLO SULL'ARRAY ESTRATTO PER RECUPERARE OGNI SINGOLO ELEMENTO */
+        results.forEach(result => {
 
-                /* AGGIUNGO GLI ELEMENTI ESTRAPOLATI IN PAGINA HTML */
-                suggestionAddress.innerHTML += `<li class="suggestions-item py-2" data-lat="${palce.lat}" data-lon="${palce.lon}">${palce.address}</li>`;
+            /* RECUPERO VIA,LATITUDINE,LONGITUDINE */
+            const palce = {
+                address: result.address.freeformAddress,
+                lat: result.position.lat,
+                lon: result.position.lon
+            };
 
-            });
 
-            /* EVENTUALI ERRORI */
-        }).catch(err => {
-            console.log(err);
-            /* MODIFICO UL CON UN MESSAGGIO DI ERRORE */
-            suggestionAddress.innerHTML = '<li class="text-danger pe-none p-3">Impossibile contattare il server</li>';
+            /* AGGIUNGO GLI ELEMENTI ESTRAPOLATI IN PAGINA HTML */
+            suggestionAddress.innerHTML += `<li class="suggestions-item py-2" data-lat="${palce.lat}" data-lon="${palce.lon}">${palce.address}</li>`;
+
         });
+
+        /* EVENTUALI ERRORI */
+    }).catch(err => {
+        console.log(err);
+        /* MODIFICO UL CON UN MESSAGGIO DI ERRORE */
+        suggestionAddress.innerHTML = '<li class="text-danger pe-none p-3">Impossibile contattare il server</li>';
+    });
 }
 
 
@@ -109,10 +110,10 @@ const baseParams = {
 const sanitizeHeaders = [(data, headers) => {
 
     console.log(headers)
-    
+
     /* RIMUOVO LA RICHIESTA DELL'API IN AJAX */
     delete headers.common["X-Requested-With"];
-    
+
     /* RESTUITISCO OGGETTO DATA */
     return data
 }];
@@ -134,7 +135,7 @@ inputAddressSearch.addEventListener('keyup', () => {
 
 /* EVENTO AL CLICK SU UN ELEMENTO DELLA LISTA */
 suggestionAddress.addEventListener('click', (event) => {
-    
+
     /* RESTITUISCO LìELEMENTO SPECIFICO CHE A GENERATO IL CLICK */
     const suggestion = event.target;
 

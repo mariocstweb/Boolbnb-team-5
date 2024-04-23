@@ -56,7 +56,7 @@ class UpdateApartmentRequest extends FormRequest
             'title.string' => 'Il titolo non è valido',
 
             'description.required' => "La descrizone dell'appartamento è obbligatorio",
-            
+
             'rooms.required' => 'Il numero di stanze è obbligatorio',
             'rooms.integer' => 'Inserisci un numero valido',
             'rooms.min' => 'Inserisci un numero maggiore di uno',
@@ -75,6 +75,8 @@ class UpdateApartmentRequest extends FormRequest
 
             'address.required' => 'L\'indirizzo è obbligatorio',
             'address.string' => 'L\'indirizzo non è valido',
+            'latitude.required' => 'Indirizzo non valido',
+            'longitude.required' => 'Indirizzo non valido',
 
             'cover.image' => "l\'immagine inserita non è valida",
 
