@@ -8,6 +8,7 @@ use App\Http\Requests\StoreApartmentRequest;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class ApartmentController extends Controller
@@ -30,7 +31,7 @@ class ApartmentController extends Controller
         // }
 
         // Query per gli appartamenti
-        $query = Apartment::orderByDesc('updated_at')->orderByDesc('created_at');
+        $query = Apartment::where('user_id', Auth::id())->orderByDesc('updated_at')->orderByDesc('created_at');
 
         // Applica filtro di ricerca se presente
         if ($search) {
