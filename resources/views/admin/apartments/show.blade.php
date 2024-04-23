@@ -3,6 +3,23 @@
 @section('title', 'Appartamento')
 
 @section('content')
+
+{{-- LISTA LINK --}}
+<div class="d-flex align-items-center justify-content-between mt-4">
+  <nav class="mt-3">
+      <ol class="breadcrumb">
+          <li><span><i class="fa-solid fa-chevron-left me-2 fs-5 mt-1"></i></span></li>
+          <li class="breadcrumb-item"><a class="color-link" href="{{ url('/') }}">Home</a></li>
+          <li class="breadcrumb-item"><a class="color-link" href="{{ route('admin.apartments.index') }}">Appartamenti</a></li>
+          <li class="breadcrumb-item active" aria-current="page">
+              Dettaglio appartamento
+          </li>
+      </ol>
+  </nav>
+  {{-- Modifica --}}
+  <a href="{{route('admin.apartments.edit', $apartment->id)}}" class="btn bg-hover me-2 text-white p-2"><i class="fa-regular fa-pen-to-square me-2"></i> Modifica</a>
+
+</div>
   <div class="row mt-5">
     <div class="col-8">
       <section id="detail">
