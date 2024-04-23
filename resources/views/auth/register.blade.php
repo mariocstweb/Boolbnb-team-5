@@ -14,7 +14,7 @@
                         </div>
             
                         <div class="card-body py-0">
-                            <form method="POST" action="{{ route('register') }}">
+                            <form method="POST" action="{{ route('register') }}" novalidate>
                                 @csrf
                     
                                 <div class="mb-4 row">
@@ -23,6 +23,19 @@
                                         <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
                     
                                         @error('name')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="mb-4 row">
+                                    <div class="col">
+                                        <label for="birthday" class=" col-form-label text-md-right">{{ __('Data di Nascita') }}</label>
+                                        <input id="birthday" type="date" class="form-control @error('birthday') is-invalid @enderror" name="birthday" value="{{ old('birthday') }}" required autocomplete="birthday" autofocus>
+                    
+                                        @error('birthday')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
