@@ -5,7 +5,7 @@
 @section('content')
 
 {{-- Navigazione pagine --}}
-<nav class="mt-3 ">
+<nav class="mt-4">
   <ol class="breadcrumb">
       <li><span><i class="fa-solid fa-chevron-left me-2 fs-5 mt-1"></i></span></li>
       <li class="breadcrumb-item"><a class="color-link" href="{{ url('/') }}">Home</a></li>
