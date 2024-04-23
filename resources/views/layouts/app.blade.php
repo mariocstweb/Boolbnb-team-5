@@ -20,6 +20,9 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
+{{-- favicon --}}
+<link rel="icon" type="image/png" href="{{Vite::asset('resources/img/logo.png')}}" >
+
     <!-- Usando Vite -->
     @vite(['resources/js/app.js'])
     {{-- STYLE BODY --}}
