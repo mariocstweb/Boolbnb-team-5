@@ -17,7 +17,7 @@
                             <form method="POST" action="{{ route('register') }}" novalidate>
                                 @csrf
                     
-                                <div class="mb-4 row">
+                                <div class="mb-2 row">
                                     <div class="col">
                                         <label for="name" class=" col-form-label text-md-right">{{ __('Nome Utente') }}</label>
                                         <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
@@ -30,7 +30,7 @@
                                     </div>
                                 </div>
 
-                                <div class="mb-4 row">
+                                <div class="mb-2 row">
                                     <div class="col">
                                         <label for="birthday" class=" col-form-label text-md-right">{{ __('Data di Nascita') }}</label>
                                         <input id="birthday" type="date" class="form-control @error('birthday') is-invalid @enderror" name="birthday" value="{{ old('birthday') }}" required autocomplete="birthday" autofocus>
@@ -43,7 +43,7 @@
                                     </div>
                                 </div>
                     
-                                <div class="mb-4 row">
+                                <div class="mb-2 row">
                                     
                                     <div class="col">
                                         <label for="email" class=" col-form-label text-md-right">{{ __('E-Mail') }}</label>
@@ -57,7 +57,7 @@
                                     </div>
                                 </div>
                     
-                                <div class="mb-4 row">
+                                <div class="mb-2 row">
                                     
                                     <div class="col">
                                         <label for="password" class=" col-form-label text-md-right">{{ __('Password') }}</label>
@@ -71,7 +71,7 @@
                                     </div>
                                 </div>
                     
-                                <div class="mb-4 row">
+                                <div class="mb-2 row">
                                     
                                     <div class="col">
                                         <label for="password-confirm" class=" col-form-label text-md-right">{{ __('Conferma Password') }}</label>
@@ -79,7 +79,7 @@
                                     </div>
                                 </div>
                     
-                                <div class="mb-4 row mb-0">
+                                <div class="mb-2 row mb-0">
                                     <div class="col">
                                         <button type="submit" class="btn bg-hover w-100 text-white">
                                             {{ __('Continua') }}
@@ -87,7 +87,7 @@
                                     </div>
                                 </div>
                             </form>
-                            <div class="mb-4 row mb-0">
+                            <div class="mb-2 row mb-0">
                                 <div class="col d-flex gap-1">
                                     <p>Hai già un account?</p><a href="{{ route('welcome') }}" class="text-decoration-none"><span class="c-main ">Accedi</span></a>
                                 </div>
