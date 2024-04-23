@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
   <div class="container">
-      <a class="navbar-brand d-flex align-items-center me-1" href="{{ url('/') }}">
+      <a class="navbar-brand d-flex align-items-center me-3" href="{{ url('/') }}">
           <div class="logo_laravel d-flex align-items-center justify-content-center">
               <img src="{{Vite::asset('resources/img/logo.png')}}" alt="" class="img-fluid me-1" id="nav-logo">
               <span id="link-logo">boolbnb</span>
@@ -16,13 +16,13 @@
           <!-- Left Side Of Navbar -->
           <ul class="navbar-nav me-auto">
             @auth
-            <li class="nav-item">
+            <li class="nav-item mx-2">
               {{-- Aggiungere link index admin(tabella appartamenti) --}}
               {{-- <a class="nav-link" href="{{url('/') }}">{{ __('Appartamenti') }}</a> --}}
               <a class="nav-link" href="{{route('admin.apartments.index')}}">{{ __('Appartamenti') }}</a>
 
             </li>
-            <li class="nav-item">
+            <li class="nav-item mx-2">
                 {{-- Aggiungere link index admin(tabella appartamenti) --}}
                 {{-- <a class="nav-link" href="{{url('/') }}">{{ __('Appartamenti') }}</a> --}}
                 <a class="nav-link" href="{{route('sponsors.index')}}">{{ __('Promo') }}</a>
@@ -46,7 +46,8 @@
               @else
               <li class="nav-item dropdown">
                   <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                      {{ Auth::user()->name }}
+                    <i class="fa-regular fa-circle-user"></i>
+                    {{ Auth::user()->name }}
                   </a>
 
                   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
