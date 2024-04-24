@@ -15,10 +15,13 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
+
         \App\Models\User::factory()->create([
             'name' => 'boolbnb',
             'email' => 'bool@gmail.com',
         ]);
-        $this->call([ApartmentSeeder::class, ServiceSeeder::class, SponsorSeeder::class]);
+        $this->call([ApartmentSeeder::class, ServiceSeeder::class, SponsorSeeder::class,]);
+
+        \App\Models\View::factory(5)->create();
     }
 }
