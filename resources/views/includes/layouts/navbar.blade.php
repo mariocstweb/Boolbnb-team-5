@@ -17,6 +17,12 @@
           <ul class="navbar-nav me-auto">
             @auth
             <li class="nav-item mx-2">
+                {{-- Aggiungere link index admin(tabella appartamenti) --}}
+                {{-- <a class="nav-link" href="{{url('/') }}">{{ __('Appartamenti') }}</a> --}}
+                <a class="nav-link" href="{{route('welcome')}}">{{ __('Pannello di Controllo') }}</a>
+  
+              </li>
+            <li class="nav-item mx-2">
               {{-- Aggiungere link index admin(tabella appartamenti) --}}
               {{-- <a class="nav-link" href="{{url('/') }}">{{ __('Appartamenti') }}</a> --}}
               <a class="nav-link" href="{{route('admin.apartments.index')}}">{{ __('Appartamenti') }}</a>
@@ -25,7 +31,7 @@
             <li class="nav-item mx-2">
                 {{-- Aggiungere link index admin(tabella appartamenti) --}}
                 {{-- <a class="nav-link" href="{{url('/') }}">{{ __('Appartamenti') }}</a> --}}
-                <a class="nav-link" href="{{route('sponsors.index')}}">{{ __('Promo') }}</a>
+                <a class="nav-link" href="{{route('admin.sponsors.index')}}">{{ __('Promo') }}</a>
   
               </li>
             @endauth
@@ -36,11 +42,11 @@
               <!-- Authentication Links -->
               @guest
               <li class="nav-item">
-                  <a class="btn bg-hover text-white" href="{{ route('welcome') }}">{{ __('Login') }}</a>
+                  <a class="btn bg-hover text-white" href="{{ route('welcome') }}">{{ __('Accedi') }}</a>
               </li>
               @if (Route::has('register'))
               <li class="nav-item ms-1">
-                  <a class="btn c-main btn-sec" href="{{ route('register') }}">{{ __('Register') }}</a>
+                  <a class="btn c-main btn-sec" href="{{ route('register') }}">{{ __('Registrati') }}</a>
               </li>
               @endif
               @else
@@ -51,11 +57,10 @@
                   </a>
 
                   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                      <a class="dropdown-item" href="{{ url('dashboard') }}">{{__('Dashboard')}}</a>
-                      <a class="dropdown-item" href="{{ url('profile') }}">{{__('Profile')}}</a>
+                      <a class="dropdown-item" href="{{ url('profile') }}">{{__('Profilo')}}</a>
                       <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                            document.getElementById('logout-form').submit();">
-                          {{ __('Logout') }}
+                          {{ __('Esci') }}
                       </a>
 
                       <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
