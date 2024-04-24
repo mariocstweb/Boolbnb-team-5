@@ -72,7 +72,11 @@
           {{-- Sponsorizzazione --}}
           <td>
             {{-- <a href="{{route('admin.sponsors.index')}}">Sponsorizzazione</a> --}}
-            <a href="{{route('admin.sponsors.index')}}" class="btn bg-hover text-white p-2">Sponsorizza</a>
+            @forelse ($apartment->sponsors as $sponsor)
+              <div class="badge-sponsor text-center" style="background-image: linear-gradient(to left,{{$sponsor->color}})">{{$sponsor->label}}</div> 
+            @empty
+              <a href="{{route('admin.sponsors.index')}}" class="btn bg-hover text-white p-2">Sponsorizza</a>  
+            @endforelse
           </td>
 
           {{-- Cestino/Modifica/Dettaglio --}}

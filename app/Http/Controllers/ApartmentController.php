@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateApartmentRequest;
 use App\Http\Requests\StoreApartmentRequest;
 use App\Models\Message;
 use App\Models\Service;
+use App\Models\Sponsor;
 use App\Models\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -41,7 +42,10 @@ class ApartmentController extends Controller
         }
 
         $apartments = $query->paginate(2);
-        return view('admin.apartments.index', compact('apartments', 'search',));
+
+        $sponsors = Sponsor::all();
+
+        return view('admin.apartments.index', compact('apartments', 'search', 'sponsors'));
     }
 
     /**
