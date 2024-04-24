@@ -59,21 +59,16 @@
                 <span class="badge fw-medium"><i class="fa-solid fa-bed me-2"></i> {{$apartment->rooms}} letti</span>
               </li>
             </ul>
-
             {{-- Statistiche --}}
-            <div class="fw-medium stats mt-4 mb-2">Statistiche</div>
-            <ul class="d-flex gap-3">
-              @foreach ($views as $view)
-              @if ($view->apartment)
+          <div class="fw-medium stats mt-4 mb-2">Statistiche</div>
+          <ul class="d-flex gap-3">
               <li>
-                <span class="badge fw-medium"><i class="fa-regular fa-eye me-2"></i> {{count($view->apartment)}}</span>
+                  <span class="badge fw-medium"><i class="fa-regular fa-eye me-2"></i> {{$apartment->viewsCount()}}</span>
               </li>
-              @endif
-              @endforeach
               <li>
-                <span class="badge fw-medium"><i class="fa-regular fa-envelope me-2"></i> 12 Messaggi</span>
+                  <span class="badge fw-medium"><i class="fa-regular fa-envelope me-2"></i>{{$apartment->messagesCount()}}</span>
               </li>
-            </ul>
+          </ul>
 
             {{-- Stato pubblicazione --}}
             <div class="mt-5 fs-5">{!!$apartment->is_visible ? '<i class="fa-solid fa-circle-check text-success me-2"></i> <span class="text-success fw-bold">Pubblicato</span>' : '<i class="fa-solid fa-circle-xmark text-danger"></i> <span class="text-danger fw-bold">Non pubblicato</span>'!!}</div>

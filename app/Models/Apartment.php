@@ -38,4 +38,16 @@ class Apartment extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    // Counter views
+    public function viewsCount()
+    {
+        return $this->views()->count();
+    }
+
+    // Counter messag
+    public function messagesCount()
+    {
+        return $this->messages()->count();
+    }
 }
