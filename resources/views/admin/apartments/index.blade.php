@@ -71,7 +71,8 @@
 
           {{-- Sponsorizzazione --}}
           <td>
-            <a href="{{route('admin.sponsors.index')}}">Sponsorizzazione</a>
+            {{-- <a href="{{route('admin.sponsors.index')}}">Sponsorizzazione</a> --}}
+            <a href="{{route('admin.sponsors.index')}}" class="btn bg-hover text-white p-2">Sponsorizza</a>
           </td>
 
           {{-- Cestino/Modifica/Dettaglio --}}
