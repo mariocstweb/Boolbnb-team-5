@@ -60,3 +60,22 @@
         }
     }
 }
+
+#sponsor {
+
+    .sponsor-type {
+        color: goldenrod;
+    }
+
+    p {
+        font-size: 13px;
+    }
+
+    .subscription {
+        color: green;
+    }
+
+    .remove-subscription {
+        color: $main500;
+    }
+}

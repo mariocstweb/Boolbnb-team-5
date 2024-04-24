@@ -120,6 +120,23 @@
           </div>
         </div>
       </section>
+
+      <section id="sponsor">
+        <div class="card rounded-4 p-3 mt-4">
+          <div class="card-body">
+            <h2 class="card-title mb-4">Sponsorizzazione</h2>
+            <div>
+              <div class="fw-bold mb-1">Abbonamento trimestrale a <span class="sponsor-type">Airbnb Gold</span></div>
+              <p>Il prossimo pagamento sarà di €31,98 il 4 Aprile 2023</p>
+            </div>
+            <div class="subscription fw-bold"><i class="fa-regular fa-circle-check"></i> Ti sei abbonato ad Airbnb Gold</div>
+            <div class="mb-3">
+              <a href="{{route('sponsors.index')}}" class="btn bg-hover text-white p-2 mt-3 me-2">Cambia piano</a>
+              <a href="" class="btn c-main bg-hover-rev p-2 mt-3">Descrizione abbonamento</a>
+            </div>
+            <a href="" class="remove-subscription">Disdici abbonamento</a>
+          </div>
+      </section>
     </div>
   </div>
 @endsection
