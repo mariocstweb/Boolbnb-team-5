@@ -11,7 +11,7 @@
             <h3>Appartamenti in gestione</h3>
             <div>
                 <span class="btn bg-icon me-2"><i class="fa-solid fa-house"></i></span>
-                <span>10</span>
+                <span>{{$apartments->total()}}</span>
             </div>
         </div>
     </div>
@@ -20,7 +20,7 @@
         <h3>Messaggi totali</h3>
         <div>
             <span class="btn bg-icon me-2"><i class="fa-solid fa-envelope-open-text"></i></span>
-            <span>12</span>
+            <span>{{count($messages)}}</span>
         </div>
 
     </div>
@@ -30,7 +30,7 @@
             <h3>Visualizzazioni totali</h3>
             <div>
                 <span class="btn bg-icon me-2"><i class="fa-regular fa-eye"></i></span>
-                <span>13</span>
+                <span>{{count($views)}}</span>
             </div>
         </div>
     </div>
@@ -64,19 +64,19 @@
   
             {{-- Visualizzazioni --}}
             <td>
-                Visualizzazioni
+              <span class="me-2"><i class="fa-regular fa-eye"></i></span> {{$apartment->viewsCount()}}
             </td>
 
             {{-- Messaggi --}}
             <td>
-                Messaggi
+              <span class="me-2"><i class="fa-solid fa-envelope-open-text"></i></span> {{$apartment->messagesCount()}}
             </td>
   
             {{-- Dettaglio --}}
             <td>
               <div class="d-flex justify-content-between">
                     {{-- Statistiche --}}
-                <a href="" class="btn bg-icon"><i class="fa-solid fa-chart-line"></i></a>
+                <a href="{{route('admin.statistic', $apartment->id)}}" class="btn bg-icon"><i class="fa-solid fa-chart-line"></i></a>
                 <div class="d-flex align-items-center justify-content-center">
                 {{-- Dettaglio --}}
                 <a href="{{route('admin.apartments.show', $apartment->id)}}" class="btn"><i class="fa-solid fa-chevron-right"></i></a>
