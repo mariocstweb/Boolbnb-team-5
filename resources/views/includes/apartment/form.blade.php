@@ -55,7 +55,8 @@
                         <div class="input-container">
                             <input id="search-address" name="address" autocomplete="off"
                                 value="{{ old('address', $apartment->address) }}" type="text"
-                                class="form-control @error('address') is-invalid @enderror">
+                                class="form-control @error('address') is-invalid @enderror"
+                                data-original-value="{{ old('address', $apartment->address) }}">
                             @error('address')
                                 <span class="invalid-feedback error-message" role="alert">{{ $message }}</span>
                                 @else

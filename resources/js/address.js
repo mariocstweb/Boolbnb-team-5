@@ -153,7 +153,32 @@ suggestionAddress.addEventListener('click', (event) => {
 });
 
 
+// const originalValue = inputAddressSearch.dataset.originalValue;
 
+// let addressSelected = false; // Flag per tenere traccia se è stato selezionato un indirizzo suggerito
+
+// inputAddressSearch.addEventListener('input', () => {
+//     // Controlla se è stato selezionato un indirizzo suggerito
+//     if (addressSelected) {
+//         const currentValue = inputAddressSearch.value.trim();
+//         if (currentValue !== originalValue) {
+//             inputAddressSearch.value = originalValue;
+//             alert("Non puoi modificare l'indirizzo dopo aver selezionato uno suggerito. Si prega di scegliere un nuovo indirizzo.");
+//         }
+//     }
+// });
+
+// // Gestione dell'evento al clic su un elemento della lista dei suggerimenti
+// suggestionAddress.addEventListener('click', (event) => {
+//     const suggestion = event.target;
+//     if (suggestion.classList.contains('suggestions-item')) {
+//         inputAddressSearch.value = suggestion.innerText;
+//         latInput.value = suggestion.dataset.lat;
+//         lonInput.value = suggestion.dataset.lon;
+//         suggestionAddress.innerHTML = '';
+//         addressSelected = true; // Imposta il flag a true quando viene selezionato un indirizzo suggerito
+//     }
+// });
 
 
 

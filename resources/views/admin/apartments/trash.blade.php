@@ -27,13 +27,13 @@
   </form>
 
   {{-- Svuota il cestino --}}
-  <form action="{{ route('admin.apartments.empty') }}" method="POST">
+  {{-- <form action="{{ route('admin.apartments.empty') }}" method="POST">
   @csrf
   @method('DELETE')
   <button type="submit" class="btn c-main p-2 bg-hover-rev">
       <i class="fa-solid fa-trash-can-arrow-up me-2"></i>Svuota Cestino
   </button>
-</form>
+</form> --}}
 </div>
 </div>
 
@@ -83,11 +83,11 @@
                     </form>
   
                       {{-- Form cancellazione --}}
-                      <form method="POST" action="{{route('admin.apartments.drop', $apartment->id)}}">
+                      {{-- <form method="POST" action="{{route('admin.apartments.drop', $apartment->id)}}">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn bg-icon"><i class="fa-regular fa-trash-can"></i> </button>
-                      </form>
+                      </form> --}}
                 </div>
               </div>
             </td>
