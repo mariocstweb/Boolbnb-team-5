@@ -114,7 +114,7 @@
             </div>
             <p class="fw-bold mt-3">Prova Airbnb Plus e scopri i vantaggi dei nostri piani</p>
             <div class="d-flex justify-content-end">
-              <a href="{{route('sponsors.index')}}" class="btn bg-hover text-white p-2 mt-3">Scopri i piani</a>
+              <a href="{{route('admin.sponsors.index')}}" class="btn bg-hover text-white p-2 mt-3">Scopri i piani</a>
             </div>
           </div>
         </div>
@@ -130,7 +130,7 @@
             </div>
             <div class="subscription fw-bold"><i class="fa-regular fa-circle-check"></i> Ti sei abbonato ad Airbnb Gold</div>
             <div class="mb-3">
-              <a href="{{route('sponsors.index')}}" class="btn bg-hover text-white p-2 mt-3 me-2">Cambia piano</a>
+              <a href="{{route('admin.sponsors.index')}}" class="btn bg-hover text-white p-2 mt-3 me-2">Cambia piano</a>
               <a href="" class="btn c-main bg-hover-rev p-2 mt-3">Descrizione abbonamento</a>
             </div>
             <a href="" class="remove-subscription">Disdici abbonamento</a>
