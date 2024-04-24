@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder
             'email' => 'bool@gmail.com',
         ]);
         $this->call([ApartmentSeeder::class, ServiceSeeder::class, SponsorSeeder::class]);
+        \App\Models\View::factory(5)->create();
     }
 }

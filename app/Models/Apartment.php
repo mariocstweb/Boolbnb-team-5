@@ -28,4 +28,14 @@ class Apartment extends Model
     {
         return $this->belongsToMany(Sponsor::class)->withPivot('expiration_date');
     }
+
+    public function views()
+    {
+        return $this->hasMany(View::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
