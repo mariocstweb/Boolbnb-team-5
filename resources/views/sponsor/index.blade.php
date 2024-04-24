@@ -25,7 +25,7 @@
         <p class="card-subtitle mb-4 fs-4">{{$sponsor->description}}</p>
         <p class="card-text fs-4"><strong class="fs-1">{{$sponsor->price}}€</strong> per {{$sponsor->duration}}/h</p>
         <div class="bg-white rounded">
-          <a href="" class="btn w-100 fs-4 " style="background-image: linear-gradient(to left,{{$sponsor->color}});-webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700;">Passaa pro</a>
+          <a href="" class="btn w-100 fs-4 " style="background-image: linear-gradient(to left,{{$sponsor->color}});-webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700;">Passa a pro</a>
         </div>
       </div>
     </div>

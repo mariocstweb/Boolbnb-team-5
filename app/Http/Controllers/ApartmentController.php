@@ -106,8 +106,9 @@ class ApartmentController extends Controller
         $services = Service::all();
         $views = View::all();
         $messages = Message::all();
+        $sponsors = Sponsor::all();
 
-        return view('admin.apartments.show', compact('apartment', 'services', 'views', 'messages'));
+        return view('admin.apartments.show', compact('apartment', 'services', 'views', 'messages', 'sponsors'));
     }
 
     /**
