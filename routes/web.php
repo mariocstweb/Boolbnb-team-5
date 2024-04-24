@@ -35,10 +35,10 @@ Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function () {
     Route::patch('/apartments/returned', [ApartmentController::class, 'returned'])->name('apartments.returned');
     // Resources list
     Route::resource('apartments', ApartmentController::class)->withTrashed(['show', 'edit', 'update']);
+    // Rotta sponsorizzazioni
+    Route::get('/sponsor', [SponsorController::class, 'index'])->name('sponsors.index');
 });
 
-// Rotta sponsorizzazioni
-Route::get('/sponsor', [SponsorController::class, 'index'])->name('sponsors.index');
 
 
 

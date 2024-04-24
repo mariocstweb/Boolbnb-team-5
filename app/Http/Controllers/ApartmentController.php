@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Apartment;
 use App\Http\Requests\UpdateApartmentRequest;
 use App\Http\Requests\StoreApartmentRequest;
+use App\Models\Message;
 use App\Models\Service;
+use App\Models\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
@@ -98,8 +100,10 @@ class ApartmentController extends Controller
         }
 
         $services = Service::all();
+        $views = View::all();
+        $messages = Message::all();
 
-        return view('admin.apartments.show', compact('apartment', 'services'));
+        return view('admin.apartments.show', compact('apartment', 'services', 'views', 'messages'));
     }
 
     /**

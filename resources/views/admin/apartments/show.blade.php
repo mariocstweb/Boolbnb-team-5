@@ -63,9 +63,13 @@
             {{-- Statistiche --}}
             <div class="fw-medium stats mt-4 mb-2">Statistiche</div>
             <ul class="d-flex gap-3">
+              @foreach ($views as $view)
+              @if ($view->apartment)
               <li>
-                <span class="badge fw-medium"><i class="fa-regular fa-eye me-2"></i> 4523 Visualizzazioni</span>
+                <span class="badge fw-medium"><i class="fa-regular fa-eye me-2"></i> {{count($view->apartment)}}</span>
               </li>
+              @endif
+              @endforeach
               <li>
                 <span class="badge fw-medium"><i class="fa-regular fa-envelope me-2"></i> 12 Messaggi</span>
               </li>
