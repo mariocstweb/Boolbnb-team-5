@@ -17,7 +17,7 @@
       </ol>
   </nav>
   {{-- Modifica --}}
-  <a href="{{route('admin.apartments.edit', $apartment->id)}}" class="btn bg-hover me-2 text-white p-2"><i class="fa-regular fa-pen-to-square me-2"></i> Modifica</a>
+  <a href="{{route('admin.apartments.edit', $apartment->id)}}" class="btn bg-hover text-white p-2"><i class="fa-regular fa-pen-to-square me-2"></i> Modifica</a>
 
 </div>
   <div class="row mt-5">
@@ -100,6 +100,23 @@
             @endif
           @endforeach
             </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="promo">
+        <div class="card rounded-4 mt-4">
+          <div class="card-body">
+            <div class="card-title d-flex align-items-center gap-2">
+              <div class="card-image">
+                <img src="{{Vite::asset('resources/img/logo.png')}}" alt="nav-logo">
+              </div>
+              <h3 class="fw-bolder m-0">BoolBNB Plus</h3>
+            </div>
+            <p class="fw-bold mt-3">Prova Airbnb Plus e scopri i vantaggi dei nostri piani</p>
+            <div class="d-flex justify-content-end">
+              <a href="{{route('sponsors.index')}}" class="btn bg-hover text-white p-2 mt-3">Scopri i piani</a>
+            </div>
           </div>
         </div>
       </section>

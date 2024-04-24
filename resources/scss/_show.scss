@@ -34,3 +34,29 @@
         }
     }
 }
+
+#promo {
+
+    .card {
+        background-color: $main100;
+
+        .card-image {
+            padding: 4px;
+            background-color: white;
+            border-radius: 10px;
+        }
+
+        img {
+            height: 22px;
+            vertical-align: text-bottom;
+        }
+
+        h3 {
+            color: $main500;
+        }
+
+        p {
+            font-size: 15px;
+        }
+    }
+}
