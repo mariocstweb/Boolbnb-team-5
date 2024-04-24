@@ -23,5 +23,6 @@ class DatabaseSeeder extends Seeder
         $this->call([ApartmentSeeder::class, ServiceSeeder::class, SponsorSeeder::class,]);
 
         \App\Models\View::factory(5)->create();
+        // cose
     }
 }
