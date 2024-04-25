@@ -17,10 +17,9 @@ class DashboardController extends Controller
 
         $apartments = $query->paginate(2);
 
-        $views = View::all();
+        $views = View::whereIn('apartment_id', $apartments->pluck('id'))->get();
 
-        $messages = Message::all();
-
+        $messages = Message::whereIn('apartment_id', $apartments->pluck('id'))->get();
 
         return view('welcome', compact('apartments', 'views', 'messages'));
     }

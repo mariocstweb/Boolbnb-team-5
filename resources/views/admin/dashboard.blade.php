@@ -20,7 +20,7 @@
         <h3>Messaggi totali</h3>
         <div>
             <span class="btn bg-icon me-2"><i class="fa-solid fa-envelope-open-text"></i></span>
-            <span>{{count($messages)}}</span>
+            <span>{{$messages->count()}}</span>
         </div>
 
     </div>
@@ -30,7 +30,7 @@
             <h3>Visualizzazioni totali</h3>
             <div>
                 <span class="btn bg-icon me-2"><i class="fa-regular fa-eye"></i></span>
-                <span>{{count($views)}}</span>
+                <span>{{$views->count()}}</span>
             </div>
         </div>
     </div>
