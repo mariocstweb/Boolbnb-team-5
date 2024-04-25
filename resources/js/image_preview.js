@@ -1,42 +1,43 @@
+/* RECUPERO ELEMENTI */
 const placeholder = 'https://marcolanci.it/boolean/assets/placeholder.png'
 const imageFiels = document.getElementById('cover')
 const previewField = document.getElementById('preview')
 
+
+
+/* VARIABILE BLOB */
 let blobUrl;
-// cambio immagine
-const changeImageButton = document.getElementById('change-image-button')
-// carica file
-const previousImageFiled = document.getElementById('previous-image-field')
 
-// # Gestione preview immagine
 
+/* VARIABILE BLOB */
 imageFiels.addEventListener('change', () => {
-    //controllo se ho file (se hai files e hai il primo)
+    
+    /* SE SELEZIONATO UN FILE E E VIENE PRESO IL PRIMO */
     if (imageFiels.files && imageFiels.files[0]) {
-        //prendo il file
+        
+        /* PRENDO IL FILE */
         const file = imageFiels.files[0];
-        //preparo un url temporaneo
+        
+        /* CREO IN MODO TEMPORANIO UN BLOB */
         blobUrl = URL.createObjectURL(file);
-        //Lo inserisco nelll'src
+        
+        /* INSERISCO IL BLOB NEL TAG SRC IN HTML */
         previewField.src = blobUrl;
-    }
+    } else {
 
-    else {
+        /* SE NON CE UN FILE METTI */
         previewField.src = previewField;
     }
 
 });
 
+
+/* EVENTO PRIMA DI LASCIARE LA PAGINA */
 window.addEventListener('beforeunload', () => {
+
+    /* SE CE UN BLOB RIMUOVILO */
     if (blobUrl) URL.revokeObjectURL(blobUrl)
 })
 
-// # Gestione campo file
 
-changeImageButton.addEventListener('click', () => {
-    previousImageFiled.classList.add('d-none');
-    imageFiels.classList.remove('d-none');
-    previewField.src = placeholder;
-    imageFiels.click();
-})
 

@@ -13,9 +13,12 @@ class ApartmentSeeder extends Seeder
      */
     public function run(): void
     {
-        // Recupero l array associativo dal config
+        
+        /* RECUPERO ARRAY ASSOCIATIVO IN CONFIG */
         $apartments = config('apartments');
-        // Itero l array
+        
+
+        /* CICLO SUL L'ARRAY CREANDO UNA NUOVA ISTANZA E DANDOGLI DEI VALORI AD OGNI SINGOLO ELEMENTO */
         foreach ($apartments as $apartment) {
             $new_apartment = new Apartment();
             $new_apartment->title = $apartment['title'];

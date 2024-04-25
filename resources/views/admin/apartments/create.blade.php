@@ -3,10 +3,13 @@
 @section('title', 'Aggiungi appartamento')
 
 @section('content')
-  @include('includes.apartment.form')
+    {{-- INCLUDO FORM --}}
+    @include('includes.apartment.form')
 @endsection
 
 @section('scripts')
-@vite('resources/js/image_preview.js')
-@vite('resources/js/address.js')
+    {{-- JS PREWIEW IMMAGINE --}}
+    @vite('resources/js/image_preview.js')
+    {{-- JS INDIRIZZO --}}
+    @vite('resources/js/address.js')
 @endsection

@@ -1,9 +1,13 @@
+/* SEZIONE DETTAGLI */
 #detail {
+
+    /* RECIPIENTE IMMAGINE DI COPERTINA */
     .thumb-img {
         width: 100%;
         height: 400px;
         margin-bottom: 25px;
 
+        /* IMMAGINE COPERTINA */
         img {
             width: 100%;
             height: 100%;
@@ -14,19 +18,24 @@
     }
 
     p {
+
+        /* INDIRIZZO */
         .road {
             font-size: 20px;
         }
     }
 
+    /* DETTAGLI */
     .stats {
         font-size: 20px;
         color: #737373;
     }
 
+    /* LISTA */
     ul {
         padding: 0;
 
+        /* LISTA DETTAGLI */
         .badge {
             color: black;
             font-size: 15px;
@@ -35,32 +44,39 @@
     }
 }
 
+/* PROMOZIONE */
 #promo {
 
+    /* COLORE CARD */
     .card {
         background-color: $main100;
 
+        /* LOGO */
         .card-image {
             padding: 4px;
             background-color: white;
             border-radius: 10px;
         }
 
+        /* GRANDEZZA IMMAGINE */
         img {
             height: 22px;
             vertical-align: text-bottom;
         }
 
+        /* TESTO */
         h3 {
             color: $main500;
         }
 
+        /* PARAGRAFO */
         p {
             font-size: 15px;
         }
     }
 }
 
+/* SPOSORIZZAZIONE */
 #sponsor {
 
     .sponsor-type {

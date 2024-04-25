@@ -23,9 +23,6 @@ class StoreApartmentRequest extends FormRequest
     public function rules(): array
     {
 
-        /* RECUPERO IL VALORE DELLA ROTTA */
-
-
         /* RESTITUISCO CIO' CHE DA ERRORE */
         return [
             'title' => 'required|string',
@@ -46,9 +43,6 @@ class StoreApartmentRequest extends FormRequest
 
     public function messages(): array
     {
-
-        /* RECUPERO TUTTO I DATI */
-        $data = $this->all();
 
         /* RESTITUISCO CIO' CHE DARA' IL MESSAGGIO DI ERRORE */
         return [

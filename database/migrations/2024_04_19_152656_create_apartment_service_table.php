@@ -13,6 +13,8 @@ return new class extends Migration
      */
     public function up(): void
     {
+
+        /* TABELLA PONTE CON GLI ID DEGLI APPARTEMENTI E SERVIZI */
         Schema::create('apartment_service', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Apartment::class)->constrained()->cascadeOnDelete();
@@ -25,6 +27,8 @@ return new class extends Migration
      */
     public function down(): void
     {
+
+        /* BUTTI GIU' LA TABELLA */
         Schema::dropIfExists('apartment_service');
     }
 };

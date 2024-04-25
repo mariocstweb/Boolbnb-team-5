@@ -1,8 +1,9 @@
+/* COLORE PRINCIPALE */
 .bg-main {
   background-color: $main500;
 }
 
-// Effetto hover button principali
+/* EFFETTO HOVER AL BOTTONE */
 .bg-hover {
   background-color: $main500;
 
@@ -11,7 +12,7 @@
   }
 }
 
-//  Cestino
+/* BOTTONE CESTINO */
 .bg-hover-rev {
   background-color: white;
   border: 1px solid $main500;
@@ -23,7 +24,7 @@
   }
 }
 
-// Button edit/trash
+/* BOTTONE EDIT E TRASH */
 .bg-icon {
   background-color: $main100;
   color: $main600;
@@ -33,11 +34,12 @@
   }
 }
 
-
+/* COLORE CHECK SERVIZI */
 .icon-show {
-  color: $main500 ;
+  color: $main500;
 }
 
+/* COLORE AI SERVIZI NON DISPONIBILI */
 .disable {
   color: rgb(184, 184, 184);
 }

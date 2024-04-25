@@ -26,6 +26,7 @@ class UpdateApartmentRequest extends FormRequest
         /* RECUPERO IL VALORE DELLA ROTTA */
         $apartment = $this->route('apartment');
 
+        
         /* RESTITUISCO CIO' CHE DA ERRORE */
         return [
             'title' => 'required|string', Rule::unique('apartments')->ignore($apartment->id),
@@ -46,9 +47,6 @@ class UpdateApartmentRequest extends FormRequest
 
     public function messages(): array
     {
-
-        /* RECUPERO TUTTO I DATI */
-        $data = $this->all();
 
         /* RESTITUISCO CIO' CHE DARA' IL MESSAGGIO DI ERRORE */
         return [

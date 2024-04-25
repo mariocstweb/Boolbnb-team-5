@@ -11,6 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
+
+        /* TABELLA SPONSOR */
         Schema::create('sponsors', function (Blueprint $table) {
             $table->id();
             $table->string('label', 20)->unique();
@@ -27,6 +29,8 @@ return new class extends Migration
      */
     public function down(): void
     {
+
+        /* BUTTI GIU' LA TABELLA */
         Schema::dropIfExists('sponsors');
     }
 };

@@ -22,29 +22,36 @@ class ApartmentController extends Controller
     public function index(Request $request)
     {
 
-        /* Recupero valore */
+        
+        /* RECUPERO VALORE DEL NAME DELL'INPUT DI RICERCA */
         $search = $request->query('search');
 
-        // if (!$search) {
-        //     // Recupero tutti gli appartamenti dal DB
-        //     $apartments = Apartment::orderByDesc('updated_at')->orderByDesc('created_at')->get();
-        // } else {
-        //     /* Filtro per nome */
-        //     $apartments = Apartment::where('title', 'LIKE', "$search%")->get();
-        // }
+        
+        /* INIZZIALIZZO LA QUERY CHE FILTRA GLI APPARTAMENTI IN BASE ALL'ID DELL'UTENTE AUTENTICATO */
+        $query = Apartment::where('user_id', Auth::id());
 
-        // Query per gli appartamenti
-        $query = Apartment::where('user_id', Auth::id())->orderByDesc('updated_at')->orderByDesc('created_at');
-
-        // Applica filtro di ricerca se presente
+        
+        /* SE NEL CAMPO INPUT DI RICERCA E' INSERITO QUALCOSA */
         if ($search) {
-            $query->where('title', 'LIKE', "%$search%");
+
+            /* FILTRO LA QUERY IN BASE AL VALORE DELLA VARIBILE(NAME) */
+            $query->where('title', 'LIKE', "$search%");
         }
 
+        
+        /* ORDINO I RISULTATI DELLA QUERY IN ORDINE */
+        $query->orderByDesc('updated_at')->orderByDesc('created_at');
+
+        
+        /* PAGINAZIONE */
         $apartments = $query->paginate(2);
 
+
+        /* RECUEPRO TUTTI I RECORD DALLA TABELLA SPONSOR */
         $sponsors = Sponsor::all();
 
+
+        /* RESTITUISCO IN PAGINA */
         return view('admin.apartments.index', compact('apartments', 'search', 'sponsors'));
     }
 
@@ -54,12 +61,19 @@ class ApartmentController extends Controller
     public function create()
     {
 
-        /* RECUPERO TUTTI I SERVIZI */
+        /* RECUEPRO TUTTI I RECORD DALLA TABELLA SERVIZI */
         $services = Service::all();
 
+
+        /* INIZZIALIZZO UN ARRAY VUOTO IN MODO DA NON DARMI ERRORE NEL FORM */
         $array_services = array();
 
+
+        /* CREO UNA NUOVA INSTAZZA IN MODO DA NON DARMI ERRORE NEL FORM */
         $apartment = new Apartment;
+
+
+        /* RESTITUISCO IN PAGINA */
         return view('admin.apartments.create', compact('apartment', 'services', 'array_services'));
     }
 
@@ -68,24 +82,40 @@ class ApartmentController extends Controller
      */
     public function store(StoreApartmentRequest $request)
     {
+
+        /* INFORMAZIONI SUI DATI DI VALIDAZIONE */
         $data = $request->validated();
 
-
+        
+        /* CREO UNA NUOVA INSTAZZA DALLA CLASSE APARTAMENT */
         $apartment = new Apartment();
+
+        
+        /* POPOLO L'OGGETTO CON I VALORI DELL'ARRAY DATA */
         $apartment->fill($data);
+
+
+        /* CONTROLLO SE NELL'ARRAY DATA ESTISTE LA CHIAVE 'IS_VISIBLE' */
         $apartment->is_visible = array_key_exists('is_visible', $data);
+
+
+        /* ASSEGNO LL'APARTAMENTO ID DELL'UTENTE  AUTENTICATO PER INDICARE CHE GLI APPARTIENE */
         $apartment->user_id = Auth::id();
 
 
+        /* SALVO INFORMAZIONI */
         $apartment->save();
 
 
         /* VERIFICO SE ESISTE NELL'ARRAY LA CHIAVE SERVICES, SE ESTISTE */
         if (Arr::exists($data, 'services')) {
-            /* ATTACCO I RECORD DELL'APPARTAMWENTO AI RECORD DELI SERVIZI */
+            
+            /* ATTACCO I RECORD DELL'APPARTAMENTO AI RECORD DELI SERVIZI */
             $apartment->services()->attach($data['services']);
         }
 
+
+        /* RESTITUISCO IN PAGINA */
         return to_route('admin.apartments.show', $apartment->id)
             ->with('message', 'Hai inserito correttamente un nuovo appartamento')
             ->with('type', 'success');
@@ -96,18 +126,32 @@ class ApartmentController extends Controller
      */
     public function show(Apartment $apartment)
     {
-        // VERIFICA ID UTENTE CON ID APPARTAMENTO
-        if (
-            Auth::id() !== $apartment->user_id //&& ($apartment->is_visible === 0)
-        ) {
+        
+        /* SE ID DELL'UTENTE AUTENTICATO NON E' IDENTICO ALL'ID DELL'UTENTE PROPRIETARIO DELL'APPARTAMENTO */
+        if (Auth::id() !== $apartment->user_id ) {
+            
+            /* RESTITUISCO UN MESSAGGIO */
             return to_route('admin.apartments.index')->with('type', 'warning')->with('message', 'Non sei autorizzato!');
         }
 
+        
+        /* RECUEPRO TUTTI I RECORD DALLA TABELLA SERVIZI */
         $services = Service::all();
+
+
+        /* RECUEPRO TUTTI I RECORD DALLA TABELLA VISSUALIZZAZIONI */
         $views = View::all();
+
+
+        /* RECUEPRO TUTTI I RECORD DALLA TABELLA MESSAGGI */
         $messages = Message::all();
+
+        
+        /* RECUEPRO TUTTI I RECORD DALLA TABELLA SPONSOR */
         $sponsors = Sponsor::all();
 
+
+        /* RESTITUISCO IN PAGINA */
         return view('admin.apartments.show', compact('apartment', 'services', 'views', 'messages', 'sponsors'));
     }
 
@@ -116,18 +160,22 @@ class ApartmentController extends Controller
      */
     public function edit(Apartment $apartment)
     {
-        // VERIFICA ID UTENTE CON ID APPARTAMENTO
-        if (
-            Auth::id() !== $apartment->user_id //&& ($apartment->is_visible === 0)
-        ) {
+        /* SE ID DELL'UTENTE AUTENTICATO NON E' IDENTICO ALL'ID DELL'UTENTE PROPRIETARIO DELL'APPARTAMENTO */
+        if (Auth::id() !== $apartment->user_id) {
+
+            /* RESTITUISCO UN MESSAGGIO */
             return to_route('admin.apartments.index')->with('type', 'warning')->with('message', 'Non sei autorizzato!');
         }
 
         /* CREO ARRAY CON GLI ID DI SERVICES */
         $array_services = $apartment->services->pluck('id')->toArray();
 
+
+        /* RECUEPRO TUTTI I RECORD DALLA TABELLA SERVIZI */
         $services = Service::all();
 
+
+        /* RESTITUSCO IN PAGINA */
         return view('admin.apartments.edit', compact('apartment', 'services', 'array_services'));
     }
 
@@ -136,20 +184,30 @@ class ApartmentController extends Controller
      */
     public function update(UpdateApartmentRequest $request, Apartment $apartment)
     {
+
+        /* INFORMAZIONI SUI DATI DI VALIDAZIONE */
         $data = $request->validated();
 
 
-
+        /* POPOLO L'OGGETTO CON I VALORI DELL'ARRAY DATA */
         $apartment->fill($data);
+
+
+        /* CONTROLLO SE NELL'ARRAY DATA ESTISTE LA CHIAVE 'IS_VISIBLE' */
         $apartment->is_visible = array_key_exists('is_visible', $data);
 
 
+        /* AGGIORNO INFORMAZIONI */
         $apartment->update($data);
 
-        /* VERIFICO SE ESISTE NELL'ARRAY LA CHIAVE SERVICES, SE ESTISTE , ALTRIMENTI SE NON ESISTE E CI SONO RELAZIONI */
-        if (Arr::exists($data, 'services')) {
+        
+        /* VERIFICO SE ESISTE NELL'ARRAY LA CHIAVE SERVICES, SE ESTISTE */
+        if (Arr::exists($data, 'services')) { 
+            
             /* SINCRONIZZO I RECORD DELL'APPARTAMENTO AI RECORD DEI SERVIZI*/
             $apartment->services()->sync($data['services']);
+
+            /*  ALTRIMENTI SE NON ESISTE E HA UNA RELAZIONE CHIAMATA 'SERVICES' */
         } elseif (!Arr::exists($data, 'services') && $apartment->has('services')) {
 
             /* DISSOCIA I RECORD DELL'APPARTAMENTO AI RECORD DEI SERVIZI */
@@ -157,6 +215,7 @@ class ApartmentController extends Controller
         }
 
 
+        /* RESTITUISCO IN PAGINA */
         return to_route('admin.apartments.show', $apartment->id)
             ->with('type', 'warning')
             ->with('message', "'$apartment->title' modificato con successo.");
@@ -167,7 +226,12 @@ class ApartmentController extends Controller
      */
     public function destroy(Apartment $apartment)
     {
+
+        /* ELIMINAZIONE SOFT */
         $apartment->delete();
+
+
+        /* RESTITUISCO IN PAGINA */
         return to_route('admin.apartments.index')
             ->with('type', 'danger')
             ->with('message', "Hai spostato '$apartment->title' nel cestino.");
@@ -176,13 +240,23 @@ class ApartmentController extends Controller
 
     public function trash()
     {
+
+        /* RECUPERO I RECORD ELIMINATI MA NON DEFINITIVAMENTE */
         $apartments = Apartment::onlyTrashed()->get();
+
+
+        /* RESTITUISCO IN PAGINA */
         return view('admin.apartments.trash', compact('apartments'));
     }
 
     public function restore(Apartment $apartment)
     {
+
+        /* RIPRISTONO UN RECORD */
         $apartment->restore();
+
+
+        /* RESTITUISCO IN PAGINA */
         return to_route('admin.apartments.index')
             ->with('type', 'success')
             ->with('message', "Hai ripristinato '$apartment->title' con successo.");
@@ -190,9 +264,12 @@ class ApartmentController extends Controller
 
     public function drop(Apartment $apartment)
     {
+
+        /* ELIMINAZIONE DEFINITIVA DI UN RECORD */
         $apartment->forceDelete();
 
 
+        /* RESTITUISCO IN PAGINA */
         return to_route('admin.apartments.trash')
             ->with('type', 'danger')
             ->with('message', "Hai eliminato '$apartment->title' definitivamente.");
@@ -202,17 +279,26 @@ class ApartmentController extends Controller
     // Svuota completamente il cestino
     public function empty()
     {
+
+        /* RECUPERO I RECORD ELIMINATI MA NON DEFINITIVAMENTE */
         $apartments = Apartment::onlyTrashed()->get();
 
 
+        /* CICLO SU OGNI ELEMENTO */
         foreach ($apartments as $apartment) {
 
+            /* CANCELLAZZIONE DEI TITOLI ARCHIVIATI IN STORAGE */
             if ($apartment->title) {
                 Storage::delete($apartment->title);
             }
 
+
+            /* ELIMINAZIONE DI TUTTI I RECORD */
             $apartment->forceDelete();
         }
+
+
+        /* RESTITUISCO IN PAGINA */
         return to_route('admin.apartments.trash')
             ->with('type', 'danger')
             ->with('message', "Cestino svuotato");
@@ -222,13 +308,20 @@ class ApartmentController extends Controller
     // Ripristina completamente il cestino
     public function returned()
     {
+
+        /* RECUPERO I RECORD ELIMINATI MA NON DEFINITIVAMENTE */
         $apartments = Apartment::onlyTrashed()->get();
 
-
+        
+        /* CICLO SU OGNI ELEMENTO */
         foreach ($apartments as $apartment) {
 
+            /* RIPRISTONO TUTTI I RECORD */
             $apartment->restore();
         }
+
+
+        /* RESTITUISCO IN PAGINA */
         return to_route('admin.apartments.index')
             ->with('type', 'info')
             ->with('message', "Hai ripristinato tutti gli appartamenti");

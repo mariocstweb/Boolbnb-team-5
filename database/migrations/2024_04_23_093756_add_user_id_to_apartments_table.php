@@ -12,6 +12,8 @@ return new class extends Migration
      */
     public function up(): void
     {
+
+        /* AGGIUGNO ALLA TABELLA APPARTMENTI ID DELL'USER */
         Schema::table('apartments', function (Blueprint $table) {
             $table->foreignIdFor(User::class)->after('id')->nullable()->constrained()->nullOnDelete();
         });
@@ -22,6 +24,8 @@ return new class extends Migration
      */
     public function down(): void
     {
+
+        /* BOTTO GIU' PRIMA LA RELAZIONE POI LA TABELLA */
         Schema::table('apartments', function (Blueprint $table) {
             $table->dropForeignIdFor(User::class);
             $table->dropColumn('user_id');

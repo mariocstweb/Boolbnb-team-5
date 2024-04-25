@@ -1,28 +1,34 @@
+/* GRANDEZZA IMMAGINE TABELLA */
 .table-img {
   width: 100px;
   height: 90px;
 }
 
+/* ??? */
 .round-50 {
   width: 40px;
   height: 40px;
   border-radius: 50%;
 }
 
+/* TABELLA */
 td,
 th {
   vertical-align: middle;
   text-align: start;
 }
 
+/* PALLINI LISTA */
 ul {
   list-style-type: none;
 }
 
+/* GRANDEZZA INPUT RICERCA */
 .w-search {
   width: 380px;
 }
 
+/* SPONSORIZZAZIONE */
 .badge-sponsor {
   width: 100px;
   color: white;

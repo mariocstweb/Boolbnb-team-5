@@ -19,9 +19,11 @@ class ViewFactory extends Factory
     public function definition(): array
     {
 
+        /* CREO UN ARRAY CON DENTRO GLI ID DEGLI APPARTMENTI */
         $apartments_ids = Apartment::pluck('id')->toArray();
-        // $apartments_ids[] = null;
-
+       
+        
+        /* VALORI FAKE */
         return [
             'code_ip' => fake()->ipv4(),
             'time_of_view' => fake()->time('H:i:s'),

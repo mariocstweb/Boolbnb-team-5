@@ -11,6 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
+
+        /* TABELLA MESSAGGI */
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
             $table->string('first_name', 50)->require();
@@ -26,6 +28,8 @@ return new class extends Migration
      */
     public function down(): void
     {
+
+        /* BUTTI GIU' LA TABELLA */
         Schema::dropIfExists('messages');
     }
 };

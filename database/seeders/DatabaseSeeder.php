@@ -15,11 +15,19 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
+
+        /* USER PRINCIPALE */
         \App\Models\User::factory()->create([
             'name' => 'boolbnb',
             'email' => 'bool@gmail.com',
         ]);
+
+        
+        /* RECUPERI VALORI FATTI NEL SEEDER */
         $this->call([ApartmentSeeder::class, ServiceSeeder::class, SponsorSeeder::class]);
+
+
+        /* VALORI FAKE */
         \App\Models\View::factory(10)->create();
         \App\Models\Message::factory(15)->create();
     }

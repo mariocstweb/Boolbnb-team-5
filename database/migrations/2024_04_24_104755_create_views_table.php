@@ -11,6 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
+
+        /* TABELLA VISUALIZZAZIONI */
         Schema::create('views', function (Blueprint $table) {
             $table->id();
             $table->string('code_ip', 45)->unique();
@@ -24,6 +26,8 @@ return new class extends Migration
      */
     public function down(): void
     {
+
+        /* BOTTO GIU' LA TABELLA */
         Schema::dropIfExists('views');
     }
 };

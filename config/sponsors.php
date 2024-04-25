@@ -1,4 +1,7 @@
 <?php
+
+/* SPONSOR */
+
 return $sponsors = [
   [
     'label' => 'Bronze',

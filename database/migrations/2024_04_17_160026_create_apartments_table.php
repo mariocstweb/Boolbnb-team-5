@@ -11,6 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
+
+        /* TABELLA APPARTEMENTI */
         Schema::create('apartments', function (Blueprint $table) {
             $table->id();
             $table->string('title', 50)->required();
@@ -34,6 +36,8 @@ return new class extends Migration
      */
     public function down(): void
     {
+
+        /* BUTTI GIU' LA TABELLA */
         Schema::dropIfExists('apartments');
     }
 };

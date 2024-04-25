@@ -43,8 +43,12 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+
+    /* RELAZIONE CON IL MODELLO APPARTAMENTI */
     public function apartments()
     {
+
+        /* MOLTI APPARTAMENTI */
         return $this->hasMany(Apartment::class);
     }
 }

@@ -1,4 +1,7 @@
 <?php
+
+/* SERVIZI CHE POTREBBE AVERE GLI APPARTAMENTI */
+
 return [
     ['label' => 'Wi-fi', 'icon' => 'wifi'],
     ['label' => 'Piscina', 'icon' => 'pool'],

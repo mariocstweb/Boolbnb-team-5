@@ -9,8 +9,12 @@ class View extends Model
 {
     use HasFactory;
 
+
+    /* RELAZIONE CON IL MODELLO APPARTAMENTI */
     public function apartment()
     {
+
+        /* UN SOLO APPARTAMENTO */
         return $this->belongsTo(Apartment::class);
     }
 }

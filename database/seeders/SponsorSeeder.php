@@ -10,8 +10,12 @@ class SponsorSeeder extends Seeder
 {
     public function run(): void
     {
+
+        /* RECUPERO ARRAY ASSOCIATIVO IN CONFIG */
         $sponsors = config('sponsors');
 
+
+        /* CICLO SUL L'ARRAY CREANDO UNA NUOVA ISTANZA E DANDOGLI DEI VALORI AD OGNI SINGOLO ELEMENTO */
         foreach ($sponsors as $sponsorData) {
             $new_sponsor = new Sponsor();
             $new_sponsor->label = $sponsorData['label'];

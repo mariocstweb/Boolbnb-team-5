@@ -9,41 +9,35 @@
 @import '_form';
 @import '_pagination';
 
+/* BODY */
 body {
   visibility: visible;
-
   font-family: 'Manrope Variable', sans-serif;
-
 }
 
-
-
-#suggestions {
-  background-color: #f3f2f2;
-  position: absolute;
-  width: 100%;
-  cursor: pointer;
-  z-index: 1;
-}
-
+/* COLORE PRINCIPALE DEL TESTO */
 .c-main {
   color: $main500;
 }
 
+/* ??? */
 .c-main-6 {
   color: #cc484c;
 }
 
+/* BORDO BOTTONI */
 .btn-sec {
   border: 1px solid #FF5A5F;
 }
 
+/* ??? */
 .search {
   border: 1px solid rgb(216, 216, 216);
   padding: 10px;
   border-radius: 60px;
 }
 
+/* ??? */
 .search-button {
   border-radius: 38px;
 }

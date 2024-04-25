@@ -1,4 +1,7 @@
 <?php
+
+/* APPARTAMENTI */
+
 return $apartments = [
   [
     'title' => 'Villetta delle Rose',

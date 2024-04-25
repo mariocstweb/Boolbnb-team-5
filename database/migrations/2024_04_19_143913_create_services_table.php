@@ -11,6 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
+
+        /* TABELLA SERVIZI */
         Schema::create('services', function (Blueprint $table) {
             $table->id();
             $table->string('label', 25)->nullable();
@@ -24,6 +26,8 @@ return new class extends Migration
      */
     public function down(): void
     {
+
+        /* BUTTI GIU' LA TABELLA */
         Schema::dropIfExists('services');
     }
 };

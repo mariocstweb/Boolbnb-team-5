@@ -13,6 +13,8 @@ return new class extends Migration
      */
     public function up(): void
     {
+
+        /* TABELLA PONTE CON GLI ID DEGLI APPARTEMENTI E GLI SPONSOR */
         Schema::create('apartment_sponsor', function (Blueprint $table) {
             $table->foreignIdFor(Apartment::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Sponsor::class)->constrained()->cascadeOnDelete();
@@ -26,6 +28,8 @@ return new class extends Migration
      */
     public function down(): void
     {
+
+        /* BUTTI GIU' LA TABELLA */
         Schema::dropIfExists('apartment_sponsor');
     }
 };

@@ -12,7 +12,12 @@ class SponsorController extends Controller
      */
     public function index()
     {
+
+        /* RECUEPRO TUTTI I RECORD DALLA TABELLA SPONSOR */
         $sponsors = Sponsor::all();
+
+
+        /* RESTITUISCO IN PAGINA */
         return view('sponsor.index', compact('sponsors'));
     }
 

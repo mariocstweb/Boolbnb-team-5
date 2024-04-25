@@ -19,36 +19,41 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Pagina per utente non loggato(metti bottone per login)
+/* ROTTA PANNELLO DI CONTROLLO/LOGIN */
 Route::get('/', DashboardController::class)->name('welcome');
 
+
+/* ROTTE DELL'ADMIN */
 Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function () {
-    // Rotta per spostare un elemento nel cestino
+    
+    /* ROTTA SPOSTA NEL CESTINO */
     Route::get('/apartments/trash', [ApartmentController::class, 'trash'])->name('apartments.trash');
-    // Rotta ripristino elemento dal cestino
+    /* ROTTA RIPRISTINA DAL CESTINO */
     Route::patch('/apartments/{apartment}/restore', [ApartmentController::class, 'restore'])->name('apartments.restore')->withTrashed();
-    // Rotta per l'eliminazione definitiva di un elemento
+    /* ROTTA ELIMINAZIONE DEFINITIVA */
     Route::delete('/apartments/{apartment}/drop', [ApartmentController::class, 'drop'])->name('apartments.drop')->withTrashed();
-    // Svuota tutto il cestino
+    /* SVUOTA TUTTI GLI APPARTAMENTI DAL CESTINO */
     Route::delete('/apartments/empty', [ApartmentController::class, 'empty'])->name('apartments.empty');
-    // Ripristina tutto il cestino
+    /* RIPRISTINA IL CESTINO */
     Route::patch('/apartments/returned', [ApartmentController::class, 'returned'])->name('apartments.returned');
-    // Resources list
+    /* ROTTA RESOURCE LIST */
     Route::resource('apartments', ApartmentController::class)->withTrashed(['show', 'edit', 'update']);
-    // Rotta sponsorizzazioni
+    /* ROTTA SPOSORIZZAZIONE */
     Route::get('/sponsor', [SponsorController::class, 'index'])->name('sponsors.index');
-    // Rotta statistiche
+    /* ROTTA STATISTICHE */
     Route::get('/statistics/{statistic}', StatisticController::class)->name('statistic');
 });
 
 
 
 
-// dashboard
+/* ROTTA DASHBORD NON PIU' ESISTENTE */
 Route::get('/dashboard', function () {
     return view('admin.dashboard');
 })->middleware(['auth', 'verified'])->name('admin.dashboard');
 
+
+/* ROTTE PROFILO UTENTE */
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
