@@ -9,6 +9,9 @@ const latInput = document.getElementById('latitude');
 /* INPUT LOGITUDINE */
 const lonInput = document.getElementById('longitude');
 
+/* INPUT BOTTONE SALVA */
+const saveButton = document.getElementById('save-btn');
+
 /* RECUPER URL DAL SITO TOMTOM */
 const baseUri = 'https://api.tomtom.com/search/2/geocode/';
 
@@ -152,6 +155,21 @@ suggestionAddress.addEventListener('click', (event) => {
 
 });
 
+
+/* EVENTO AL KEYUP DELLA MODIFICA SE IL CAMPO NON CORRISPONDE A QUELLI SUGGERITI */
+inputAddressSearch.addEventListener('keyup', () => {
+
+    /* RIMETTO I VALORI DI LAT E LON A NULLI */
+    latInput.value = null;
+    lonInput.value = null;
+});
+
+/* EVENTO AL SALVA CON ALERT DI UN INDIRIZZO NON VALIDO */
+saveButton.addEventListener('click', () => {
+    if (!latInput.value || !lonInput.value) {
+        alert('Indirizzo non valido')
+    }
+})
 
 
 
