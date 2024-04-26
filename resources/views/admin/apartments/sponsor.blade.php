@@ -42,9 +42,9 @@
                             <p class="card-text fs-4"><strong class="fs-1">{{ $sponsor->price }}€</strong> per
                                 {{ $sponsor->duration }}/h</p>
                             <div class="bg-white rounded">
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#paymentModal" class="btn w-100 fs-4 payment-btn"
-                                    style="background-image: linear-gradient(to left,{{ $sponsor->color }});-webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700;">Passa
-                                    a pro</button>
+                                <button type="button" id="button-{{ $sponsor->id }}" data-bs-toggle="modal" data-bs-target="#paymentModal" class="btn w-100 fs-4 payment-btn"
+                                    style="background-image: linear-gradient(to left,{{ $sponsor->color }});-webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700;">Passa a pro
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -62,4 +62,5 @@
 @section('scripts')
     {{-- MODALE PAGAMENTO --}}
     @vite('resources/js/payment.js')
+    @vite('resources/js/check_payment.js')
 @endsection
