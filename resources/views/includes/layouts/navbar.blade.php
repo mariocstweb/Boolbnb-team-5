@@ -32,12 +32,6 @@
                         {{-- APPARTAMENTI --}}
                         <a class="nav-link @if(Route::is('admin.apartments*')) active @endif" href="{{ route('admin.apartments.index') }}">{{ __('Appartamenti') }}</a>
                     </li>
-                    <li class="nav-item mx-2">
-                        {{-- Aggiungere link index admin(tabella appartamenti) --}}
-                        {{-- <a class="nav-link" href="{{url('/') }}">{{ __('Appartamenti') }}</a> --}}
-                        {{-- SPONSOR --}}
-                        <a class="nav-link @if(Route::is('admin.sponsors*')) active @endif" href="{{ route('admin.sponsors.index') }}">{{ __('Promo') }}</a>
-                    </li>
                 @endauth
 
 

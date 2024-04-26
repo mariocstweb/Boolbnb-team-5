@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Sponsor')
+@section('title', 'Promozione')
 
 @section('content')
 
@@ -30,9 +30,9 @@
                         <p class="card-text fs-4"><strong class="fs-1">{{ $sponsor->price }}€</strong> per
                             {{ $sponsor->duration }}/h</p>
                         <div class="bg-white rounded">
-                            <a href="" class="btn w-100 fs-4 "
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#paymentModal" class="btn w-100 fs-4 payment-btn"
                                 style="background-image: linear-gradient(to left,{{ $sponsor->color }});-webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700;">Passa
-                                a pro</a>
+                                a pro</button>
                         </div>
                     </div>
                 </div>
@@ -40,4 +40,9 @@
         @endforeach
     </div>
 
+@endsection
+
+@section('scripts')
+    {{-- MODALE PAGAMENTO --}}
+    @vite('resources/js/payment.js')
 @endsection

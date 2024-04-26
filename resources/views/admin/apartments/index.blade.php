@@ -76,7 +76,7 @@
                                     {{ $sponsor->label }}</div>
                             {{-- ALTRIMENTI --}}
                             @empty
-                                <a href="{{ route('admin.sponsors.index') }}"
+                                <a href="{{ route('admin.apartments.sponsor', $apartment->id) }}"
                                     class="btn bg-hover text-white p-2">Sponsorizza</a>
                             @endforelse
                         </td>

@@ -326,4 +326,18 @@ class ApartmentController extends Controller
             ->with('type', 'info')
             ->with('message', "Hai ripristinato tutti gli appartamenti");
     }
+
+    public function sponsor(Apartment $apartment)
+    {
+
+        // Check if authorized
+        if (Auth::id() !== $apartment->user_id) {
+            return to_route('admin.apartments.index', $apartment)->with('alert-type', 'warning')->with('alert-message', 'Non sei autorizzato!');
+        }
+
+        // Get all promotions
+        $sponsors = Sponsor::all();
+
+        return view('admin.apartments.sponsor', compact('apartment', 'sponsors'));
+    }
 }

@@ -15,7 +15,8 @@ export default defineConfig({
                 'resources/js/delete_confirmation.js',
                 'resources/js/image_preview.js',
                 'resources/js/address.js',
-                'resources/js/grafic.js'
+                'resources/js/grafic.js',
+                'resources/js/payment.js'
             ],
 
             refresh: true,
