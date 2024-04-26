@@ -61,6 +61,9 @@
     {{-- MODALE --}}
     @include('includes.modal')
 
+    {{-- MODALE PAGAMENTO --}}
+    @include('sponsor.includes.payment')
+
     {{-- SCRIPT --}}
     @yield('scripts')
 </body>
