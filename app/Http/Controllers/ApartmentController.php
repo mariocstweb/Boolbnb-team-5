@@ -22,15 +22,15 @@ class ApartmentController extends Controller
     public function index(Request $request)
     {
 
-        
+
         /* RECUPERO VALORE DEL NAME DELL'INPUT DI RICERCA */
         $search = $request->query('search');
 
-        
+
         /* INIZZIALIZZO LA QUERY CHE FILTRA GLI APPARTAMENTI IN BASE ALL'ID DELL'UTENTE AUTENTICATO */
         $query = Apartment::where('user_id', Auth::id());
 
-        
+
         /* SE NEL CAMPO INPUT DI RICERCA E' INSERITO QUALCOSA */
         if ($search) {
 
@@ -38,13 +38,13 @@ class ApartmentController extends Controller
             $query->where('title', 'LIKE', "$search%");
         }
 
-        
+
         /* ORDINO I RISULTATI DELLA QUERY IN ORDINE */
         $query->orderByDesc('updated_at')->orderByDesc('created_at');
 
-        
+
         /* PAGINAZIONE */
-        $apartments = $query->paginate(2);
+        $apartments = $query->paginate(3);
 
 
         /* RECUEPRO TUTTI I RECORD DALLA TABELLA SPONSOR */
@@ -86,11 +86,11 @@ class ApartmentController extends Controller
         /* INFORMAZIONI SUI DATI DI VALIDAZIONE */
         $data = $request->validated();
 
-        
+
         /* CREO UNA NUOVA INSTAZZA DALLA CLASSE APARTAMENT */
         $apartment = new Apartment();
 
-        
+
         /* POPOLO L'OGGETTO CON I VALORI DELL'ARRAY DATA */
         $apartment->fill($data);
 
@@ -109,7 +109,7 @@ class ApartmentController extends Controller
 
         /* VERIFICO SE ESISTE NELL'ARRAY LA CHIAVE SERVICES, SE ESTISTE */
         if (Arr::exists($data, 'services')) {
-            
+
             /* ATTACCO I RECORD DELL'APPARTAMENTO AI RECORD DELI SERVIZI */
             $apartment->services()->attach($data['services']);
         }
@@ -126,15 +126,15 @@ class ApartmentController extends Controller
      */
     public function show(Apartment $apartment)
     {
-        
+
         /* SE ID DELL'UTENTE AUTENTICATO NON E' IDENTICO ALL'ID DELL'UTENTE PROPRIETARIO DELL'APPARTAMENTO */
-        if (Auth::id() !== $apartment->user_id ) {
-            
+        if (Auth::id() !== $apartment->user_id) {
+
             /* RESTITUISCO UN MESSAGGIO */
             return to_route('admin.apartments.index')->with('type', 'warning')->with('message', 'Non sei autorizzato!');
         }
 
-        
+
         /* RECUEPRO TUTTI I RECORD DALLA TABELLA SERVIZI */
         $services = Service::all();
 
@@ -146,7 +146,7 @@ class ApartmentController extends Controller
         /* RECUEPRO TUTTI I RECORD DALLA TABELLA MESSAGGI */
         $messages = Message::all();
 
-        
+
         /* RECUEPRO TUTTI I RECORD DALLA TABELLA SPONSOR */
         $sponsors = Sponsor::all();
 
@@ -200,10 +200,10 @@ class ApartmentController extends Controller
         /* AGGIORNO INFORMAZIONI */
         $apartment->update($data);
 
-        
+
         /* VERIFICO SE ESISTE NELL'ARRAY LA CHIAVE SERVICES, SE ESTISTE */
-        if (Arr::exists($data, 'services')) { 
-            
+        if (Arr::exists($data, 'services')) {
+
             /* SINCRONIZZO I RECORD DELL'APPARTAMENTO AI RECORD DEI SERVIZI*/
             $apartment->services()->sync($data['services']);
 
@@ -312,7 +312,7 @@ class ApartmentController extends Controller
         /* RECUPERO I RECORD ELIMINATI MA NON DEFINITIVAMENTE */
         $apartments = Apartment::onlyTrashed()->get();
 
-        
+
         /* CICLO SU OGNI ELEMENTO */
         foreach ($apartments as $apartment) {
 

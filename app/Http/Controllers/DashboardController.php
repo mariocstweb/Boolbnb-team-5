@@ -12,13 +12,13 @@ class DashboardController extends Controller
 {
     public function __invoke()
     {
-        
+
         /* ORDINO I RISULTATI DELLA QUERY IN ORDINE E FILTRA GLI APPARTAMENTI IN BASE ALL'ID DELL'UTENTE AUTENTICATO */
         $query = Apartment::where('user_id', Auth::id())->orderByDesc('updated_at')->orderByDesc('created_at');
 
 
         /* PAGINAZIONE */
-        $apartments = $query->paginate(2);
+        $apartments = $query->paginate(3);
 
 
         /* RECUPERO LE VISSUALIZZAZIONI CHE CORRISPONDONO AGLI ID DELL'APPARTAMENTI ESTRANDOLI E FILTRANDOLI */
