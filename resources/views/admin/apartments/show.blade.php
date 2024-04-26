@@ -125,7 +125,7 @@
                             <div class="subscription fw-bold"><i class="fa-regular fa-circle-check"></i> Ti sei abbonato ad
                                 Airbnb {{ $sponsor->label }}</div>
                             <div class="mb-3">
-                                <a href="{{ route('admin.sponsors.index') }}"
+                                <a href="{{ route('admin.apartments.sponsor', $apartment->id) }}"
                                     class="btn bg-hover text-white p-2 mt-3 me-2">Cambia piano</a>
                                 <a href="" class="btn c-main bg-hover-rev p-2 mt-3">Descrizione abbonamento</a>
                             </div>
@@ -146,7 +146,7 @@
                             </div>
                             <p class="fw-bold mt-3">Prova Airbnb Plus e scopri i vantaggi dei nostri piani</p>
                             <div class="d-flex justify-content-end">
-                                <a href="{{ route('admin.sponsors.index') }}"
+                                <a href="{{ route('admin.apartments.sponsor', $apartment->id) }}"
                                     class="btn bg-hover text-white p-2 mt-3">Scopri i piani</a>
                             </div>
                         </div>

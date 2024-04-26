@@ -20,12 +20,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 /* ROTTA PANNELLO DI CONTROLLO/LOGIN */
+
 Route::get('/', DashboardController::class)->name('welcome');
 
 
 /* ROTTE DELL'ADMIN */
 Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function () {
-    
+
     /* ROTTA SPOSTA NEL CESTINO */
     Route::get('/apartments/trash', [ApartmentController::class, 'trash'])->name('apartments.trash');
     /* ROTTA RIPRISTINA DAL CESTINO */
@@ -38,8 +39,10 @@ Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function () {
     Route::patch('/apartments/returned', [ApartmentController::class, 'returned'])->name('apartments.returned');
     /* ROTTA RESOURCE LIST */
     Route::resource('apartments', ApartmentController::class)->withTrashed(['show', 'edit', 'update']);
-    /* ROTTA SPOSORIZZAZIONE */
-    Route::get('/sponsor', [SponsorController::class, 'index'])->name('sponsors.index');
+
+    /* ROTTA PROMOZIONE SINGOLO APPARTAMENTO */
+    Route::get('/apartments/{apartment}/sponsor', [ApartmentController::class, 'sponsor'])->name('apartments.sponsor'); // promote
+
     /* ROTTA STATISTICHE */
     Route::get('/statistics/{statistic}', StatisticController::class)->name('statistic');
 });
