@@ -24,19 +24,19 @@
                         {{-- Aggiungere link index admin(tabella appartamenti) --}}
                         {{-- <a class="nav-link" href="{{url('/') }}">{{ __('Appartamenti') }}</a> --}}
                         {{-- PANNELLO DI CONTROLLO --}}
-                        <a class="nav-link" href="{{ route('welcome') }}">{{ __('Pannello di Controllo') }}</a>
+                        <a class="nav-link @if(Route::is('welcome') || Route::is('admin.statistic*')) active @endif" href="{{ route('welcome') }}">{{ __('Pannello di Controllo') }}</a>
                     </li>
                     <li class="nav-item mx-2">
                         {{-- Aggiungere link index admin(tabella appartamenti) --}}
                         {{-- <a class="nav-link" href="{{url('/') }}">{{ __('Appartamenti') }}</a> --}}
                         {{-- APPARTAMENTI --}}
-                        <a class="nav-link" href="{{ route('admin.apartments.index') }}">{{ __('Appartamenti') }}</a>
+                        <a class="nav-link @if(Route::is('admin.apartments*')) active @endif" href="{{ route('admin.apartments.index') }}">{{ __('Appartamenti') }}</a>
                     </li>
                     <li class="nav-item mx-2">
                         {{-- Aggiungere link index admin(tabella appartamenti) --}}
                         {{-- <a class="nav-link" href="{{url('/') }}">{{ __('Appartamenti') }}</a> --}}
                         {{-- SPONSOR --}}
-                        <a class="nav-link" href="{{ route('admin.sponsors.index') }}">{{ __('Promo') }}</a>
+                        <a class="nav-link @if(Route::is('admin.sponsors*')) active @endif" href="{{ route('admin.sponsors.index') }}">{{ __('Promo') }}</a>
                     </li>
                 @endauth
 
