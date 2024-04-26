@@ -38,13 +38,12 @@
           </ul>
 
           <div id="dropin-container"></div>
-            <input type="submit" class="btn button-primary" value="Ordina e Paga" />
+            <input type="submit" class="btn bg-hover" value="Ordina e Paga" />
             <input type="hidden" id="nonce" name="payment_method_nonce" />
         </div>
         <div class="modal-footer">
-          {{-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button> --}}
         </div>
       </div>
     </div>
   </div>
+

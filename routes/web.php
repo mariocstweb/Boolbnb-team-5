@@ -45,6 +45,9 @@ Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function () {
 
     /* ROTTA STATISTICHE */
     Route::get('/statistics/{statistic}', StatisticController::class)->name('statistic');
+
+    // Rotta Sponsorizzazione
+    Route::post('/apartments/{apartment}/sponsorize', [ApartmentController::class, 'sponsorize'])->name('apartments.sponsorize');
 });
 
 
