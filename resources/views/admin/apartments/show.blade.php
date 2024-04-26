@@ -26,7 +26,14 @@
             <section id="detail">
                 <div class="card rounded-4   p-4">
                     {{-- TITOLO APPARTAMENTO --}}
-                    <h1 class="mb-4">{{ $apartment->title }}</h1>
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <h1 class="mb-4">{{ $apartment->title }}</h1>
+                        <button type="button" id="map-button" class="bg-hover text-white btn" data-bs-toggle="modal"
+                        data-bs-target="#mapModal">
+                        <span class="d-none d-sm-inline">Mostra la mappa</span> <i class="fa-solid fa-map"></i>
+                    </button>
+                    </div>
                     {{-- IMMAGINE DI COPERTINA --}}
                     <div class="thumb-img">
                         <img src="{{ $apartment->cover }}" alt="{{ $apartment->title }}" class="img-fluid">
@@ -37,9 +44,11 @@
                         <p class="card-text">
                             {{ $apartment->description }}
                             {{-- INDIRIZZO --}}
-                        <div class="road fw-bold"><i class="fa-solid fa-location-dot me-2"></i>{{ $apartment->address }}
+                        <div class="road fw-bold">
+                            <i class="fa-solid fa-location-dot me-2"></i>{{ $apartment->address }}
                         </div>
-                        </p>
+                    </p>
+                   
                         {{-- DETTAGLI DELL'APPARTAMENTO --}}
                         <h2 class="card-title mt-5 mb-2">Dettaglio appartamento</h2>
                         <div class="fw-medium stats mb-2">Come è composto</div>
@@ -154,6 +163,39 @@
                 </section>
             @endforelse
         </div>
+        <!-- Map Modal -->
+        <div class="modal fade" id="mapModal" tabindex="-1" aria-labelledby="mapModalLabel" aria-hidden="true">
+            <div class="map modal-dialog modal-dialog-centered">
+                <div class="modal-content text-center">
+                    {{-- Map --}}
+                    @if ($apartment->address)
+                        <div class="modal-header">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="map modal-body flex-column flex-lg-row">
+                            {{-- Title & Address --}}
+                            <div class="description ">
+                                <h3>{{ $apartment->title }}</h3>
+                                <hr>
+                                <h5>Si trova a </h5>
+                                <h6>{{ $apartment->address }}</h6>
+                            </div>
+                            {{-- Map --}}
+                            <div>
+                                <div id="map" data-latitude="{{ $apartment->latitude }}"
+                                    data-longitude="{{ $apartment->longitude }}">
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                </div>
+            </div>
+        </div>
     </div>
     
 @endsection
+
+@section('scripts')
+        @vite( 'resources/js/map-show.js')
+    @endsection

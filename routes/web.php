@@ -37,9 +37,6 @@ Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function () {
     Route::delete('/apartments/empty', [ApartmentController::class, 'empty'])->name('apartments.empty');
     /* RIPRISTINA IL CESTINO */
     Route::patch('/apartments/returned', [ApartmentController::class, 'returned'])->name('apartments.returned');
-    /* ROTTA RESOURCE LIST */
-    Route::resource('apartments', ApartmentController::class)->withTrashed(['show', 'edit', 'update']);
-
     /* ROTTA PROMOZIONE SINGOLO APPARTAMENTO */
     Route::get('/apartments/{apartment}/sponsor', [ApartmentController::class, 'sponsor'])->name('apartments.sponsor'); // promote
 
@@ -48,6 +45,8 @@ Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function () {
 
     // Rotta Sponsorizzazione
     Route::post('/apartments/{apartment}/sponsorize', [ApartmentController::class, 'sponsorize'])->name('apartments.sponsorize');
+    /* ROTTA RESOURCE LIST */
+    Route::resource('apartments', ApartmentController::class)->withTrashed(['show', 'edit', 'update']);
 });
 
 
