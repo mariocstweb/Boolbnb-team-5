@@ -16,7 +16,8 @@ export default defineConfig({
                 'resources/js/image_preview.js',
                 'resources/js/address.js',
                 'resources/js/grafic.js',
-                'resources/js/payment.js'
+                'resources/js/payment.js',
+                'resources/js/check_payment'
             ],
 
             refresh: true,

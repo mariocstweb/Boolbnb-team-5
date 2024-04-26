@@ -9,7 +9,6 @@ use App\Models\Message;
 use App\Models\Service;
 use App\Models\Sponsor;
 use App\Models\View;
-use Braintree\Gateway;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
@@ -331,91 +330,17 @@ class ApartmentController extends Controller
 
 
     // Sponsor
-    // public function sponsor(Apartment $apartment)
-    // {
-
-    //     // Check if authorized
-    //     if (Auth::id() !== $apartment->user_id) {
-    //         return to_route('admin.apartments.index', $apartment)->with('alert-type', 'warning')->with('alert-message', 'Non sei autorizzato!');
-    //     }
-
-    //     // Setup Braintree
-    //     $gateway = new \Braintree\Gateway(config('braintree'));
-    //     $clientToken = $gateway->clientToken()->generate();
-
-
-    //     // Get all sponsors
-    //     $sponsors = Sponsor::all();
-
-    //     return view('admin.apartments.sponsor', compact('apartment', 'sponsors', 'clientToken'));
-    // }
     public function sponsor(Apartment $apartment)
     {
-        // Verifica se autorizzato
+
+        // Check if authorized
         if (Auth::id() !== $apartment->user_id) {
-            return redirect()->route('admin.apartments.index')->with('alert-type', 'warning')->with('alert-message', 'Non sei autorizzato!');
+            return to_route('admin.apartments.index', $apartment)->with('alert-type', 'warning')->with('alert-message', 'Non sei autorizzato!');
         }
 
-        // Inizializza Braintree Gateway con le credenziali
-        $gateway = new Gateway([
-            'environment' => config('braintree.environment'),
-            'merchantId' => config('braintree.merchantId'),
-            'publicKey' => config('braintree.publicKey'),
-            'privateKey' => config('braintree.privateKey')
-        ]);
-
-        // Genera il token di autorizzazione Braintree
-        $clientToken = $gateway->clientToken()->generate();
-
-        // Recupera tutti gli sponsor
+        // Get all sponsors
         $sponsors = Sponsor::all();
 
-        return view('admin.apartments.sponsor', compact('apartment', 'sponsors', 'clientToken'));
-    }
-
-    // ...
-
-    public function sponsorize(Request $request, String $id)
-    {
-
-        // Get apartment with end date data
-        $apartment = Apartment::withMax(['sponsors' => function ($query) {
-            $query->where('apartment_sponsor.end_date', '>=', date("Y-m-d H:i:s"));
-        }], 'apartment_sponsor.end_date')->find($id);
-
-        // Get all request inputs
-        $data = $request->all();
-
-        // Get Promotion Chosen Data
-        $sponsor = Sponsor::find($data['sponsor']);
-
-
-        // Make transaction
-        $gateway = new \Braintree\Gateway(config('braintree'));
-
-        $payment = $gateway->transaction()->sale([
-            'amount' => $sponsor->price,
-            'paymentMethodNonce' => $data['payment_method_nonce'],
-            'options' => [
-                'submitForSettlement' => True
-            ]
-        ]);
-
-
-        // Payment success
-        if ($payment->success) {
-
-            // Calculate pivot table fields data
-            $start_date = $apartment->sponsors_max_apartment_sponsored_date ?? date('Y-m-d H:i:s'); // start promotion from active promotion or now
-            $end_date = date('Y-m-d H:i:s', strtotime("+ $sponsor->duration hours", strtotime($start_date))); // end prootion based on start date and sponsor chosen
-
-            // Set pivot table fields
-            $apartment->sponsors()->attach($data['sponsor'], ['start_date' => $start_date, 'end_date' => $end_date]);
-
-            return to_route('admin.apartments.index')->with('alert-message', "Promozione $sponsor->name attivata sul boolbnb $apartment->title. Totale pagato: $sponsor->price €.")->with('alert-type', 'success');
-        }
-
-        // Payment failed
-        return to_route('admin.apartments.index')->with('alert-message', "Il pagamento non è andato a buon fine.")->with('alert-type', 'danger');
+        return view('admin.apartments.sponsor', compact('apartment', 'sponsors'));
     }
 }

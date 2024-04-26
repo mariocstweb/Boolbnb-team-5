@@ -28,8 +28,9 @@
             @foreach ($sponsors as $sponsor)
               <li>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                  <label class="form-check-label" for="flexRadioDefault1">
+                  <input class="form-check-input" type="radio" name="radio-{{$sponsor->id}}" id="sponsor-{{ $sponsor->id }}" value="{{ $sponsor->id }}"
+                  @if ($loop->first) checked @endif>
+                  <label class="form-check-label" for="radio-{{$sponsor->id}}">
                     <span class="me-2" style="background-image: linear-gradient(to left,{{ $sponsor->color }});-webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700;">{{$sponsor->label}}</span> €{{$sponsor->price}} / {{$sponsor->duration}}h
                   </label>
                 </div>      
