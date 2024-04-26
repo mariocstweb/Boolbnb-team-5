@@ -15,7 +15,7 @@ class DashboardController extends Controller
         // Query per gli appartamenti
         $query = Apartment::where('user_id', Auth::id())->orderByDesc('updated_at')->orderByDesc('created_at');
 
-        $apartments = $query->paginate(2);
+        $apartments = $query->paginate(3);
 
         $views = View::all();
 

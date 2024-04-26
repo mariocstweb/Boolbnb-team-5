@@ -41,7 +41,7 @@ class ApartmentController extends Controller
             $query->where('title', 'LIKE', "%$search%");
         }
 
-        $apartments = $query->paginate(2);
+        $apartments = $query->paginate(3);
 
         $sponsors = Sponsor::all();
 
