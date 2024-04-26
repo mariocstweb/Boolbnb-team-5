@@ -22,7 +22,7 @@
         </ol>
     </nav>
     {{-- BOTTONE SALVA --}}
-    <button class="btn bg-hover text-white" type="submit"><i class="fa-solid fa-floppy-disk me-2"></i>Salva</button>
+    <button class="btn bg-hover text-white" id="save-btn" type="submit"><i class="fa-solid fa-floppy-disk me-2"></i>Salva</button>
 </div>
 {{-- CONTENUTO FORM --}}
 <div class="d-flex gap-5 mt-3 mb-5">
