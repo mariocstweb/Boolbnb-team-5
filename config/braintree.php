@@ -1,5 +1,6 @@
 <?php
 
+/* FILE DA PASSARE A BRAINTREE GETAWAY */
 return [
   'environment' => env('BRAINTREE_ENV', 'sandbox'),
   'merchantId' => env('BRAINTREE_MERCHANT_ID'),

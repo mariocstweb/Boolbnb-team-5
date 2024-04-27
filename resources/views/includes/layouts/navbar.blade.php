@@ -7,7 +7,6 @@
                 <img src="{{ Vite::asset('resources/img/logo.png') }}" alt="" class="img-fluid me-1" id="nav-logo">
                 <span id="link-logo">boolbnb</span>
             </div>
-            {{-- config('app.name', 'Laravel') --}}
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -21,14 +20,10 @@
                 {{-- SOLO UTENTI AUTENTICATI --}}
                 @auth
                     <li class="nav-item mx-2">
-                        {{-- Aggiungere link index admin(tabella appartamenti) --}}
-                        {{-- <a class="nav-link" href="{{url('/') }}">{{ __('Appartamenti') }}</a> --}}
                         {{-- PANNELLO DI CONTROLLO --}}
                         <a class="nav-link @if(Route::is('welcome') || Route::is('admin.statistic*')) active @endif" href="{{ route('welcome') }}">{{ __('Pannello di Controllo') }}</a>
                     </li>
                     <li class="nav-item mx-2">
-                        {{-- Aggiungere link index admin(tabella appartamenti) --}}
-                        {{-- <a class="nav-link" href="{{url('/') }}">{{ __('Appartamenti') }}</a> --}}
                         {{-- APPARTAMENTI --}}
                         <a class="nav-link @if(Route::is('admin.apartments*')) active @endif" href="{{ route('admin.apartments.index') }}">{{ __('Appartamenti') }}</a>
                     </li>

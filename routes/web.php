@@ -38,12 +38,12 @@ Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function () {
     /* RIPRISTINA IL CESTINO */
     Route::patch('/apartments/returned', [ApartmentController::class, 'returned'])->name('apartments.returned');
     /* ROTTA PROMOZIONE SINGOLO APPARTAMENTO */
-    Route::get('/apartments/{apartment}/sponsor', [ApartmentController::class, 'sponsor'])->name('apartments.sponsor'); // promote
+    Route::get('/apartments/{apartment}/sponsor', [ApartmentController::class, 'sponsor'])->name('apartments.sponsor');
 
     /* ROTTA STATISTICHE */
     Route::get('/statistics/{statistic}', StatisticController::class)->name('statistic');
 
-    // Rotta Sponsorizzazione
+    /* ROTTA SPONSORIZZAZZIONE PER IL PAGAMENTO */
     Route::post('/apartments/{apartment}/sponsorize', [ApartmentController::class, 'sponsorize'])->name('apartments.sponsorize');
     /* ROTTA RESOURCE LIST */
     Route::resource('apartments', ApartmentController::class)->withTrashed(['show', 'edit', 'update']);

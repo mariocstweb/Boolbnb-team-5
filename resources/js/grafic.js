@@ -1,4 +1,4 @@
-let base = +new Date(1968, 9, 3);
+/* let base = +new Date(1968, 9, 3);
 let oneDay = 24 * 3600 * 1000;
 let date = [];
 let data = [Math.random() * 300];
@@ -71,4 +71,4 @@ option = {
             data: data
         }
     ]
-};
+}; */

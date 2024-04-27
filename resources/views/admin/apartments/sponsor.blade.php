@@ -23,7 +23,7 @@
     <img src="{{ Vite::asset('resources/img/plus.png') }}" alt="" class="img-fluid mt-4">
     <h3 class="my-4">Acquista uno dei nostri pacchetti e ottieni dei vantaggi esclusivi sui tuoi appartamenti</h3>
 
-
+    {{-- FROM DI PAGAMENTO --}}
     <form id="payment-form" action="{{ route('admin.apartments.sponsorize', $apartment) }}" method="post" data-token="{{ $clientToken }}">
         @csrf
         <div class="row">
@@ -50,14 +50,13 @@
     
             @include('sponsor.includes.payment')
         </div>
-
-    {{-- </form> --}}
-   
+    </form>
 
 @endsection
 
 @section('scripts')
     {{-- MODALE PAGAMENTO --}}
     @vite('resources/js/payment.js')
+    {{-- MODALE CHECK RADIO --}}
     @vite('resources/js/check_payment.js')
 @endsection

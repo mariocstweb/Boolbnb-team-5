@@ -3,38 +3,51 @@
 -------------------------------------------*/
 import tt from "@tomtom-international/web-sdk-maps"
 
-// INIT
+/* RECUPERO BOTTONE MAPPA */
 const mapButton = document.getElementById('map-button');
+/* RECUPERO LA MAPPA */
 const mapContainer = document.getElementById('map');
 
-// Funzione per gestire il click sul pulsante della mappa
+
+/* FUNZIONE PER GESTIRE IL CLICK */
 function handleMapButtonClick() {
+
+    /* SE ESEISTE */
     if (mapContainer) {
 
 
+        /* RECUEPRO CORDINATATE DAL DATASET */
         const lat = mapContainer.dataset.latitude;
         const lon = mapContainer.dataset.longitude;
 
+
+        /* CREAZIONE DELLA MAPPA */
         const map = tt.map({
-            key: import.meta.env.VITE_TT_API_KEY,
-            container: mapContainer,
+            key: import.meta.env.VITE_TT_API_KEY, // API KEY 
+            container: mapContainer, // CONTENITORE
             center: [
-                lon,
-                lat
-            ],
-            zoom: 12
+                lat,
+                lon
+            ], // LATITUDINE E LONGITUDINE
+            zoom: 12 // ZOOM VISTA
         });
+
+
+        /* AGGIUNGO LO ZOOM SULLA MAPPA */
         map.addControl(new tt.NavigationControl());
 
+        /* MAKER AL CENTRO DELLA PAGINA */
         const marker = new tt.Marker().setLngLat([lon, lat]).addTo(map);
 
-        // Fix map size bug
-        setTimeout(() => { map.resize(); }, 200);
+        /* DIMESIONE MAPPA */
+        setTimeout(() => { map.resize(); }, 150);
 
-        // Rimuove l'event listener dopo aver creato la mappa
+        
+        /* RIMUOVO L'EVENTO DOPO AVER CHIUSO LA MAPPA */
         mapButton.removeEventListener('click', handleMapButtonClick);
     }
 }
 
-// Aggiunge l'event listener per il click sul pulsante della mappa
+
+/* ALL'EVENTO SUL BOTTONE RICHIAMO LA FUNZIONE */
 mapButton.addEventListener('click', handleMapButtonClick);

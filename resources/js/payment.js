@@ -1,65 +1,77 @@
-// Get DOM Elements
+/* RECUEPRO FORM */
 const form = document.getElementById('payment-form');
-const submitBtn = form.querySelector('input[type="submit"]');
+/* RECUEPRO BOTTONE PAGA */
+const submitBtn = document.querySelector('.input-submit');
 
-// Get data
+
+/* RECUEPRO IL VALORE DELL'ALTTRIBUTO DATA-TOKEN PER AUTORIZZAZZIONE DEL PAGAMENTO */
 const clientToken = form.dataset.token;
+
+/* VARIBILE DA MANIPOLARE PER CONTROLLARE SE LA RICHIESTA DEL PAGAMENTO E' GIA STATA FATTA */
 let paymentRequested = false;
 
-// Init Braintree Dropin
+
+/* INIZIALIZZAZZIONE DEL COMPINENTE DROP-IN DI BRAINTREE */
 braintree.dropin.create({
-    authorization: clientToken,
-    container: '#dropin-container'
+    authorization: clientToken, // AUTORIZZIONE TRAMITE IL TOKEN
+    container: '#dropin-container' // CONTENITORE DOVE INSERIRE IL DROP-IN
+
+
 }, (error, dropinInstance) => {
-    // Gestione degli errori durante la creazione del Drop-in
+
+    /* CONTROLLO ERRORI DURANTE LA CREZIONE DEL DROP-IN */
     if (error) {
+
+        /* MESSAGGIO ERRORE */
         console.error('Error creating Drop-in:', error);
         return;
     }
 
-    // Event listener per la sottomissione del modulo
+    /* EVENTO AL FORM  */
     form.addEventListener('submit', event => {
+
+
+        /* BLOCCO COMPORTAMENTO DI DAFAULT */
         event.preventDefault();
 
-        // Blocco delle richieste di pagamento se già effettuate
+
+        /* SE ESISTE GIA' UNA RICHIESTA DI PAGAMENTO BLOCCA TUTTO */
         if (paymentRequested) return;
 
-        // Impedire ulteriori sottomissioni
+
+        /* IMPOSTO LA VARIBILE A TRUE PER BLOCCARE ULTERIORI RICHIESTE */
         paymentRequested = true;
+
+
+        /* DISABILITO BOTTONE PER PREVENIRE ULTERIORI RICHIESTE */
         submitBtn.disabled = true;
 
-        // Richiesta del metodo di pagamento (Nonce)
+
+        /* RUCHIEDO METODO DI PAGAMENTO DA BRAINTREE (NONCE) */
         dropinInstance.requestPaymentMethod((error, payload) => {
-            // Gestione degli errori durante la richiesta del metodo di pagamento
+
+
+            /* CONTROLLO SE CI SONO ERRORI DURANTE LA RICHIESTA */
             if (error) {
+
+                /* MESSAGGIO DI ERRORE */
                 console.error('Error requesting payment method:', error);
-                // Ripristina lo stato del pulsante di invio
+
+                /* RIPRISTINO LO STATO INIZIALE IN CASO DI ERRORE */
                 paymentRequested = false;
                 submitBtn.disabled = false;
                 return;
             }
 
-            // Imposta il valore del nonce nel campo nascosto del modulo
+
+            /* ASSEGNO IL VARORE DEL NONCE (TOKEN) AL CAMPO INPUT NASCOSTO */
             document.getElementById('nonce').value = payload.nonce;
 
-            // Invia il modulo
+
+            /* INVIO IL MODULO PER IL PAGAMENTO */
             form.submit();
         });
     });
 });
 
-
-
-document.addEventListener('DOMContentLoaded', function () {
-    // Aggiungi un gestore di eventi click per catturare il clic sul pulsante di pagamento per ogni sponsor
-    const paymentButtons = document.querySelectorAll('.payment-btn');
-    paymentButtons.forEach(button => {
-        button.addEventListener('click', function () {
-            // Ottieni l'ID dello sponsor dal pulsante
-            const sponsorId = button.id.split('-')[1];
-            // Imposta il valore del campo nascosto "sponsor" con l'ID dello sponsor selezionato
-            document.getElementById('sponsor').value = sponsorId;
-        });
-    });
-});
 

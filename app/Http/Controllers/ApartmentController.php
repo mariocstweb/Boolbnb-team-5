@@ -237,7 +237,7 @@ class ApartmentController extends Controller
             ->with('message', "Hai spostato '$apartment->title' nel cestino.");
     }
 
-
+    /* CESTINO */
     public function trash()
     {
 
@@ -262,6 +262,7 @@ class ApartmentController extends Controller
             ->with('message', "Hai ripristinato '$apartment->title' con successo.");
     }
 
+    /* ELIMINAZIONE DEFINITIVA CESTINO */
     public function drop(Apartment $apartment)
     {
 
@@ -276,7 +277,7 @@ class ApartmentController extends Controller
     }
 
 
-    // Svuota completamente il cestino
+    /* SVUOTA CAMPI CESTINO */
     public function empty()
     {
 
@@ -305,7 +306,7 @@ class ApartmentController extends Controller
     }
 
 
-    // Ripristina completamente il cestino
+    /* RIPRISTINA TUTTO DAL CESTINO */
     public function returned()
     {
 
@@ -328,70 +329,99 @@ class ApartmentController extends Controller
     }
 
 
-
-    // Sponsor
+    /* SPONSOR */
     public function sponsor(Apartment $apartment)
     {
 
-        // Check if authorized
+        /* VERIFICO SE ID DELL'UTENTE ATTUALMENTE AUTENTICATO NON E' IDENTICO ALL'ID DELL'UTENTE DELL'APPARTAMENTO (PROPRIETARIO) */
         if (Auth::id() !== $apartment->user_id) {
-            return to_route('admin.apartments.index', $apartment)->with('alert-type', 'warning')->with('alert-message', 'Non sei autorizzato!');
+            
+            /* MESSAGGIO SE GLI ID NON CORRISPONDONO */
+            return to_route('admin.apartments.index', $apartment)->with('type', 'warning')->with('message', 'Non sei autorizzato!');
         }
 
-        // Setup Braintree
+        
+        /* CREO UNA NUOVA ISTANZA DI BRAINTREE GATEWAY E UTILIZZO LE CONFIGURAZZIONE DEL FILE CREATO IN CONFIG */
         $gateway = new \Braintree\Gateway(config('braintree'));
+
+        
+        /* GENERO UN TOKEN PER ESSERE UTILIZZATO PER INTERAGIRE IN MODO SICURO CON BRAINTREE PER I PAGAMENTI */
         $clientToken = $gateway->clientToken()->generate();
 
-        // Get all sponsors
+        
+        /* RECUEPRO TUTTI I RECORD DALLA TABELLA SPONSOR */
         $sponsors = Sponsor::all();
 
+
+        /* RESTITUISCO IN PAGINA */
         return view('admin.apartments.sponsor', compact('apartment', 'sponsors', 'clientToken'));
     }
 
+
+    /* SPONSORIZZAZIONE */
     public function sponsorize(Request $request, $id)
     {
-        // Recupero l'appartamento
+        
+        /* RECUPERO SPECIFICO APPARTAMENTO IN BASE AL SUO ID */
         $apartment = Apartment::findOrFail($id);
 
-        // Recupero i dati dalla richiesta
+        
+        /* RECUEPRO DATI INVIATI TRAMITE RICHIESTA E FACCIO LA VALIDAZIONE */
         $data = $request->validate([
             'sponsor' => 'required|exists:sponsors,id',
             'payment_method_nonce' => 'required',
         ]);
 
-        // Recupero il sponsor selezionato
+        
+        /* RECUPERO SPECIFICO SPONSOR IN BASE AL SUO ID (RECUPERO DAI DATA) */
         $sponsor = Sponsor::findOrFail($data['sponsor']);
 
-        // Inizializzo il gateway di Braintree
+        
+        /* CREO UNA NUOVA ISTANZA DI BRAINTREE GATEWAY E UTILIZZO LE CONFIGURAZZIONE DEL FILE CREATO IN CONFIG */
         $gateway = new \Braintree\Gateway(config('braintree'));
 
-        // Effettuo la transazione di pagamento
+        
+        /* TRANSIZIONE DI VENDITA */
         $result = $gateway->transaction()->sale([
-            'amount' => $sponsor->price,
-            'paymentMethodNonce' => $data['payment_method_nonce'],
+            'amount' => $sponsor->price, // IMPORTO DA ADDEBITARE
+            'paymentMethodNonce' => $data['payment_method_nonce'], // METODO DI PAGAMENTO
             'options' => [
-                'submitForSettlement' => true
+                'submitForSettlement' => true // TRANSIZIONE INVITA PER LA LIQUIDAZIONE IMMEDIATA
             ]
         ]);
 
-        // Controllo se la transazione è andata a buon fine
+        
+        /* CONTROLLO TRANSIZIONE E' STATA ESEGUITA CON SUCCESSO */
         if ($result->success) {
-            // Calcolo le date di inizio e fine della sponsorizzazione
+            
+            
+            /* CALCOLO DATA DI INIZIO DELLA SPOSORIZZAZIONE ????? */ 
             $startDate = $apartment->sponsors_max_apartment_sponsorend_date ?? now();
             $expiration_date = now()->addHours($sponsor->duration);
 
-            // Aggiungo la sponsorizzazione all'appartamento
+            
+            /* ATTACCO I RECORD DEGLI APPARTAMNETI AGLI SPONSOR */
             $apartment->sponsors()->attach($sponsor, ['start_date' => $startDate, 'expiration_date' => $expiration_date]);
 
+
+            /* RESTITUISCO IN PAGINA */
             return redirect()->route('admin.apartments.index')
-                ->with('alert-message', "La sponsorizzazione '$sponsor->name' è stata attivata con successo per l'appartamento '$apartment->title'.")
-                ->with('alert-type', 'success');
+                ->with('message', "La sponsorizzazione '$sponsor->label' è stata attivata con successo per l'appartamento '$apartment->title'.")
+                ->with('type', 'success');
+
+
+            /* ALTRIMENNTI */
         } else {
-            // Gestisco l'errore della transazione
+            
+            
+            /* MESSAGGIO DI ERRORE */
             $errorMessage = $result->message;
+
+            
+            /* RESTITUISCO IN PAGINA */
             return redirect()->route('admin.apartments.index')
-                ->with('alert-message', "Errore durante il pagamento: $errorMessage")
-                ->with('alert-type', 'danger');
+                ->with('message', "Errore durante il pagamento: $errorMessage")
+                ->with('type', 'danger');
         }
     }
 }

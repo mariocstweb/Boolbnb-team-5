@@ -18,14 +18,4 @@ class Sponsor extends Model
         return $this->belongsToMany(Apartment::class)->withPivot('expiration_date');
     }
 
-
-
-    public function durationInMinutes()
-    {
-        // La durata è rappresentata come HH:MM
-        list($hours, $minutes) = explode(':', $this->duration);
-
-        // Calcola il totale dei minuti
-        return ($hours * 60) + $minutes;
-    }
 }

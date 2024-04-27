@@ -50,19 +50,18 @@
 
         {{-- MAIN --}}
         <main class="container">
+
             {{-- ALERT --}}
             @include('includes.alert')
 
             {{-- CONTENUTO --}}
             @yield('content')
+
         </main>
     </div>
 
-    {{-- MODALE --}}
+    {{-- MODALE ELEMINAZIONE APPARTAMENTO --}}
     @include('includes.modal')
-
-    {{-- MODALE PAGAMENTO --}}
-    {{-- @include('sponsor.includes.payment') --}}
 
     {{-- SCRIPT --}}
     @yield('scripts')
