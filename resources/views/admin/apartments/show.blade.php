@@ -30,7 +30,7 @@
                         <h1>{{ $apartment->title }}</h1>
                             <button type="button" id="map-button" class="bg-hover text-white btn" data-bs-toggle="modal"
                             data-bs-target="#mapModal">
-                            <span class="d-none d-sm-inline">Mostra la mappa</span> <i class="fa-solid fa-map"></i>
+                            <span class="d-none d-sm-inline">Mostra la mappa</span> <i class="fa-solid fa-map ms-1"></i>
                     </button>
                     </div>
                     {{-- IMMAGINE DI COPERTINA --}}
