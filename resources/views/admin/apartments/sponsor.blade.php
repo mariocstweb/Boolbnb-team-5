@@ -23,13 +23,9 @@
     <img src="{{ Vite::asset('resources/img/plus.png') }}" alt="" class="img-fluid mt-4">
     <h3 class="my-4">Acquista uno dei nostri pacchetti e ottieni dei vantaggi esclusivi sui tuoi appartamenti</h3>
 
-      <form id="payment-form" action="{{ route('admin.apartments.sponsorize', $apartment) }}" method="post"
-            data-token="{{ csrf_token() }}">
-    {{-- <form id="payment-form" action="{{ route('admin.apartments.sponsorize', $apartment) }}" method="post"
-            data-token="{{ $clientToken }}"> --}}
-            {{-- Campo nascosto per il token CSRF  --}}
-   {{-- <input type="hidden" name="_token" value="{{ csrf_token() }}"> --}}
 
+    <form id="payment-form" action="{{ route('admin.apartments.sponsorize', $apartment) }}" method="post" data-token="{{ $clientToken }}">
+        @csrf
         <div class="row">
             {{-- CICLO SU GLI SPONSOR --}}
             @foreach ($sponsors as $sponsor)
@@ -50,6 +46,7 @@
                     </div>
                 </div>
             @endforeach
+            <input type="hidden" name="sponsor" id="sponsor" value="{{$sponsor->id}}">
     
             @include('sponsor.includes.payment')
         </div>
