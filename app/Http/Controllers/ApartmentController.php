@@ -338,9 +338,60 @@ class ApartmentController extends Controller
             return to_route('admin.apartments.index', $apartment)->with('alert-type', 'warning')->with('alert-message', 'Non sei autorizzato!');
         }
 
+        // Setup Braintree
+        $gateway = new \Braintree\Gateway(config('braintree'));
+        $clientToken = $gateway->clientToken()->generate();
+
         // Get all sponsors
         $sponsors = Sponsor::all();
 
-        return view('admin.apartments.sponsor', compact('apartment', 'sponsors'));
+        return view('admin.apartments.sponsor', compact('apartment', 'sponsors', 'clientToken'));
+    }
+
+    public function sponsorize(Request $request, $id)
+    {
+        // Recupero l'appartamento
+        $apartment = Apartment::findOrFail($id);
+
+        // Recupero i dati dalla richiesta
+        $data = $request->validate([
+            'sponsor' => 'required|exists:sponsors,id',
+            'payment_method_nonce' => 'required',
+        ]);
+
+        // Recupero il sponsor selezionato
+        $sponsor = Sponsor::findOrFail($data['sponsor']);
+
+        // Inizializzo il gateway di Braintree
+        $gateway = new \Braintree\Gateway(config('braintree'));
+
+        // Effettuo la transazione di pagamento
+        $result = $gateway->transaction()->sale([
+            'amount' => $sponsor->price,
+            'paymentMethodNonce' => $data['payment_method_nonce'],
+            'options' => [
+                'submitForSettlement' => true
+            ]
+        ]);
+
+        // Controllo se la transazione è andata a buon fine
+        if ($result->success) {
+            // Calcolo le date di inizio e fine della sponsorizzazione
+            $startDate = $apartment->sponsors_max_apartment_sponsorend_date ?? now();
+            $expiration_date = now()->addHours($sponsor->duration);
+
+            // Aggiungo la sponsorizzazione all'appartamento
+            $apartment->sponsors()->attach($sponsor, ['start_date' => $startDate, 'expiration_date' => $expiration_date]);
+
+            return redirect()->route('admin.apartments.index')
+                ->with('alert-message', "La sponsorizzazione '$sponsor->name' è stata attivata con successo per l'appartamento '$apartment->title'.")
+                ->with('alert-type', 'success');
+        } else {
+            // Gestisco l'errore della transazione
+            $errorMessage = $result->message;
+            return redirect()->route('admin.apartments.index')
+                ->with('alert-message', "Errore durante il pagamento: $errorMessage")
+                ->with('alert-type', 'danger');
+        }
     }
 }
