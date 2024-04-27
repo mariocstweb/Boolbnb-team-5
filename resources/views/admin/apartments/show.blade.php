@@ -26,12 +26,11 @@
             <section id="detail">
                 <div class="card rounded-4   p-4">
                     {{-- TITOLO APPARTAMENTO --}}
-                    <div class="d-flex justify-content-between align-items-center">
-
-                        <h1 class="mb-4">{{ $apartment->title }}</h1>
-                        <button type="button" id="map-button" class="bg-hover text-white btn" data-bs-toggle="modal"
-                        data-bs-target="#mapModal">
-                        <span class="d-none d-sm-inline">Mostra la mappa</span> <i class="fa-solid fa-map"></i>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h1>{{ $apartment->title }}</h1>
+                            <button type="button" id="map-button" class="bg-hover text-white btn" data-bs-toggle="modal"
+                            data-bs-target="#mapModal">
+                            <span class="d-none d-sm-inline">Mostra la mappa</span> <i class="fa-solid fa-map"></i>
                     </button>
                     </div>
                     {{-- IMMAGINE DI COPERTINA --}}
