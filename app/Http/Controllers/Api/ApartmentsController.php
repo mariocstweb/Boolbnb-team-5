@@ -30,11 +30,11 @@ class ApartmentsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $slug)
+    public function show(string $id)
     {
-        // $word = Word::whereSlug($slug)->with('tags')->first();
-        // if (!$word) return response(null, 404);
-        // return response()->json($word);
+        $apartment = Apartment::findOrFail($id);
+        if (!$apartment) return response(null, 404);
+        return response()->json($apartment);
     }
 
     /**
