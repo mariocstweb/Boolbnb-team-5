@@ -32,7 +32,7 @@ class ApartmentsController extends Controller
      */
     public function show(string $id)
     {
-        $apartment = Apartment::findOrFail($id);
+        $apartment = Apartment::find($id);
         if (!$apartment) return response(null, 404);
         return response()->json($apartment);
     }
