@@ -40,6 +40,13 @@ class ApartmentsController extends Controller
             $query->where('beds', '>=', $beds);
         }
 
+        if ($request->has('services')) {
+            $services = $request->input('services');
+            $query->whereHas('services', function ($q) use ($services) {
+                $q->whereIn('id', $services);
+            });
+        }
+
         // // Filtra gli appartamenti per range se presente il parametro "range"
         // if ($request->has('range') && $request->has('latitude') && $request->has('longitude')) {
         //     $range = $request->input('range');
