@@ -24,7 +24,8 @@
                 <div>
                     <span class="btn bg-icon me-2"><i class="fa-solid fa-envelope-open-text"></i></span>
                     {{-- TOTALE MESSAGGI --}}
-                    <span>{{ $messages->count() }}</span>
+                    {{-- <span>{{ $messages->count() }}</span> --}}
+                    <span>{{ $totalMessages }}</span>
                 </div>
 
             </div>
@@ -36,7 +37,7 @@
                 <div>
                     <span class="btn bg-icon me-2"><i class="fa-regular fa-eye"></i></span>
                     {{-- TOTLAE VISUALIZZAZIONI --}}
-                    <span>{{ $views->count() }}</span>
+                    <span>{{ $totalViews }}</span>
                 </div>
             </div>
         </div>

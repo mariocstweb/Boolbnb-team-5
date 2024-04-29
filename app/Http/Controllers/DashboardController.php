@@ -10,26 +10,20 @@ use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
+
     public function __invoke()
     {
-
-        /* ORDINO I RISULTATI DELLA QUERY IN ORDINE E FILTRA GLI APPARTAMENTI IN BASE ALL'ID DELL'UTENTE AUTENTICATO */
+        // Recupera tutti gli appartamenti dell'utente loggato
         $query = Apartment::where('user_id', Auth::id())->orderByDesc('updated_at')->orderByDesc('created_at');
-
-
-        /* PAGINAZIONE */
         $apartments = $query->paginate(3);
 
-
-        /* RECUPERO LE VISSUALIZZAZIONI CHE CORRISPONDONO AGLI ID DELL'APPARTAMENTI ESTRANDOLI E FILTRANDOLI */
-        $views = View::whereIn('apartment_id', $apartments->pluck('id'))->get();
-
-
-        /* RECUPERO LE VISSUALIZZAZIONI CHE CORRISPONDONO AGLI ID DELL'APPARTAMENTI ESTRANDOLI E FILTRANDOLI */
-        $messages = Message::whereIn('apartment_id', $apartments->pluck('id'))->get();
+        // Calcola il conteggio totale dei messaggi per tutti gli appartamenti dell'utente
+        $totalMessages = Apartment::where('user_id', Auth::id())->withCount('messages')->get()->sum('messages_count');
 
 
-        /* RESTITUISCO IN PAGINA */
-        return view('welcome', compact('apartments', 'views', 'messages'));
+        $totalViews = Apartment::where('user_id', Auth::id())->withCount('views')->get()->sum('views_count');
+
+        // Restituisci la vista con il conteggio totale dei messaggi e altri dati necessari
+        return view('welcome', compact('apartments', 'totalMessages', 'totalViews'));
     }
 }
