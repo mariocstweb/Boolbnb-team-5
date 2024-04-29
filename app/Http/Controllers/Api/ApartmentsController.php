@@ -64,8 +64,7 @@ class ApartmentsController extends Controller
         // }
 
         // Ordina gli appartamenti per data di creazione, paginazione con 5 risultati per pagina
-        $apartments = $query->latest()->with('services')->paginate(5);
-
+        $apartments = $query->latest()->with('services')->get();
         return response()->json($apartments);
     }
 
