@@ -335,20 +335,20 @@ class ApartmentController extends Controller
 
         /* VERIFICO SE ID DELL'UTENTE ATTUALMENTE AUTENTICATO NON E' IDENTICO ALL'ID DELL'UTENTE DELL'APPARTAMENTO (PROPRIETARIO) */
         if (Auth::id() !== $apartment->user_id) {
-            
+
             /* MESSAGGIO SE GLI ID NON CORRISPONDONO */
             return to_route('admin.apartments.index', $apartment)->with('type', 'warning')->with('message', 'Non sei autorizzato!');
         }
 
-        
+
         /* CREO UNA NUOVA ISTANZA DI BRAINTREE GATEWAY E UTILIZZO LE CONFIGURAZZIONE DEL FILE CREATO IN CONFIG */
         $gateway = new \Braintree\Gateway(config('braintree'));
 
-        
+
         /* GENERO UN TOKEN PER ESSERE UTILIZZATO PER INTERAGIRE IN MODO SICURO CON BRAINTREE PER I PAGAMENTI */
         $clientToken = $gateway->clientToken()->generate();
 
-        
+
         /* RECUEPRO TUTTI I RECORD DALLA TABELLA SPONSOR */
         $sponsors = Sponsor::all();
 
@@ -358,70 +358,121 @@ class ApartmentController extends Controller
     }
 
 
-    /* SPONSORIZZAZIONE */
-    public function sponsorize(Request $request, $id)
+    // /* SPONSORIZZAZIONE */
+    // public function sponsorize(Request $request, $id)
+    // {
+
+    //     /* RECUPERO SPECIFICO APPARTAMENTO IN BASE AL SUO ID */
+    //     $apartment = Apartment::findOrFail($id);
+
+
+    //     /* RECUEPRO DATI INVIATI TRAMITE RICHIESTA E FACCIO LA VALIDAZIONE */
+    //     $data = $request->validate([
+    //         'sponsor' => 'required|exists:sponsors,id',
+    //         'payment_method_nonce' => 'required',
+    //     ]);
+
+    //     /* RECUPERO SPECIFICO SPONSOR IN BASE AL SUO ID (RECUPERO DAI DATA) */
+    //     $sponsor = Sponsor::findOrFail($data['sponsor']);
+
+
+    //     /* CREO UNA NUOVA ISTANZA DI BRAINTREE GATEWAY E UTILIZZO LE CONFIGURAZZIONE DEL FILE CREATO IN CONFIG */
+    //     $gateway = new \Braintree\Gateway(config('braintree'));
+
+    //     /* TRANSIZIONE DI VENDITA */
+    //     $result = $gateway->transaction()->sale([
+    //         'amount' => $sponsor->price, // IMPORTO DA ADDEBITARE
+    //         'paymentMethodNonce' => $data['payment_method_nonce'], // METODO DI PAGAMENTO
+    //         'options' => [
+    //             'submitForSettlement' => true // TRANSIZIONE INVITA PER LA LIQUIDAZIONE IMMEDIATA
+    //         ]
+    //     ]);
+
+
+    //     /* CONTROLLO TRANSIZIONE E' STATA ESEGUITA CON SUCCESSO */
+    //     if ($result->success) {
+
+
+    //         /* CALCOLO DATA DI INIZIO DELLA SPOSORIZZAZIONE ????? */
+    //         $startDate = $apartment->sponsors_max_apartment_sponsorend_date ?? now();
+    //         $expiration_date = now()->addHours($sponsor->duration);
+
+
+    //         /* ATTACCO I RECORD DEGLI APPARTAMNETI AGLI SPONSOR */
+    //         $apartment->sponsors()->attach($sponsor, ['start_date' => $startDate, 'expiration_date' => $expiration_date]);
+
+
+    //         /* RESTITUISCO IN PAGINA */
+    //         return redirect()->route('admin.apartments.index')
+    //             ->with('message', "La sponsorizzazione '$sponsor->label' è stata attivata con successo per l'appartamento '$apartment->title'.")
+    //             ->with('type', 'success');
+
+
+    //         /* ALTRIMENNTI */
+    //     } else {
+
+
+    //         /* MESSAGGIO DI ERRORE */
+    //         $errorMessage = $result->message;
+
+
+    //         /* RESTITUISCO IN PAGINA */
+    //         return redirect()->route('admin.apartments.index')
+    //             ->with('message', "Errore durante il pagamento: $errorMessage")
+    //             ->with('type', 'danger');
+    //     }
+    // }
+
+    public function sponsorize(Request $request, String $id)
     {
-        
-        /* RECUPERO SPECIFICO APPARTAMENTO IN BASE AL SUO ID */
-        $apartment = Apartment::findOrFail($id);
 
-        
-        /* RECUEPRO DATI INVIATI TRAMITE RICHIESTA E FACCIO LA VALIDAZIONE */
-        $data = $request->validate([
-            'sponsor' => 'required|exists:sponsors,id',
-            'payment_method_nonce' => 'required',
-        ]);
+        // Get apartment with end date data
+        $apartment = Apartment::withMax(['sponsors' => function ($query) {
+            $query->where('apartment_sponsor.expiration_date', '>=', date("Y-m-d H:i:s"));
+        }], 'apartment_sponsor.expiration_date')->find($id);
 
-        
-        /* RECUPERO SPECIFICO SPONSOR IN BASE AL SUO ID (RECUPERO DAI DATA) */
-        $sponsor = Sponsor::findOrFail($data['sponsor']);
 
-        
-        /* CREO UNA NUOVA ISTANZA DI BRAINTREE GATEWAY E UTILIZZO LE CONFIGURAZZIONE DEL FILE CREATO IN CONFIG */
+        // Check if apartment already has an active sponsor
+        if ($apartment->sponsors()->where('expiration_date', '>=', now())->exists()) {
+            return to_route('admin.apartments.index')->with('message', "L'appartamento ha già un abbonamento attivo.")->with('type', 'danger');
+        }
+
+        // Get all request inputs
+        $data = $request->all();
+
+        // Get Promotion Chosen Data
+        $sponsor = Sponsor::find($data['sponsor']);
+
+
+        // Make transaction
         $gateway = new \Braintree\Gateway(config('braintree'));
 
-        
-        /* TRANSIZIONE DI VENDITA */
-        $result = $gateway->transaction()->sale([
-            'amount' => $sponsor->price, // IMPORTO DA ADDEBITARE
-            'paymentMethodNonce' => $data['payment_method_nonce'], // METODO DI PAGAMENTO
+        $payment = $gateway->transaction()->sale([
+            'amount' => $sponsor->price,
+            'paymentMethodNonce' => $data['payment_method_nonce'],
             'options' => [
-                'submitForSettlement' => true // TRANSIZIONE INVITA PER LA LIQUIDAZIONE IMMEDIATA
+                'submitForSettlement' => True
             ]
         ]);
 
-        
-        /* CONTROLLO TRANSIZIONE E' STATA ESEGUITA CON SUCCESSO */
-        if ($result->success) {
-            
-            
-            /* CALCOLO DATA DI INIZIO DELLA SPOSORIZZAZIONE ????? */ 
-            $startDate = $apartment->sponsors_max_apartment_sponsorend_date ?? now();
-            $expiration_date = now()->addHours($sponsor->duration);
 
-            
-            /* ATTACCO I RECORD DEGLI APPARTAMNETI AGLI SPONSOR */
-            $apartment->sponsors()->attach($sponsor, ['start_date' => $startDate, 'expiration_date' => $expiration_date]);
+        // Payment success
+        if ($payment->success) {
 
+            // Calculate pivot table fields data
+            $start_date = $apartment->promotions_max_apartment_promotionend_date ?? date('Y-m-d H:i:s'); // start promotion from active promotion or now
+            $expiration_date = date('Y-m-d H:i:s', strtotime("+ $sponsor->duration hours", strtotime($start_date))); // end prootion based on start date and promotion chosen
 
-            /* RESTITUISCO IN PAGINA */
-            return redirect()->route('admin.apartments.index')
-                ->with('message', "La sponsorizzazione '$sponsor->label' è stata attivata con successo per l'appartamento '$apartment->title'.")
-                ->with('type', 'success');
+            // Set pivot table fields
+            // $apartment->sponsors()->attach($data['sponsor'], ['start_date' => $start_date, 'expiration_date' => $expiration_date]);
+
+            $apartment->sponsors()->attach($sponsor->id, ['start_date' => $start_date, 'expiration_date' => $expiration_date]);
 
 
-            /* ALTRIMENNTI */
-        } else {
-            
-            
-            /* MESSAGGIO DI ERRORE */
-            $errorMessage = $result->message;
-
-            
-            /* RESTITUISCO IN PAGINA */
-            return redirect()->route('admin.apartments.index')
-                ->with('message', "Errore durante il pagamento: $errorMessage")
-                ->with('type', 'danger');
+            return to_route('admin.apartments.index')->with('message', "Promozione $sponsor->label attivata sul boolbnb $apartment->title. Totale pagato: $sponsor->price €.")->with('type', 'success');
         }
+
+        // Payment failed
+        return to_route('admin.apartments.index')->with('message', "Il pagamento non è andato a buon fine.")->with('type', 'danger');
     }
 }

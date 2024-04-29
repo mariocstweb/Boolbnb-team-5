@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string('description');
             $table->string('color');
             $table->decimal('price', 4, 2);
-            $table->time('duration');
+            // $table->time('duration');
+            $table->integer('duration');
             $table->timestamps();
         });
     }

@@ -74,4 +74,19 @@ braintree.dropin.create({
     });
 });
 
+document.addEventListener("DOMContentLoaded", function() {
+    const sponsorRadios = document.querySelectorAll('input[name="sponsor"]');
+    const expirationDateElement = document.getElementById('expiration-date');
+
+    sponsorRadios.forEach(function(radio) {
+        radio.addEventListener("change", function() {
+            const selectedDuration = parseInt(this.dataset.duration); // Durata selezionata
+            const expirationDate = new Date(); // Data di oggi
+            expirationDate.setHours(expirationDate.getHours() + selectedDuration); // Aggiorna la data di scadenza
+            expirationDateElement.textContent = expirationDate.toLocaleString(); // Aggiorna la visualizzazione della data di scadenza
+        });
+    });
+});
+
+
 

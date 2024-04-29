@@ -13,7 +13,7 @@
                         <li>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="sponsor"
-                                    id="sponsor-{{ $sponsor->id }}" value="{{ $sponsor->id }}"
+                                    id="sponsor-{{ $sponsor->id }}" value="{{ $sponsor->id }} data-duration="{{ $sponsor->duration }}"
                                     @if ($loop->first) checked @endif>
                                 <label class="form-check-label" for="sponsor-{{ $sponsor->id }}">
                                     <span class="me-2"
