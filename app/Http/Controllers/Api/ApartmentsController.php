@@ -30,7 +30,6 @@ class ApartmentsController extends Controller
             $query->where('address', 'like', '%' . $address . '%');
         }
 
- fixed-controller-and-show.blade
         // Ordina gli appartamenti per data di creazione, paginazione con 5 risultati per pagina
         $apartments = $query->latest()->paginate(5);
 
