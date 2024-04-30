@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\ApartmentsController;
+use App\Http\Controllers\Api\FilterController;
 use App\Http\Controllers\Api\FilterServiceController;
 use App\Http\Controllers\Api\ServicesController;
 use Illuminate\Http\Request;
@@ -16,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
+Route::get('apartments/filter', [FilterController::class, 'index']);
 
 Route::apiResource('apartments', ApartmentsController::class)->only('index');
 Route::get('apartments/{id}', [ApartmentsController::class, 'show']);
