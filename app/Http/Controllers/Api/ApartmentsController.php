@@ -14,31 +14,6 @@ class ApartmentsController extends Controller
     {
         $query = Apartment::query();
 
-        // Filtra gli appartamenti per indirizzo se presente il parametro "address"
-        if ($request->has('address')) {
-            $address = $request->input('address');
-            $query->where('address', 'like', '%' . $address . '%');
-        }
-
-
-
-        if ($request->has('rooms')) {
-            $rooms = $request->input('rooms');
-            $query->where('rooms', '>=', $rooms);
-        }
-
-        if ($request->has('beds')) {
-            $beds = $request->input('beds');
-            $query->where('beds', '>=', $beds);
-        }
-
-        if ($request->has('services')) {
-            $services = $request->input('services');
-            $query->whereHas('services', function ($q) use ($services) {
-                $q->whereIn('id', $services);
-            });
-        }
-
         // Ordina gli appartamenti per data di creazione, paginazione con 5 risultati per pagina
         $apartments = $query->latest()->with('services')->get();
         return response()->json($apartments);
