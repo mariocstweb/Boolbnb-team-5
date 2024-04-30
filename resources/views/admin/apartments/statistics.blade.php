@@ -20,9 +20,11 @@
         <div class="col-6">
             {{-- CARD VISUALIZZAZZIONI MENSILI --}}
             <div class="card p-3">
-                <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex justify-content-between align-items-center mb-3">
                     <h4>Visualizzazioni Mensili</h4>
                     <span class="btn bg-icon me-2"><i class="fa-regular fa-eye"></i></span>
+                </div>
+                <div class="box-grafic">
                     <canvas id="month-views"></canvas>
                 </div>
             </div>
@@ -30,20 +32,26 @@
         <div class="col-6">
             {{-- CARD VISUALIZZAZZIONI ANNUALE --}}
             <div class="card p-3">
-                <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex justify-content-between align-items-center mb-3">
                     <h4>Visualizzazioni Annuali</h4>
                     <span class="btn bg-icon me-2"><i class="fa-regular fa-eye"></i></span>
+                    
+                </div>
+                <div class="box-grafic">
                     <canvas id="year-views"></canvas>
                 </div>
+                
             </div>
         </div>
         <h2 class="mt-5">Messaggi</h2>
         <div class="col-6">
             {{-- CARD MESSAGGI MENSILI --}}
             <div class="card p-3">
-                <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex justify-content-between align-items-center mb-3">
                     <h4>Messaggi Mensili</h4>
                     <span class="btn bg-icon me-2"><i class="fa-solid fa-envelope-open-text"></i></span>
+                </div>
+                <div class="box-grafic">
                     <canvas id="month-messages"></canvas>
                 </div>
             </div>
@@ -51,9 +59,11 @@
         <div class="col-6">
             {{-- CARD MESSAGGI ANNUALI --}}
             <div class="card p-3">
-                <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex justify-content-between align-items-center mb-3">
                     <h4>Messaggi Annuali</h4>
                     <span class="btn bg-icon me-2"><i class="fa-solid fa-envelope-open-text"></i></span>
+                </div>
+                <div class="box-grafic">
                     <canvas id="year-messages"></canvas>
                 </div>
             </div>
@@ -117,10 +127,10 @@
           const messagesPerYearsElem = document.getElementById('year-messages');
   
           // Get Data From PHP
-          const viewsPerMonthsData = <?php echo json_encode($month_views); ?>;
-          const viewsPerYearsData = <?php echo json_encode($year_views); ?>;
-          const messagesPerMonthsData = <?php echo json_encode($month_messages); ?>;
-          const messagesPerYearsData = <?php echo json_encode($year_messages); ?>;
+          const viewsPerMonthsData = <?php echo json_encode($month_views) ?>;
+          const viewsPerYearsData = <?php echo json_encode($year_views) ?>;
+          const messagesPerMonthsData = <?php echo json_encode($month_messages) ?>;
+          const messagesPerYearsData = <?php echo json_encode($year_messages) ?>;
   
   
           //*** LOGIC ***//
