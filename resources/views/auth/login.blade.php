@@ -11,7 +11,7 @@
                             <p>Gestisci e sponsorizza i tuoi appartamenti con Boolbnb</p>
                         </div>
                         <div class="card-body px-3 py-0">
-                            <form method="POST" action="{{ route('login') }}">
+                            <form method="POST" action="{{ route('login') }}" novalidate>
                                 @csrf
                                 <div class="mb-4 row">
                                     <div class="col">
