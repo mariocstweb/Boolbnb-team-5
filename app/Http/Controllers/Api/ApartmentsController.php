@@ -30,6 +30,10 @@ class ApartmentsController extends Controller
             $query->where('address', 'like', '%' . $address . '%');
         }
 
+ fixed-controller-and-show.blade
+        // Ordina gli appartamenti per data di creazione, paginazione con 5 risultati per pagina
+        $apartments = $query->latest()->paginate(5);
+
         if ($request->has('rooms')) {
             $rooms = $request->input('rooms');
             $query->where('rooms', '>=', $rooms);
@@ -46,6 +50,7 @@ class ApartmentsController extends Controller
                 $q->whereIn('id', $services);
             });
         }
+
 
         // // Filtra gli appartamenti per range se presente il parametro "range"
         // if ($request->has('range') && $request->has('latitude') && $request->has('longitude')) {
