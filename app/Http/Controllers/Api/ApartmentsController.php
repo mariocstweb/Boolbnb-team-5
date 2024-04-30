@@ -30,7 +30,7 @@ class ApartmentsController extends Controller
             $query->where('address', 'like', '%' . $address . '%');
         }
 
- fixed-controller-and-show.blade
+
         // Ordina gli appartamenti per data di creazione, paginazione con 5 risultati per pagina
         $apartments = $query->latest()->paginate(5);
 
@@ -78,7 +78,7 @@ class ApartmentsController extends Controller
      */
     public function show(string $id)
     {
-        $apartment = Apartment::find($id);
+        $apartment = Apartment::find($id)->with('services')->get();
         if (!$apartment) return response(null, 404);
         return response()->json($apartment);
     }
