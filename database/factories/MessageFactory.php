@@ -22,12 +22,11 @@ class MessageFactory extends Factory
         /* CREO UN ARRAY CON DENTRO GLI ID DEGLI APPARTMENTI */
         $apartments_ids = Apartment::pluck('id')->toArray();
 
-        
+
         /* VALORI FAKE */
         return [
             'apartment_id' => Arr::random($apartments_ids),
-            'first_name' => fake()->firstName,
-            'last_name' => fake()->lastName,
+            'name' => fake()->firstName,
             'email' => fake()->unique()->safeEmail,
             'text' => fake()->paragraph,
         ];

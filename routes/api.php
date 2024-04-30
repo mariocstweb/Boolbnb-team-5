@@ -3,7 +3,9 @@
 use App\Http\Controllers\Api\ApartmentsController;
 use App\Http\Controllers\Api\FilterController;
 use App\Http\Controllers\Api\FilterServiceController;
+use App\Http\Controllers\Api\MessageController;
 use App\Http\Controllers\Api\ServicesController;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,8 +22,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('apartments/filter', [FilterController::class, 'index']);
 
+Route::post('/messages', [MessageController::class, 'store']);
+
 Route::apiResource('apartments', ApartmentsController::class)->only('index');
+
 Route::get('apartments/{id}', [ApartmentsController::class, 'show']);
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });

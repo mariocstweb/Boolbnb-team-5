@@ -15,8 +15,7 @@ return new class extends Migration
         /* TABELLA MESSAGGI */
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
-            $table->string('first_name', 50)->require();
-            $table->string('last_name', 50)->require();
+            $table->string('name', 100)->require();
             $table->string('email', 50)->require();
             $table->text('text')->require();
             $table->timestamps();
