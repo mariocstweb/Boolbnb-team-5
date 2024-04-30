@@ -9,7 +9,7 @@ class StatisticController extends Controller
     public function __invoke()
     {
 
-        /* RESTITUISCO IN PAGINA */
-        return view('admin.statistic');
+        // /* RESTITUISCO IN PAGINA */
+        // return view('admin.statistic');
     }
 }

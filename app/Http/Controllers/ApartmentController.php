@@ -475,4 +475,64 @@ class ApartmentController extends Controller
         // Payment failed
         return to_route('admin.apartments.index')->with('message', "Il pagamento non è andato a buon fine.")->with('type', 'danger');
     }
+
+    public function statistics(Apartment $apartment)
+    {
+        // Check if authorized
+        if (Auth::id() !== $apartment->user_id) {
+            return to_route('admin.apartments.index', $apartment)->with('alert-type', 'warning')->with('alert-message', 'Non sei autorizzato!');
+        }
+
+        // Prepare variables
+        $month_views = array_fill(0, 12, 0);
+        $month_messages = array_fill(0, 12, 0);
+        $year_views = [];
+        $year_messages = [];
+
+        // Get Current Year Views and Messages
+        $current_year_views = $apartment->views->where('date', '>=', date('Y-m-d H:i:s', strtotime('-1 year')));
+        $current_year_messages = $apartment->messages->where('created_at', '>=', date('Y-m-d H:i:s', strtotime('-1 year')));
+
+
+        // Calculate data
+        foreach ($current_year_views as $view) {
+            $month = date("m", strtotime($view->date));
+            $month_views[$month - 1]++;
+        }
+
+        foreach ($apartment->views as $view) {
+            $year = date("Y", strtotime($view->date));
+            if (isset($year_views[$year])) {
+                $year_views[$year]++;
+            } else {
+                $year_views[$year] = 1;
+            }
+        }
+
+        foreach ($current_year_messages as $message) {
+            $month = date("m", strtotime($message->created_at));
+            $month_messages[$month - 1]++;
+        }
+
+        foreach ($apartment->messages as $message) {
+            $year = date("Y", strtotime($message->created_at));
+            if (isset($year_messages[$year])) {
+                $year_messages[$year]++;
+            } else {
+                $year_messages[$year] = 1;
+            }
+        }
+
+
+        return view('admin.apartments.statistics', compact('month_views', 'apartment', 'year_views', 'month_messages', 'year_messages'));
+    }
+
+
+    /**
+     * Show Promotions info.
+     */
+    public function premium()
+    {
+        return view('admin.apartments.premium');
+    }
 }

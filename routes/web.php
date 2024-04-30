@@ -27,6 +27,7 @@ Route::get('/', DashboardController::class)->name('welcome');
 /* ROTTE DELL'ADMIN */
 Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function () {
 
+    Route::get('/apartments/{apartment}/statistics', [ApartmentController::class, 'statistics'])->name('apartments.statistics');
     /* ROTTA SPOSTA NEL CESTINO */
     Route::get('/apartments/trash', [ApartmentController::class, 'trash'])->name('apartments.trash');
     /* ROTTA RIPRISTINA DAL CESTINO */
@@ -41,7 +42,6 @@ Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/apartments/{apartment}/sponsor', [ApartmentController::class, 'sponsor'])->name('apartments.sponsor');
 
     /* ROTTA STATISTICHE */
-    Route::get('/statistics/{statistic}', StatisticController::class)->name('statistic');
 
     /* ROTTA SPONSORIZZAZZIONE PER IL PAGAMENTO */
     Route::post('/apartments/{apartment}/sponsorize', [ApartmentController::class, 'sponsorize'])->name('apartments.sponsorize');

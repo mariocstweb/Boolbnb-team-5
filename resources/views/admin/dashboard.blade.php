@@ -84,7 +84,7 @@
                         <td>
                             <div class="d-flex justify-content-between">
                                 {{-- STATISTICHE --}}
-                                <a href="{{ route('admin.statistic', $apartment->id) }}" class="btn bg-icon"><i
+                                <a href="{{ route('admin.apartments.statistics', $apartment->id) }}" class="btn bg-icon"><i
                                         class="fa-solid fa-chart-line"></i></a>
                                 <div class="d-flex align-items-center justify-content-center">
                                     {{-- DETTAGLIO --}}
