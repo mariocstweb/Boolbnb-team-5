@@ -29,22 +29,6 @@ class ApartmentsController extends Controller
             $query->where('address', 'like', '%' . $address . '%');
         }
 
-        // Filtra gli appartamenti per range se presente il parametro "range"
-        if ($request->has('range') && $request->has('latitude') && $request->has('longitude')) {
-            $range = $request->input('range');
-            $latitude = $request->input('latitude');
-            $longitude = $request->input('longitude');
-
-            $query->selectRaw(
-                '( 6371 * acos( cos( radians(?) ) *
-                cos( radians( latitude ) ) *
-                cos( radians( longitude ) - radians(?) ) +
-                sin( radians(?) ) *
-                sin( radians( latitude ) ) ) ) AS distance',
-                [$latitude, $longitude, $latitude]
-            )->havingRaw("distance < ?", [$range]);
-        }
-
         // Ordina gli appartamenti per data di creazione, paginazione con 5 risultati per pagina
         $apartments = $query->latest()->paginate(5);
 
