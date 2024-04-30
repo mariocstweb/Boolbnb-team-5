@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ApartmentController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SponsorController;
 use App\Http\Controllers\StatisticController;
@@ -24,8 +25,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', DashboardController::class)->name('welcome');
 
 
+
 /* ROTTE DELL'ADMIN */
 Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function () {
+    Route::get('/messages', [MessageController::class, 'index'])->name('messages.index'); // message index
 
     Route::get('/apartments/{apartment}/statistics', [ApartmentController::class, 'statistics'])->name('apartments.statistics');
     /* ROTTA SPOSTA NEL CESTINO */

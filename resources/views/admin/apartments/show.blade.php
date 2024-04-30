@@ -86,8 +86,52 @@
                             ? '<i class="fa-solid fa-circle-check text-success me-2"></i> <span class="text-success fw-bold">Pubblicato</span>'
                             : '<i class="fa-solid fa-circle-xmark text-danger"></i> <span class="text-danger fw-bold">Non pubblicato</span>' !!}</div>
                     </div>
+                    <section id="messages">
+                        <h2 class="text-center">Messaggi <i class="fa-solid fa-comments"></i></h2>
+                        <div>
+                            <div class="message-list accordion accordion-flush" id="accordionFlushExample">
+                                @forelse ($apartment->messages as $message)
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#flush-collapse{{ $message->id }}" aria-expanded="false"
+                                                aria-controls="flush-collapse{{ $message->id }}">
+                                                Messaggio ricevuto da {{ $message->name }}
+                                                <div class="text-gradient" style="font-size: 12px">
+                                                    {{ $message->created_at->format('d/m/y') }}
+                                                    alle
+                                                    {{ $message->created_at->format('H:i') }}
+                                                </div>
+                                            </button>
+                                        </h2>
+                                        <div id="flush-collapse{{ $message->id }}" class="accordion-collapse collapse"
+                                            data-bs-parent="#accordionFlushExample">
+                                            <div class="accordion-body">
+                                                <p>{{ $message->content }}</p>
+                                                <hr>
+                                                <div><i class="fa-solid fa-envelope"></i> <i> {{ $message->email }} </i></div>
+        
+                                            </div>
+                                        </div>
+                                    </div>
+                                @empty
+                                    {{-- Empty message --}}
+                                    <div class="message-empty">
+                                        <img src="{{ asset('img/pages/message.svg') }}" alt="">
+                                        <img class="logo" src="{{ asset('img/logo.png') }}" alt="">
+                                    </div>
+                                    <div>
+                                        Non hai ricevuto nessun messaggio, promuovi i tuoi boolbnb con boolbnb premium per ottenere
+                                        più visualizzazioni!
+                                        <a href="{{ route('admin.apartments.index') }}" class="button-primary">Vedi di più</a>
+                                    </div>
+                                @endforelse
+                            </div>
+                        </div>
+                    </section>
                 </div>
             </section>
+            
         </div>
         <div class="col-4">
             <section id="services">
