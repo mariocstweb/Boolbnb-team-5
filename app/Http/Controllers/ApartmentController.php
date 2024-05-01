@@ -490,18 +490,18 @@ class ApartmentController extends Controller
         $year_messages = [];
 
         // Get Current Year Views and Messages
-        $current_year_views = $apartment->views->where('date', '>=', date('Y-m-d H:i:s', strtotime('-1 year')));
+        $current_year_views = $apartment->views->where('time_of_view', '>=', date('Y-m-d H:i:s', strtotime('-1 year')));
         $current_year_messages = $apartment->messages->where('created_at', '>=', date('Y-m-d H:i:s', strtotime('-1 year')));
 
 
         // Calculate data
         foreach ($current_year_views as $view) {
-            $month = date("m", strtotime($view->date));
+            $month = date("m", strtotime($view->time_of_view));
             $month_views[$month - 1]++;
         }
 
         foreach ($apartment->views as $view) {
-            $year = date("Y", strtotime($view->date));
+            $year = date("Y", strtotime($view->time_of_view));
             if (isset($year_views[$year])) {
                 $year_views[$year]++;
             } else {
