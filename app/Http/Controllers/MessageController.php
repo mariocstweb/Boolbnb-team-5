@@ -37,13 +37,13 @@ class MessageController extends Controller
             [
                 'name' => 'required',
                 'email' => 'required|email',
-                'content' => 'required'
+                'text' => 'required'
             ],
             [
                 'name.required' => 'Il titolo è obbligatorio',
                 'email.required' => 'La mail è obbligatoria',
                 'email.email' => 'La mail non è scritta nel formato giusto',
-                'content.required' => 'Il contenuto è obbligatorio'
+                'text.required' => 'Il contenuto è obbligatorio'
             ]
         );
 

@@ -93,11 +93,11 @@
                                 @forelse ($apartment->messages as $message)
                                     <div class="accordion-item">
                                         <h2 class="accordion-header">
-                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            <button class="accordion-button d-flex flex-column align-items-start collapsed" type="button" data-bs-toggle="collapse"
                                                 data-bs-target="#flush-collapse{{ $message->id }}" aria-expanded="false"
                                                 aria-controls="flush-collapse{{ $message->id }}">
                                                 Messaggio ricevuto da {{ $message->name }}
-                                                <div class="text-gradient" style="font-size: 12px">
+                                                <div class="text-gradient mt-2" style="font-size: 12px">
                                                     {{ $message->created_at->format('d/m/y') }}
                                                     alle
                                                     {{ $message->created_at->format('H:i') }}
@@ -107,7 +107,7 @@
                                         <div id="flush-collapse{{ $message->id }}" class="accordion-collapse collapse"
                                             data-bs-parent="#accordionFlushExample">
                                             <div class="accordion-body">
-                                                <p>{{ $message->content }}</p>
+                                                <p>{{ $message->text }}</p>
                                                 <hr>
                                                 <div><i class="fa-solid fa-envelope"></i> <i> {{ $message->email }} </i></div>
         
@@ -116,10 +116,6 @@
                                     </div>
                                 @empty
                                     {{-- Empty message --}}
-                                    <div class="message-empty">
-                                        <img src="{{ asset('img/pages/message.svg') }}" alt="">
-                                        <img class="logo" src="{{ asset('img/logo.png') }}" alt="">
-                                    </div>
                                     <div>
                                         Non hai ricevuto nessun messaggio, promuovi i tuoi boolbnb con boolbnb premium per ottenere
                                         più visualizzazioni!
