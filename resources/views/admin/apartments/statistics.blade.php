@@ -118,7 +118,7 @@
           const monthsAxis = ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre',
               'Ottobre', 'Novembre', 'Dicembre'
           ];
-          const yearsAxis = ['2020', '2021', '2022', '2023'];
+          const yearsAxis = ['2021', '2022', '2023', '2024'];
   
           // Get DOM Elems
           const viewsPerMonthsElem = document.getElementById('month-views');
