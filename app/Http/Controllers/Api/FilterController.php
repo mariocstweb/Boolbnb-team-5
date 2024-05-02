@@ -48,9 +48,12 @@ class FilterController extends Controller
         }
 
         // Filtro "services"
-        if (isset($filters['services'])) {
-            foreach ($filters['services'] as $service_id) {
-                $query->whereRelation('services', 'id', $service_id);
+        if ($request->has('services')) {
+            $serviceIds = explode(',', $request->services);
+            foreach ($serviceIds as $serviceId) {
+                $query->whereHas('services', function ($q) use ($serviceId) {
+                    $q->where('services.id', $serviceId);
+                });
             }
         }
 
