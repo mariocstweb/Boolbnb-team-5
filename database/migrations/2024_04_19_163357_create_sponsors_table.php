@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('label', 20)->unique();
             $table->string('description');
             $table->string('color');
+            $table->string('premium');
             $table->decimal('price', 4, 2);
             // $table->time('duration');
             $table->integer('duration');

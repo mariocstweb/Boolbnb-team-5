@@ -20,6 +20,7 @@ class SponsorSeeder extends Seeder
             $new_sponsor = new Sponsor();
             $new_sponsor->label = $sponsorData['label'];
             $new_sponsor->price = $sponsorData['price'];
+            $new_sponsor->premium = $sponsorData['premium'];
             $new_sponsor->description = $sponsorData['description'];
             $new_sponsor->color = $sponsorData['color'];
             $new_sponsor->duration = $sponsorData['duration'];

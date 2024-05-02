@@ -51,6 +51,7 @@
                     <th scope="col">Anteprima</th>
                     <th scope="col">ID</th>
                     <th scope="col">Nome Appartamento</th>
+                    <th scope="col">Sponsorizzazione</th>
                     <th scope="col">Visualizzazioni</th>
                     <th scope="col">Messaggi</th>
                     <th scope="col">Azioni</th>
@@ -68,6 +69,16 @@
 
                         {{-- TITOLO --}}
                         <td>{{ $apartment->title }}</td>
+
+                        {{-- Sponsorizzazione --}}
+
+                        <td>
+                            @if($apartment->sponsors->isNotEmpty())
+                                {{ $apartment->sponsors->first()->expiration_date->format('Y-m-d H:i:s') }}
+                            @else
+                            <i class="fa-solid fa-circle-xmark text-danger"></i>
+                            @endif
+                        </td>
 
                         {{-- TUTTE LE VISUALIZZAZIONI DI QUEL SINGOLO APPARTAMENTO --}}
                         <td>

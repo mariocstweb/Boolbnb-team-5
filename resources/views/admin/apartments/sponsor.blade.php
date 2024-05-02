@@ -23,7 +23,11 @@
     <img src="{{ Vite::asset('resources/img/plus.png') }}" alt="" class="img-fluid mt-4">
     <h3 class="my-4">Acquista uno dei nostri pacchetti e ottieni dei vantaggi esclusivi sui tuoi appartamenti</h3>
 
-    {{-- FROM DI PAGAMENTO --}}
+    <section class="card p-4 rounded-4">
+        <h5 class="mb-4">
+            Sponsorizza il tuo appartamento. Con la sponsorizzazione ottieni visibilità immediata per il tuo appartamento. È perfetto se desideri aumentare rapidamente la visibilità del tuo annuncio.
+        </h5>
+        {{-- FROM DI PAGAMENTO --}}
     <form id="payment-form" action="{{ route('admin.apartments.sponsorize', $apartment) }}" method="post" data-token="{{ $clientToken }}">
         @csrf
         <div class="row">
@@ -51,6 +55,8 @@
             @include('sponsor.includes.payment')
         </div>
     </form>
+    </section>
+
 
 @endsection
 

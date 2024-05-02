@@ -71,9 +71,9 @@
                         <td>
                             {{-- CICLO CHE HA COME CONDIZIONE DI VERIFICARE SE GLI SPONSOR SONO ASSOCIATIO AGLI APPARTAMENTI --}}
                             @forelse ($apartment->sponsors as $sponsor)
-                                <div class="badge-sponsor text-center"
-                                    style="background-image: linear-gradient(to left,{{ $sponsor->color }})">
-                                    {{ $sponsor->label }}</div>
+                                <div class="badge-sponsor text-center d-flex align-items-center gap-2 justify-content-center"
+                                    style="background-image: linear-gradient(to left,{{ $sponsor->premium }})">
+                                    <i class="fa-solid fa-award"></i> Premium</div>
                             {{-- ALTRIMENTI --}}
                             @empty
                                 <a href="{{ route('admin.apartments.sponsor', $apartment->id) }}"
