@@ -26,8 +26,8 @@ function handleMapButtonClick() {
             key: import.meta.env.VITE_TT_API_KEY, // API KEY 
             container: mapContainer, // CONTENITORE
             center: [
-                lat,
-                lon
+                lon,
+                lat
             ], // LATITUDINE E LONGITUDINE
             zoom: 12 // ZOOM VISTA
         });
@@ -42,7 +42,7 @@ function handleMapButtonClick() {
         /* DIMESIONE MAPPA */
         setTimeout(() => { map.resize(); }, 150);
 
-        
+
         /* RIMUOVO L'EVENTO DOPO AVER CHIUSO LA MAPPA */
         mapButton.removeEventListener('click', handleMapButtonClick);
     }
