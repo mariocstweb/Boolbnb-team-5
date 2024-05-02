@@ -5,7 +5,8 @@ use App\Http\Controllers\Api\FilterController;
 use App\Http\Controllers\Api\FilterServiceController;
 use App\Http\Controllers\Api\MessageController;
 use App\Http\Controllers\Api\ServicesController;
-
+use App\Models\Session as ModelsSession;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -35,3 +36,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::apiResource('services', ServicesController::class)->only('index');
 
 Route::get('services/{id}/apartments', FilterServiceController::class);
+
+// User route
+Route::get('/user', function () {
+    $user = ModelsSession::select('user_id')->get();
+    $userTarget = User::where('id', '=', $user[0]['user_id'])->get();
+    return response()->json($userTarget);
+});
