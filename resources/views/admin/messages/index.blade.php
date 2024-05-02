@@ -53,7 +53,7 @@
                         <td>{{ $message->name }}</td>
 
                         {{-- Content --}}
-                        <td>{{ $message->content }}</td>
+                        <td>{{ $message->text }}</td>
 
                         {{-- Mail --}}
                         <td>{{ $message->email }}</td>
