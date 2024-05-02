@@ -16,7 +16,8 @@ class FilterController extends Controller
 
         //*** FILTERS DATA ***//
         $filters = $request->all();
-        $radius = $filters['radius'] ?? 20000;
+        // $radius = $filters['radius'] ?? 20000;
+        $radius = $filter['radius'] ?? 20000;
 
         // Check Required parameters
         if (!isset($filters['lat']) || !isset($filters['lon'])) return response('Latitude and Longitude are required.', 400);
@@ -62,7 +63,7 @@ class FilterController extends Controller
 
 
         // // Ordering
-        // $query->orderBy('distance');
+        $query->orderBy('distance');
         // $query->orderBy('created_at', 'desc');
 
         // Apply query and get apartments
