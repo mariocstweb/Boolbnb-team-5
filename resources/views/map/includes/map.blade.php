@@ -1,6 +1,6 @@
 {{-- MODALE MAPPA --}}
-<div class="modal fade" id="mapModal" tabindex="-1" aria-labelledby="mapModalLabel" aria-hidden="true">
-    <div class="map modal-dialog modal-dialog-centered">
+<div class="modal" id="mapModal" tabindex="-1">
+    <div class="map modal-dialog">
         <div class="modal-content text-center">
             {{-- SE CE UN INDIRIZZO --}}
             @if ($apartment->address)
@@ -8,7 +8,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                         aria-label="Close"></button>
                 </div>
-                <div class="map modal-body flex-column flex-lg-row">
+                <div class="modal-body">
                     {{-- TTITOLO E INDIRIZZO --}}
                     <div class="description ">
                         <h3>{{ $apartment->title }}</h3>
@@ -17,8 +17,8 @@
                         <h6>{{ $apartment->address }}</h6>
                     </div>
                     {{-- MAPPA --}}
-                    <div>
-                        <div id="map" data-latitude="{{ $apartment->latitude }}"
+                    <div class="map-box">
+                        <div id="map" style="width: 80%; height: 80%" data-latitude="{{ $apartment->latitude }}"
                             data-longitude="{{ $apartment->longitude }}">
                         </div>
                     </div>
