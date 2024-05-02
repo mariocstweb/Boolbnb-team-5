@@ -11,6 +11,7 @@ use App\Models\Sponsor;
 use App\Models\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -357,70 +358,54 @@ class ApartmentController extends Controller
         return view('admin.apartments.sponsor', compact('apartment', 'sponsors', 'clientToken'));
     }
 
-
-    // /* SPONSORIZZAZIONE */
-    // public function sponsorize(Request $request, $id)
+    // public function sponsorize(Request $request, String $id)
     // {
 
-    //     /* RECUPERO SPECIFICO APPARTAMENTO IN BASE AL SUO ID */
-    //     $apartment = Apartment::findOrFail($id);
+    //     // Get apartment with end date data
+    //     $apartment = Apartment::withMax(['sponsors' => function ($query) {
+    //         $query->where('apartment_sponsor.expiration_date', '>=', date("Y-m-d H:i:s"));
+    //     }], 'apartment_sponsor.expiration_date')->find($id);
 
 
-    //     /* RECUEPRO DATI INVIATI TRAMITE RICHIESTA E FACCIO LA VALIDAZIONE */
-    //     $data = $request->validate([
-    //         'sponsor' => 'required|exists:sponsors,id',
-    //         'payment_method_nonce' => 'required',
-    //     ]);
+    //     // Check if apartment already has an active sponsor
+    //     if ($apartment->sponsors()->where('expiration_date', '>=', now())->exists()) {
+    //         return to_route('admin.apartments.index')->with('message', "L'appartamento ha già un abbonamento attivo.")->with('type', 'danger');
+    //     }
 
-    //     /* RECUPERO SPECIFICO SPONSOR IN BASE AL SUO ID (RECUPERO DAI DATA) */
-    //     $sponsor = Sponsor::findOrFail($data['sponsor']);
+    //     // Get all request inputs
+    //     $data = $request->all();
+
+    //     // Get Promotion Chosen Data
+    //     $sponsor = Sponsor::find($data['sponsor']);
 
 
-    //     /* CREO UNA NUOVA ISTANZA DI BRAINTREE GATEWAY E UTILIZZO LE CONFIGURAZZIONE DEL FILE CREATO IN CONFIG */
+    //     // Make transaction
     //     $gateway = new \Braintree\Gateway(config('braintree'));
 
-    //     /* TRANSIZIONE DI VENDITA */
-    //     $result = $gateway->transaction()->sale([
-    //         'amount' => $sponsor->price, // IMPORTO DA ADDEBITARE
-    //         'paymentMethodNonce' => $data['payment_method_nonce'], // METODO DI PAGAMENTO
+    //     $payment = $gateway->transaction()->sale([
+    //         'amount' => $sponsor->price,
+    //         'paymentMethodNonce' => $data['payment_method_nonce'],
     //         'options' => [
-    //             'submitForSettlement' => true // TRANSIZIONE INVITA PER LA LIQUIDAZIONE IMMEDIATA
+    //             'submitForSettlement' => True
     //         ]
     //     ]);
 
 
-    //     /* CONTROLLO TRANSIZIONE E' STATA ESEGUITA CON SUCCESSO */
-    //     if ($result->success) {
+    //     // Payment success
+    //     if ($payment->success) {
+
+    //         // Calculate pivot table fields data
+    //         $start_date = $apartment->promotions_max_apartment_promotionend_date ?? date('Y-m-d H:i:s'); // start promotion from active promotion or now
+    //         $expiration_date = date('Y-m-d H:i:s', strtotime("+ $sponsor->duration hours", strtotime($start_date))); // end prootion based on start date and promotion chosen
+
+    //         $apartment->sponsors()->attach($sponsor->id, ['start_date' => $start_date, 'expiration_date' => $expiration_date]);
 
 
-    //         /* CALCOLO DATA DI INIZIO DELLA SPOSORIZZAZIONE ????? */
-    //         $startDate = $apartment->sponsors_max_apartment_sponsorend_date ?? now();
-    //         $expiration_date = now()->addHours($sponsor->duration);
-
-
-    //         /* ATTACCO I RECORD DEGLI APPARTAMNETI AGLI SPONSOR */
-    //         $apartment->sponsors()->attach($sponsor, ['start_date' => $startDate, 'expiration_date' => $expiration_date]);
-
-
-    //         /* RESTITUISCO IN PAGINA */
-    //         return redirect()->route('admin.apartments.index')
-    //             ->with('message', "La sponsorizzazione '$sponsor->label' è stata attivata con successo per l'appartamento '$apartment->title'.")
-    //             ->with('type', 'success');
-
-
-    //         /* ALTRIMENNTI */
-    //     } else {
-
-
-    //         /* MESSAGGIO DI ERRORE */
-    //         $errorMessage = $result->message;
-
-
-    //         /* RESTITUISCO IN PAGINA */
-    //         return redirect()->route('admin.apartments.index')
-    //             ->with('message', "Errore durante il pagamento: $errorMessage")
-    //             ->with('type', 'danger');
+    //         return to_route('admin.apartments.index')->with('message', "Promozione $sponsor->label attivata sul boolbnb $apartment->title. Totale pagato: $sponsor->price €.")->with('type', 'success');
     //     }
+
+    //     // Payment failed
+    //     return to_route('admin.apartments.index')->with('message', "Il pagamento non è andato a buon fine.")->with('type', 'danger');
     // }
 
     public function sponsorize(Request $request, String $id)
@@ -428,14 +413,12 @@ class ApartmentController extends Controller
 
         // Get apartment with end date data
         $apartment = Apartment::withMax(['sponsors' => function ($query) {
-            $query->where('apartment_sponsor.expiration_date', '>=', date("Y-m-d H:i:s"));
+            $query->where(
+                'apartment_sponsor.expiration_date',
+                '>=',
+                date("d-m-Y H:i:s")
+            );
         }], 'apartment_sponsor.expiration_date')->find($id);
-
-
-        // Check if apartment already has an active sponsor
-        if ($apartment->sponsors()->where('expiration_date', '>=', now())->exists()) {
-            return to_route('admin.apartments.index')->with('message', "L'appartamento ha già un abbonamento attivo.")->with('type', 'danger');
-        }
 
         // Get all request inputs
         $data = $request->all();
@@ -454,24 +437,22 @@ class ApartmentController extends Controller
                 'submitForSettlement' => True
             ]
         ]);
-
-
         // Payment success
         if ($payment->success) {
+            if ($apartment->sponsors()->where('expiration_date', '>=', now())->exists()) {
+                // If there is already an active sponsorship, update the expiration date
+                $currentSponsor = $apartment->sponsors()->orderBy('expiration_date', 'desc')->first();
+                $newExpirationDate = Carbon::parse($currentSponsor->pivot->expiration_date)->addHours($sponsor->duration);
+                $apartment->sponsors()->updateExistingPivot($currentSponsor->id, ['expiration_date' => $newExpirationDate]);
+            } else {
+                // If there is no active sponsorship, attach the new sponsorship
+                $start_date = now(); // Start promotion from now
+                $expiration_date = $start_date->copy()->addHours($sponsor->duration); // End promotion based on start date and duration of chosen sponsorship
+                $apartment->sponsors()->attach($sponsor->id, ['start_date' => $start_date, 'expiration_date' => $expiration_date]);
+            }
 
-            // Calculate pivot table fields data
-            $start_date = $apartment->promotions_max_apartment_promotionend_date ?? date('Y-m-d H:i:s'); // start promotion from active promotion or now
-            $expiration_date = date('Y-m-d H:i:s', strtotime("+ $sponsor->duration hours", strtotime($start_date))); // end prootion based on start date and promotion chosen
-
-            // Set pivot table fields
-            // $apartment->sponsors()->attach($data['sponsor'], ['start_date' => $start_date, 'expiration_date' => $expiration_date]);
-
-            $apartment->sponsors()->attach($sponsor->id, ['start_date' => $start_date, 'expiration_date' => $expiration_date]);
-
-
-            return to_route('admin.apartments.index')->with('message', "Promozione $sponsor->label attivata sul boolbnb $apartment->title. Totale pagato: $sponsor->price €.")->with('type', 'success');
+            return redirect()->route('admin.apartments.index')->with('message', "Promozione $sponsor->label attivata sul boolbnb $apartment->title. Totale pagato: $sponsor->price €.")->with('type', 'success');
         }
-
         // Payment failed
         return to_route('admin.apartments.index')->with('message', "Il pagamento non è andato a buon fine.")->with('type', 'danger');
     }

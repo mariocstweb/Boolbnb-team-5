@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
+
 
 class Sponsor extends Model
 {
@@ -18,4 +20,8 @@ class Sponsor extends Model
         return $this->belongsToMany(Apartment::class)->withPivot('expiration_date');
     }
 
+    public function getExpirationDateAttribute($value)
+    {
+        return Carbon::parse($value);
+    }
 }

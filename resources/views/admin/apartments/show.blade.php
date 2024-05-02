@@ -175,7 +175,7 @@
                             <div class="mb-3">
                                 <a href="{{ route('admin.apartments.sponsor', $apartment->id) }}"
                                     class="btn bg-hover text-white p-2 mt-3 me-2">Cambia piano</a>
-                                <a href="" class="btn c-main bg-hover-rev p-2 mt-3">Descrizione abbonamento</a>
+                                <a href="{{ route('admin.apartments.sponsor', $apartment->id) }}" class="btn c-main bg-hover-rev p-2 mt-3">Descrizione abbonamento</a>
                             </div>
                             <a href="" class="remove-subscription">Disdici abbonamento</a>
                         </div>
