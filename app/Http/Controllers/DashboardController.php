@@ -12,124 +12,54 @@ use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
-
-    // public function __invoke()
-    // {
-
-    //     // Recupera tutti gli appartamenti dell'utente loggato
-    //     $query = Apartment::where('user_id', Auth::id())->orderByDesc('updated_at')->orderByDesc('created_at');
-    //     $apartments = $query->paginate(3);
-
-    //     // Calcola il conteggio totale dei messaggi per tutti gli appartamenti dell'utente
-    //     $totalMessages = Apartment::where('user_id', Auth::id())->withCount('messages')->get()->sum('messages_count');
-
-
-    //     $totalViews = Apartment::where('user_id', Auth::id())->withCount('views')->get()->sum('views_count');
-
-    //     // Restituisci la vista con il conteggio totale dei messaggi e altri dati necessari
-    //     return view('welcome', compact('apartments', 'totalMessages', 'totalViews', ''));
-    // }
-
-    // public function __invoke()
-    // {
-    //     // Recupera tutti gli appartamenti dell'utente loggato con i dati dell'expiration_date
-    //     $apartments = Apartment::where('user_id', Auth::id())
-    //         ->with(['sponsors' => function ($query) {
-    //             $query->select('id', 'expiration_date'); // Seleziona solo l'id e l'expiration_date del sponsor
-    //         }])
-    //         ->orderByDesc('updated_at')
-    //         ->orderByDesc('created_at')
-    //         ->paginate(3);
-
-    //     // Calcola il conteggio totale dei messaggi per tutti gli appartamenti dell'utente
-    //     $totalMessages = Apartment::where('user_id', Auth::id())->withCount('messages')->get()->sum('messages_count');
-
-    //     $totalViews = Apartment::where('user_id', Auth::id())->withCount('views')->get()->sum('views_count');
-
-    //     // Restituisci la vista con il conteggio totale dei messaggi e altri dati necessari
-    //     return view('welcome', compact('apartments', 'totalMessages', 'totalViews'));
-    // }
-
-
-
     public function __invoke()
     {
         // Imposta la localizzazione su italiano
         Carbon::setLocale('it');
 
-        // Recupera tutti gli appartamenti dell'utente loggato con i dati dell'expiration_date
-        $apartments = Apartment::where('user_id', Auth::id())
-            ->with(['sponsors' => function ($query) {
-                $query->select('id', 'expiration_date'); // Seleziona solo l'id e l'expiration_date del sponsor
-            }])
-            ->orderByDesc('updated_at')
-            ->orderByDesc('created_at')
-            ->paginate(3);
+        // Recupera tutti gli appartamenti dell'utente loggato
+        $apartments = Apartment::where('user_id', Auth::id())->get();
 
-        // Converti le date di scadenza nel formato italiano
+        // Inizializza le variabili per le statistiche totali
+        $totalMessages = 0;
+        $totalViews = 0;
+
+        // Cicla attraverso gli appartamenti per calcolare le statistiche totali
         foreach ($apartments as $apartment) {
-            foreach ($apartment->sponsors as $sponsor) {
-                $sponsor->expiration_date = Carbon::parse($sponsor->expiration_date)->format('d-m-Y H:i:s');
-            }
+            // Aggiungi il conteggio dei messaggi dell'appartamento ai totali
+            $totalMessages += $apartment->messages()->count();
+
+            // Aggiungi il conteggio delle visualizzazioni dell'appartamento ai totali
+            $totalViews += $apartment->views()->count();
         }
 
-        // Calcola il conteggio totale dei messaggi per tutti gli appartamenti dell'utente
-        $totalMessages = Apartment::where('user_id', Auth::id())->withCount('messages')->get()->sum('messages_count');
+        // Recupera i dati delle visualizzazioni totali per i mesi
+        $month_views = []; // Inizializza l'array vuoto per i dati delle visualizzazioni per i mesi
 
-        $totalViews = Apartment::where('user_id', Auth::id())->withCount('views')->get()->sum('views_count');
-
-        // Restituisci la vista con il conteggio totale dei messaggi e altri dati necessari
-        return view('welcome', compact('apartments', 'totalMessages', 'totalViews'));
-    }
-
-    public function statistics(Apartment $apartment)
-    {
-        // Check if authorized
-        if (Auth::id() !== $apartment->user_id) {
-            return to_route('admin.apartments.index', $apartment)->with('alert-type', 'warning')->with('alert-message', 'Non sei autorizzato!');
+        // Cicla attraverso i mesi dell'anno
+        for ($month = 1; $month <= 12; $month++) {
+            // Recupera il numero totale di visualizzazioni per il mese corrente
+            $viewsCount = View::whereMonth('created_at', $month)
+                ->whereIn('apartment_id', $apartments->pluck('id'))
+                ->count();
+            // Aggiungi il conteggio delle visualizzazioni all'array dei dati dei mesi
+            $month_views[] = $viewsCount;
         }
 
-        // Prepare variables
-        $month_views = array_fill(0, 12, 0);
-        $month_messages = array_fill(0, 12, 0);
-        // $year_views = [];
-        // $year_messages = [];
+        // Recupera i dati dei messaggi totali per i mesi
+        $month_messages = []; // Inizializza l'array vuoto per i dati dei messaggi per i mesi
 
-        // Get Current Year Views and Messages
-        $current_year_views = $apartment->views->where('time_of_view', '>=', date('Y-m-d H:i:s', strtotime('-1 year')));
-        $current_year_messages = $apartment->messages->where('created_at', '>=', date('Y-m-d H:i:s', strtotime('-1 year')));
-
-
-        // Calculate data
-        foreach ($current_year_views as $view) {
-            $month = date("m", strtotime($view->time_of_view));
-            $month_views[$month - 1]++;
+        // Cicla attraverso i mesi dell'anno
+        for ($month = 1; $month <= 12; $month++) {
+            // Recupera il numero totale di messaggi per il mese corrente
+            $messagesCount = Message::whereMonth('created_at', $month)
+                ->whereIn('apartment_id', $apartments->pluck('id'))
+                ->count();
+            // Aggiungi il conteggio dei messaggi all'array dei dati dei mesi
+            $month_messages[] = $messagesCount;
         }
 
-        // foreach ($apartment->views as $view) {
-        //     $year = date("Y", strtotime($view->time_of_view));
-        //     if (isset($year_views[$year])) {
-        //         $year_views[$year]++;
-        //     } else {
-        //         $year_views[$year] = 1;
-        //     }
-        // }
-
-        foreach ($current_year_messages as $message) {
-            $month = date("m", strtotime($message->created_at));
-            $month_messages[$month - 1]++;
-        }
-
-        // foreach ($apartment->messages as $message) {
-        //     $year = date("Y", strtotime($message->created_at));
-        //     if (isset($year_messages[$year])) {
-        //         $year_messages[$year]++;
-        //     } else {
-        //         $year_messages[$year] = 1;
-        //     }
-        // }
-
-
-        return view('welcome', compact('month_views', 'apartment', 'month_messages'));
+        // return view('welcome', compact('totalMessages', 'totalViews', 'month_views', 'month_messages'));
+        return view('welcome', compact('apartments', 'totalMessages', 'totalViews', 'month_views', 'month_messages'));
     }
 }
