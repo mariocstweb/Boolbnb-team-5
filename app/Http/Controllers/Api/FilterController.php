@@ -17,7 +17,7 @@ class FilterController extends Controller
         //*** FILTERS DATA ***//
         $filters = $request->all();
         // $radius = $filters['radius'] ?? 20000;
-        $radius = $filter['radius'] ?? 20000;
+        $radius = $filters['radius'] ?? 20000;
 
         // Check Required parameters
         if (!isset($filters['lat']) || !isset($filters['lon'])) return response('Latitude and Longitude are required.', 400);
@@ -29,11 +29,6 @@ class FilterController extends Controller
 
         // Get all visible apartments
         $query->where('is_visible', 1);
-
-        // // Get last promotion end_date (only active promotion)
-        // $query->withMax(['promotions' => function ($query) {
-        //     $query->where('apartment_promotion.end_date', '>=', date("Y-m-d H:i:s"));
-        // }], 'apartment_promotion.end_date');
 
         // Get all services
         $query->with('services');
