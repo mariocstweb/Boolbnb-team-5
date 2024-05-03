@@ -45,6 +45,7 @@
                     <th scope="col">Nome Appartamento</th>
                     <th scope="col">Pubblicato</th>
                     <th scope="col">Sponsorizzazione</th>
+                    <th scope="col">Scadenza Sponsor</th>
                     <th scope="col">Azioni</th>
                 </tr>
             </thead>
@@ -74,11 +75,23 @@
                                 <div class="badge-sponsor text-center d-flex align-items-center gap-2 justify-content-center"
                                     style="background-image: linear-gradient(to left,{{ $sponsor->premium }})">
                                     <i class="fa-solid fa-award"></i> Premium</div>
+                                    
                             {{-- ALTRIMENTI --}}
                             @empty
                                 <a href="{{ route('admin.apartments.sponsor', $apartment->id) }}"
                                     class="btn bg-hover text-white p-2">Sponsorizza</a>
                             @endforelse
+                        </td>
+                        
+                        <td>
+                            @forelse ($apartment->sponsors as $sponsor)
+                            <small><i class="fa-regular fa-clock me-2"></i> {{$sponsor->expiration_date}}</small>
+                                
+                        {{-- ALTRIMENTI --}}
+                        @empty
+                            <span>-</span>
+                        @endforelse
+                            
                         </td>
                         
                         {{-- AZIONI --}}
@@ -97,6 +110,9 @@
                                     {{-- MODIFICA --}}
                                     <a href="{{ route('admin.apartments.edit', $apartment->id) }}" class="btn bg-icon"><i
                                             class="fa-regular fa-pen-to-square"></i></a>
+                                            {{-- STATISTICHE --}}
+                                <a href="{{ route('admin.apartments.statistics', $apartment->id) }}" class="btn bg-icon"><i
+                                    class="fa-solid fa-chart-line"></i></a>
                                 </div>
                                 {{-- VAI AL DETTAGLIO --}}
                                 <a href="{{ route('admin.apartments.show', $apartment->id) }}" class="btn"><i

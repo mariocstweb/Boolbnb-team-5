@@ -81,4 +81,55 @@ class DashboardController extends Controller
         // Restituisci la vista con il conteggio totale dei messaggi e altri dati necessari
         return view('welcome', compact('apartments', 'totalMessages', 'totalViews'));
     }
+
+    public function statistics(Apartment $apartment)
+    {
+        // Check if authorized
+        if (Auth::id() !== $apartment->user_id) {
+            return to_route('admin.apartments.index', $apartment)->with('alert-type', 'warning')->with('alert-message', 'Non sei autorizzato!');
+        }
+
+        // Prepare variables
+        $month_views = array_fill(0, 12, 0);
+        $month_messages = array_fill(0, 12, 0);
+        // $year_views = [];
+        // $year_messages = [];
+
+        // Get Current Year Views and Messages
+        $current_year_views = $apartment->views->where('time_of_view', '>=', date('Y-m-d H:i:s', strtotime('-1 year')));
+        $current_year_messages = $apartment->messages->where('created_at', '>=', date('Y-m-d H:i:s', strtotime('-1 year')));
+
+
+        // Calculate data
+        foreach ($current_year_views as $view) {
+            $month = date("m", strtotime($view->time_of_view));
+            $month_views[$month - 1]++;
+        }
+
+        // foreach ($apartment->views as $view) {
+        //     $year = date("Y", strtotime($view->time_of_view));
+        //     if (isset($year_views[$year])) {
+        //         $year_views[$year]++;
+        //     } else {
+        //         $year_views[$year] = 1;
+        //     }
+        // }
+
+        foreach ($current_year_messages as $message) {
+            $month = date("m", strtotime($message->created_at));
+            $month_messages[$month - 1]++;
+        }
+
+        // foreach ($apartment->messages as $message) {
+        //     $year = date("Y", strtotime($message->created_at));
+        //     if (isset($year_messages[$year])) {
+        //         $year_messages[$year]++;
+        //     } else {
+        //         $year_messages[$year] = 1;
+        //     }
+        // }
+
+
+        return view('welcome', compact('month_views', 'apartment', 'month_messages'));
+    }
 }
