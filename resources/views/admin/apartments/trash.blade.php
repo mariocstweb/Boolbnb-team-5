@@ -26,14 +26,6 @@
                 <button type="submit" class="btn bg-hover me-2 text-white p-2"><i class="fa-solid fa-rotate"></i>
                     Ripristina tutto</button>
             </form>
-            {{-- Svuota il cestino --}}
-            {{-- <form action="{{ route('admin.apartments.empty') }}" method="POST">
-  @csrf
-  @method('DELETE')
-  <button type="submit" class="btn c-main p-2 bg-hover-rev">
-      <i class="fa-solid fa-trash-can-arrow-up me-2"></i>Svuota Cestino
-  </button>
-</form> --}}
         </div>
     </div>
     {{-- SE IL CONTEGGIO DEGLI APPARTAMENTI E' MAGGIORE DI 0 --}}
@@ -94,12 +86,6 @@
                                     @method('PATCH')
                                     <button type="submit" class="btn bg-icon"><i class="fa-solid fa-rotate"></i></button>
                                 </form>
-                                {{-- Form cancellazione --}}
-                                {{-- <form method="POST" action="{{route('admin.apartments.drop', $apartment->id)}}">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn bg-icon"><i class="fa-regular fa-trash-can"></i> </button>
-                      </form> --}}
                             </div>
                             </div>
                         </td>

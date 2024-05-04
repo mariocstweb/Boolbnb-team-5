@@ -36,7 +36,6 @@ class StoreApartmentRequest extends FormRequest
             'latitude' => 'required|decimal:0,6',
             'longitude' => 'required|decimal:0,6',
             'is_visible' => 'nullable|boolean',
-            // 'category_id' => 'nullable|exists:categories,id',
             'services' => 'required|exists:services,id',
         ];
     }
@@ -75,8 +74,6 @@ class StoreApartmentRequest extends FormRequest
             'cover.image' => "l\'immagine inserita non è valida",
 
             'is_visible.boolean' => 'Il valore non è valido',
-
-            // 'category_id.exists' => "La categoria è inesistente",
 
             'services.required' => 'Inserisci almeno un servizio',
             'services.exists' => 'Il servizio è inesistente',

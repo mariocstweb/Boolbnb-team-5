@@ -28,26 +28,34 @@ Route::get('/', DashboardController::class)->name('welcome');
 
 /* ROTTE DELL'ADMIN */
 Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function () {
-    Route::get('/messages', [MessageController::class, 'index'])->name('messages.index'); // message index
 
+    /* ROTTA MESSAGGIO INDEX */
+    Route::get('/messages', [MessageController::class, 'index'])->name('messages.index'); 
+
+    /* ROTTA STATICHCHE SINGOLO APPARTAMENTO  */
     Route::get('/apartments/{apartment}/statistics', [ApartmentController::class, 'statistics'])->name('apartments.statistics');
+    
     /* ROTTA SPOSTA NEL CESTINO */
     Route::get('/apartments/trash', [ApartmentController::class, 'trash'])->name('apartments.trash');
+
     /* ROTTA RIPRISTINA DAL CESTINO */
     Route::patch('/apartments/{apartment}/restore', [ApartmentController::class, 'restore'])->name('apartments.restore')->withTrashed();
+    
     /* ROTTA ELIMINAZIONE DEFINITIVA */
     Route::delete('/apartments/{apartment}/drop', [ApartmentController::class, 'drop'])->name('apartments.drop')->withTrashed();
+    
     /* SVUOTA TUTTI GLI APPARTAMENTI DAL CESTINO */
     Route::delete('/apartments/empty', [ApartmentController::class, 'empty'])->name('apartments.empty');
+
     /* RIPRISTINA IL CESTINO */
     Route::patch('/apartments/returned', [ApartmentController::class, 'returned'])->name('apartments.returned');
+
     /* ROTTA PROMOZIONE SINGOLO APPARTAMENTO */
     Route::get('/apartments/{apartment}/sponsor', [ApartmentController::class, 'sponsor'])->name('apartments.sponsor');
 
-    /* ROTTA STATISTICHE */
-
     /* ROTTA SPONSORIZZAZZIONE PER IL PAGAMENTO */
     Route::post('/apartments/{apartment}/sponsorize', [ApartmentController::class, 'sponsorize'])->name('apartments.sponsorize');
+
     /* ROTTA RESOURCE LIST */
     Route::resource('apartments', ApartmentController::class)->withTrashed(['show', 'edit', 'update']);
 });

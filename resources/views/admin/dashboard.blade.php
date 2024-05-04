@@ -30,7 +30,6 @@
                 <div>
                     <span class="btn bg-icon me-2"><i class="fa-solid fa-envelope-open-text"></i></span>
                     {{-- TOTALE MESSAGGI --}}
-                    {{-- <span>{{ $messages->count() }}</span> --}}
                     <span>{{ $totalMessages }}</span>
                 </div>
             </div>
@@ -79,20 +78,22 @@
 
 @endsection
 @section('scripts')
+
+<!-- IMPORTO CHART.JS -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js/dist/Chart.min.js"></script>
 
 <script>
-    // Funzione per inizializzare un grafico Chart JS
+    /* INIZZIALIZZO GRAFICO */
     const initGraph = (elem, title, labels, data, backgroundColor) => {
         const graph = new Chart(elem, {
             type: 'bar',
             data: {
-                labels,
+                labels, // ETICHETTE ASSE X
                 datasets: [{
-                    label: title,
-                    data,
-                    borderWidth: 1,
-                    backgroundColor
+                    label: title, // TITOLO DEL GRAFICO
+                    data, // DATI DA VISUALIZZARE NEL GRAFICO
+                    borderWidth: 2, // SPESSORE BORDO
+                    backgroundColor // SFONDO
                 }]
             },
             options: {
@@ -110,27 +111,30 @@
             }
         });
 
+        /* RESTITUISCO IL GRAFICO CREATO */
         return graph;
     }
 
-    // Assegni le variabili per gli assi dei mesi e dei anni
-    const monthsAxis = ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre',
-        'Ottobre', 'Novembre', 'Dicembre'
-    ];
 
-    // Ottieni gli elementi DOM dei grafici
+    /* ARRAY MESI */
+    const monthsAxis = ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'];
+
+
+    /* RECUPERO ELEMENTI */
     const viewsTotalElem = document.getElementById('total-views');
     const messagesTotalElem = document.getElementById('total-messages');
 
-    // Ottieni i dati delle visualizzazioni e dei messaggi
+
+    /* RECUPERO I VALORI DEI MESSAGGI E DELLE VISSULIAZZIZIONI PASSATI DALLA DASHBORDCONTROLLER */
     const viewsTotalData = <?php echo json_encode($month_views) ?>;
     const messagesTotalData = <?php echo json_encode($month_messages) ?>;
 
-    // Inizializza il grafico delle visualizzazioni totali
-    initGraph(viewsTotalElem, 'Visualizzazioni totali', monthsAxis, viewsTotalData, '#dc3545');
+    /* GRAFICI PER LE VISSUALIZZAZIONI */
+    initGraph(viewsTotalElem, 'Visualizzazioni totali', monthsAxis, viewsTotalData, 'rgba(255, 0, 0, 0.7)');
 
-    // Inizializza il grafico dei messaggi totali
-    initGraph(messagesTotalElem, 'Messaggi totali', monthsAxis, messagesTotalData);
+    
+    /* GRAFICI PER I MESSAGGI */
+    initGraph(messagesTotalElem, 'Messaggi totali', monthsAxis, messagesTotalData, 'rgba(0, 0, 255, 0.7)');
 </script>
 
 @endsection

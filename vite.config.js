@@ -18,7 +18,7 @@ export default defineConfig({
                 'resources/js/grafic.js',
                 'resources/js/payment.js',
                 'resources/js/check_payment',
-                'resources/js/map-show.js'
+                'resources/js/map-show.js',
             ],
 
             refresh: true,

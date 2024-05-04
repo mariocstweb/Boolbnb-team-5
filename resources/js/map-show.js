@@ -1,6 +1,4 @@
-/* -----------------------------------------
-* MAP VIEWER
--------------------------------------------*/
+/* IMPORO LA MAPPA */
 import tt from "@tomtom-international/web-sdk-maps"
 
 /* RECUPERO BOTTONE MAPPA */

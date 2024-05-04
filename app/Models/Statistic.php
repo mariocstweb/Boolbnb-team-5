@@ -12,22 +12,10 @@ class Statistic extends Model
 
     protected $fillable = ['ip_address', 'date', 'apartment_id'];
 
-    //*** RELATIONS ***//
-    /**
-     * Apartments relation
-     */
+    
     public function apartment()
     {
         return $this->belongsTo(Apartment::class);
     }
 
-    //*** UTILITIES ***//
-    /**
-     * Format a date field
-     */
-    public function getDate($date_field, $format = 'd/m/y H:i')
-    {
-        return Carbon::create($this->$date_field)
-            ->format($format);
-    }
 }

@@ -115,11 +115,11 @@
                                         </div>
                                     </div>
                                 @empty
-                                    {{-- Empty message --}}
+                                    {{-- MESSAGGI --}}
                                     <div>
                                         Non hai ricevuto nessun messaggio, promuovi i tuoi boolbnb con boolbnb premium per ottenere
                                         più visualizzazioni!
-                                        <a href="{{ route('admin.apartments.index') }}" class="button-primary">Vedi di più</a>
+                                        <a href="{{ route('admin.apartments.sponsor', $apartment->id) }}" class="button-primary">Vedi di più</a>
                                     </div>
                                 @endforelse
                             </div>
@@ -161,24 +161,17 @@
             @forelse ($apartment->sponsors as $sponsor)
                 {{-- CARD SPONSORIZZAZZIONE --}}
                 <section id="sponsor">
-                    <div class="card rounded-4 p-3 mt-4">
+                    <div class="card rounded-4 p-3 mt-4 bg-card">
                         <div class="card-body">
                             <h2 class="card-title mb-4">Sponsorizzazione</h2>
-                            <div>
-                                <div class="fw-bold mb-1">Abbonamento trimestrale a <span class="sponsor-type"
-                                        style="background-image: linear-gradient(to left,{{ $sponsor->color }});-webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700;">Airbnb
-                                        {{ $sponsor->label }}</span></div>
-                                <p>Il prossimo pagamento sarà di €31,98 il 4 Aprile 2023</p>
-                            </div>
-                            <div class="subscription fw-bold"><i class="fa-regular fa-circle-check"></i> Ti sei abbonato ad
-                                Airbnb {{ $sponsor->label }}</div>
+                            <div class="subscription fw-bold"><i class="fa-regular fa-circle-check"></i> Appartmaneto Sponsorizzato</div>
                             <div class="mb-3">
                                 <a href="{{ route('admin.apartments.sponsor', $apartment->id) }}"
-                                    class="btn bg-hover text-white p-2 mt-3 me-2">Cambia piano</a>
+                                    class="btn bg-hover text-white p-2 mt-3 me-2">Aggiugi Piano</a>
                                 <a href="{{ route('admin.apartments.sponsor', $apartment->id) }}" class="btn c-main bg-hover-rev p-2 mt-3">Descrizione abbonamento</a>
                             </div>
-                            <a href="" class="remove-subscription">Disdici abbonamento</a>
                         </div>
+                    </div>
                 </section>
             {{-- ALTRIMENTI --}}
             @empty

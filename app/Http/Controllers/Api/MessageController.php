@@ -9,20 +9,33 @@ use Illuminate\Support\Facades\Validator;
 
 class MessageController extends Controller
 {
-    //Funzione che mi restituisce i messaggi e mi dice quanti sono:
+
+    /* FUNZIONE PER OTTERE TUTI I MESSAGGI */
     public function index()
     {
+
+        /* RECUPERO TUTTI I MESSAGGI DAL DATABASE */
         $messages = Message::all();
+
+
+        /* CALCOLO IL NUMERO DI TUTTI I MESSAGGI */
         $total = count($messages);
+
+
+        /* RESTITUISCO I MESSAGGI E IL NUMERO TOTALE IN FORMATO JSON */
         return response()->json(compact('messages', 'total'));
     }
 
+
+    /* FUNZIONE PER MEMORIZZARE NEL DATABASE UN NUOVO MESSAGGIO */
     public function store(Request $request)
     {
-        //Recupero i dati:
+
+        /* RECUPERO TUTTI I DATI DELLA RICHIESTA */
         $data = $request->all();
 
-        //Validazione:
+
+        /* VALIDAZIONE */
         $validator = Validator::make(
             $data,
             [
@@ -40,19 +53,26 @@ class MessageController extends Controller
             ]
         );
 
-        //Se ci sono errori:
+
+        /* SE LA VALIDAZIONE FALLISCE MESSAGGIO 400 */
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 400);
         }
 
-        // Insert message
+
+        /* CREZIONE DI UNA NUOVA ISTANZA DI MESSAGGIO */
         $message = new Message();
 
+
+        /* RECUPERO TUTTI I DATI DELLA RICHIESTA */
         $message->fill($data);
 
-        // Save message
+        
+        /* SALVATAGGIO */
         $message->save();
 
+
+        /* RESTITUISCO MESSAGGIO DI SUCCESSO 204 */
         return response(null, 204);
     }
 }

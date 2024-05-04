@@ -7,7 +7,6 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     
-
     <title>{{ config('app.name', 'BoolBnb') }} | @yield('title')</title>
 
     {{-- FONTAWESOME --}}
@@ -18,10 +17,6 @@
     {{-- GOOGLEICON --}}
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-
-    {{-- Css Mappa --}}
-
-    {{-- <link rel="stylesheet" type="text/css" href="maps.css"> --}}
 
 
     <!-- Fonts -->

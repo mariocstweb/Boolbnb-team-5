@@ -21,11 +21,13 @@
                 @auth
                     <li class="nav-item mx-2">
                         {{-- PANNELLO DI CONTROLLO --}}
-                        <a class="nav-link @if(Route::is('welcome') || Route::is('admin.statistic*')) active @endif" href="{{ route('welcome') }}">{{ __('Pannello di Controllo') }}</a>
+                        <a class="nav-link @if (Route::is('welcome') || Route::is('admin.statistic*')) active @endif"
+                            href="{{ route('welcome') }}">{{ __('Pannello di Controllo') }}</a>
                     </li>
                     <li class="nav-item mx-2">
                         {{-- APPARTAMENTI --}}
-                        <a class="nav-link @if(Route::is('admin.apartments*')) active @endif" href="{{ route('admin.apartments.index') }}">{{ __('Appartamenti') }}</a>
+                        <a class="nav-link @if (Route::is('admin.apartments*')) active @endif"
+                            href="{{ route('admin.apartments.index') }}">{{ __('Appartamenti') }}</a>
                     </li>
                 @endauth
 
@@ -35,7 +37,7 @@
             <ul class="navbar-nav ml-auto">
                 <!-- Authentication Links -->
 
-                
+
                 {{-- UTENTI NON AUTENTICATI --}}
                 @guest
                     {{-- ACCEDI --}}
@@ -49,10 +51,11 @@
                         </li>
                     @endif
                 @else
-                <li class="nav-item mx-2">
-                    {{-- APPARTAMENTI --}}
-                    <a class="nav-link @if(Route::is('admin.messages*')) active @endif" href="{{ route('admin.messages.index') }}"><i class="fa-regular fa-bell"></i></a>
-                </li>
+                    <li class="nav-item mx-2">
+                        {{-- APPARTAMENTI --}}
+                        <a class="nav-link @if (Route::is('admin.messages*')) active @endif"
+                            href="{{ route('admin.messages.index') }}"><i class="fa-regular fa-bell"></i></a>
+                    </li>
                     {{-- DROPDOWN --}}
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"

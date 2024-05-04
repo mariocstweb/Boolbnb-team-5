@@ -10,20 +10,16 @@ use Illuminate\Http\Request;
 
 class ServicesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    // public function index()
-    // {
-    //     $apartments = Apartment::latest()->paginate(5);
 
-    //     return response()->json($apartments);
-    // }
-
+    /* FUNZIONE PER RECUPERARE TUTTI I SERVIZI */
     public function index(Request $request)
     {
+
+        /* RECUPERO TUTI I SERVIZI DAL DATABASE */
         $services = Service::all();
 
+        
+        /* RESTITUISCO IN FORMATO JSON */
         return response()->json($services);
     }
 }
