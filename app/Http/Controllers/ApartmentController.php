@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class ApartmentController extends Controller
@@ -145,7 +146,10 @@ class ApartmentController extends Controller
 
 
         /* RECUEPRO TUTTI I RECORD DALLA TABELLA MESSAGGI */
-        $messages = Message::all();
+        // $messages = Message::whereName()->orderByDesc('created_at');
+        $messages = $apartment->messages()
+            ->orderByDesc('created_at')
+            ->get();
 
 
         /* RECUEPRO TUTTI I RECORD DALLA TABELLA SPONSOR */

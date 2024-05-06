@@ -10,7 +10,7 @@ class Apartment extends Model
 {
     use HasFactory;
 
-    
+
     /* ELIMINAZIONE SOFT */
     use SoftDeletes;
 
@@ -33,7 +33,7 @@ class Apartment extends Model
     {
 
         /* MOLTI MESSAGGI */
-        return $this->hasMany(Message::class);
+        return $this->hasMany(Message::class)->orderByDesc('created_at');
     }
 
 
@@ -63,18 +63,17 @@ class Apartment extends Model
         return $this->belongsTo(User::class);
     }
 
-    
+
     /* FUNZIONE PER CONTARE LE VISUALIZZAZZIONI DI OGNI SINGOLO APPARTAMENTO */
     public function viewsCount()
     {
         return $this->views()->count();
     }
 
-    
+
     /* FUNZIONE PER CONTARE I MESSAGGI DI OGNI SINGOLO APPARTAMENTO */
     public function messagesCount()
     {
         return $this->messages()->count();
     }
-
 }
