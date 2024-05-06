@@ -164,7 +164,7 @@
                     <div class="card rounded-4 p-3 mt-4 bg-card">
                         <div class="card-body">
                             <h2 class="card-title mb-4">Sponsorizzazione</h2>
-                            <div class="subscription fw-bold"><i class="fa-regular fa-circle-check"></i> Appartmaneto Sponsorizzato</div>
+                            <div class="subscription fw-bold"><i class="fa-regular fa-circle-check"></i> Appartamento Sponsorizzato</div>
                             <div class="mb-3">
                                 <a href="{{ route('admin.apartments.sponsor', $apartment->id) }}"
                                     class="btn bg-hover text-white p-2 mt-3 me-2">Aggiugi Piano</a>

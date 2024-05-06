@@ -87,7 +87,8 @@
                         {{-- DATA DI SCADENZA SPONSOR --}}
                         <td>
                             @forelse ($apartment->sponsors()->where('apartment_id', $apartment->id)->get() as $sponsor)
-                                <small><i class="fa-regular fa-clock me-2"></i> {{ $sponsor->pivot->expiration_date }}</small>
+                                <strong><small><i class="fa-regular fa-clock me-2"></i>{{ \Carbon\Carbon::parse($sponsor->pivot->expiration_date)->format('d/m/y H:m') }}</small></strong>
+                                
                             @empty
                                 <span>-</span>
                             @endforelse
