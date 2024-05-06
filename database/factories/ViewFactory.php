@@ -21,12 +21,11 @@ class ViewFactory extends Factory
 
         /* CREO UN ARRAY CON DENTRO GLI ID DEGLI APPARTMENTI */
         $apartments_ids = Apartment::pluck('id')->toArray();
-       
-        
+
+
         /* VALORI FAKE */
         return [
             'code_ip' => fake()->ipv4(),
-            'time_of_view' => fake()->time('H:i:s'),
             'apartment_id' => Arr::random($apartments_ids)
         ];
     }

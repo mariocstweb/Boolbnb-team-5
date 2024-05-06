@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('views', function (Blueprint $table) {
             $table->id();
             $table->string('code_ip', 45)->unique();
-            $table->time('time_of_view', 0);
             $table->timestamps();
         });
     }
