@@ -17,7 +17,7 @@
             <div class="card p-3">
                 <h3>Appartamenti in gestione</h3>
                 <div>
-                    <span class="btn bg-icon me-2"><i class="fa-solid fa-house"></i></span>
+                    <span class="dashbutton me-2"><i class="fa-solid fa-house"></i></span>
                     {{-- TOTALE APPARTAMENTI --}}
                     <span>{{ $apartments->count() }}</span>
                 </div>
@@ -28,7 +28,7 @@
             <div class="card p-3">
                 <h3>Messaggi totali</h3>
                 <div>
-                    <span class="btn bg-icon me-2"><i class="fa-solid fa-envelope-open-text"></i></span>
+                    <span class="dashbutton me-2"><i class="fa-solid fa-envelope-open-text"></i></span>
                     {{-- TOTALE MESSAGGI --}}
                     <span>{{ $totalMessages }}</span>
                 </div>
@@ -39,7 +39,7 @@
             <div class="card p-3">
                 <h3>Visualizzazioni totali</h3>
                 <div>
-                    <span class="btn bg-icon me-2"><i class="fa-regular fa-eye"></i></span>
+                    <span class="dashbutton me-2"><i class="fa-regular fa-eye"></i></span>
                     {{-- TOTALE VISUALIZZAZIONI --}}
                     <span>{{ $totalViews }}</span>
                 </div>
@@ -53,7 +53,7 @@
             <div class="card p-3">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h4>Visualizzazioni</h4>
-                    <span class="btn bg-icon me-2"><i class="fa-regular fa-eye"></i></span>
+                    <span class="dashbutton me-2"><i class="fa-regular fa-eye"></i></span>
                 </div>
                 <div class="box-grafic">
                     <canvas id="total-views"></canvas>
@@ -65,7 +65,7 @@
             <div class="card p-3">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h4>Messaggi</h4>
-                    <span class="btn bg-icon me-2"><i class="fa-solid fa-envelope-open-text"></i></span>
+                    <span class="dashbutton me-2"><i class="fa-solid fa-envelope-open-text"></i></span>
                 </div>
                 <div class="box-grafic">
                     <canvas id="total-messages"></canvas>

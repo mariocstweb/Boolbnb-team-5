@@ -22,7 +22,7 @@
             <div class="card p-3">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h4>Visualizzazioni Mensili</h4>
-                    <span class="btn bg-icon me-2"><i class="fa-regular fa-eye"></i></span>
+                    <span class="dashbutton me-2"><i class="fa-regular fa-eye"></i></span>
                 </div>
                 <div class="box-grafic">
                     <canvas id="month-views"></canvas>
@@ -34,7 +34,7 @@
             <div class="card p-3">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h4>Visualizzazioni Annuali</h4>
-                    <span class="btn bg-icon me-2"><i class="fa-regular fa-eye"></i></span>
+                    <span class="dashbutton me-2"><i class="fa-regular fa-eye"></i></span>
 
                 </div>
                 <div class="box-grafic">
@@ -49,7 +49,7 @@
             <div class="card p-3">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h4>Messaggi Mensili</h4>
-                    <span class="btn bg-icon me-2"><i class="fa-solid fa-envelope-open-text"></i></span>
+                    <span class="dashbutton me-2"><i class="fa-solid fa-envelope-open-text"></i></span>
                 </div>
                 <div class="box-grafic">
                     <canvas id="month-messages"></canvas>
@@ -61,7 +61,7 @@
             <div class="card p-3">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h4>Messaggi Annuali</h4>
-                    <span class="btn bg-icon me-2"><i class="fa-solid fa-envelope-open-text"></i></span>
+                    <span class="dashbutton me-2"><i class="fa-solid fa-envelope-open-text"></i></span>
                 </div>
                 <div class="box-grafic">
                     <canvas id="year-messages"></canvas>

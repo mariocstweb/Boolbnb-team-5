@@ -34,6 +34,13 @@
   }
 }
 
+.dashbutton{
+  background-color:$main100;
+  color: $main600;
+  padding: 6px 12px;
+  border-radius: 6px;
+}
+
 /* COLORE CHECK SERVIZI */
 .icon-show {
   color: $main500;
