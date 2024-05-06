@@ -21,8 +21,12 @@ class ApartmentsController extends Controller
         $query = Apartment::query();
 
 
-        /* METTO IN ORDINE PER DATA DI CREAZIONE GLI APPARTAMENTI E PASSO I SERVIZI RELAZIONATI TRAMITE MODELLO */
-        $apartments = $query->latest()->with('services')->get();
+        /* METTO IN ORDINE PER DATA DI CREAZIONE E SPONSOR GLI APPARTAMENTI E PASSO I SERVIZI E GlI SPONSOR RELAZIONATI TRAMITE MODELLO */
+        $apartments = $query->with('services', 'sponsors')
+            ->leftJoin('apartment_sponsor', 'apartments.id', '=', 'apartment_sponsor.apartment_id')
+            ->orderByRaw('apartment_sponsor.apartment_id IS NULL')
+            ->latest()
+            ->get();
 
 
         /* RESTITUISCO I DATI DEGLI APPARTAMENTI IN JSON */
