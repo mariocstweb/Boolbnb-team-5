@@ -439,7 +439,7 @@ class ApartmentController extends Controller
     /* FUNZIONE STATISTICHE */
     public function statistics(Apartment $apartment)
     {
-        
+
         /* VERIFICO SE L'UTENTE E' AUTENTICATO ED PROPRETARIO DELL'APPARTAMENTO */
         if (Auth::id() !== $apartment->user_id) {
 
@@ -447,29 +447,29 @@ class ApartmentController extends Controller
             return to_route('admin.apartments.index', $apartment)->with('type', 'warning')->with('message', 'Non sei autorizzato!');
         }
 
-        
+
         /* ARRAY PER IL CONTEGGIO DI MESSAGGI E VISSUALIZZAZIONI PER MESE E ANNO */
         $month_views = array_fill(0, 12, 0);
         $month_messages = array_fill(0, 12, 0);
         $year_views = [];
         $year_messages = [];
 
-        
+
         /* FILTRO I MESSAGGI E VISUSLIZZAZIONI DELL'ULTIMO ANNO */
-        $current_year_views = $apartment->views->where('time_of_view', '>=', date('Y-m-d H:i:s', strtotime('-1 year')));
+        $current_year_views = $apartment->views->where('created_at', '>=', date('Y-m-d H:i:s', strtotime('-1 year')));
         $current_year_messages = $apartment->messages->where('created_at', '>=', date('Y-m-d H:i:s', strtotime('-1 year')));
 
 
         /* CALCOLO LE VISSUALIZZAZIONI PER MESE DELL'ULTIMO ANNO */
         foreach ($current_year_views as $view) {
-            $month = date("m", strtotime($view->time_of_view));
+            $month = date("m", strtotime($view->created_at));
             $month_views[$month - 1]++;
         }
 
 
         /* CALCOLO LE VISSUALIZZAZIONI TOTALI PER ANNO */
         foreach ($apartment->views as $view) {
-            $year = date("Y", strtotime($view->time_of_view));
+            $year = date("Y", strtotime($view->created_at));
             if (isset($year_views[$year])) {
                 $year_views[$year]++;
             } else {
@@ -477,7 +477,7 @@ class ApartmentController extends Controller
             }
         }
 
-        
+
         /* CALCOLO I MESSAGGI PER MESE DELL'ULTIMO ANNO */
         foreach ($current_year_messages as $message) {
             $month = date("m", strtotime($message->created_at));
