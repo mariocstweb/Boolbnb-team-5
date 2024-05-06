@@ -26,7 +26,6 @@ class ViewFactory extends Factory
         /* VALORI FAKE */
         return [
             'code_ip' => fake()->ipv4(),
-            'time_of_view' => fake()->time('H:i:s'),
             'apartment_id' => Arr::random($apartments_ids)
         ];
     }

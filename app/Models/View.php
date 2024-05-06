@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class View extends Model
 {
     use HasFactory;
+    protected $fillable = ['code_ip', 'apartment_id'];
 
 
     /* RELAZIONE CON IL MODELLO APPARTAMENTI */

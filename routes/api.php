@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\FilterController;
 use App\Http\Controllers\Api\FilterServiceController;
 use App\Http\Controllers\Api\MessageController;
 use App\Http\Controllers\Api\ServicesController;
+use App\Http\Controllers\Api\ViewController;
 use App\Models\Session as ModelsSession;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -45,9 +46,13 @@ Route::apiResource('services', ServicesController::class)->only('index');
 /* ROTTA SEVIZI PER APPARAMENTO SPECIFICO */
 Route::get('services/{id}/apartments', FilterServiceController::class);
 
+// Rotta per salvare l indirizzo ip
+Route::post('apartments/{apartment}/views', [ViewController::class, 'recordView']);
+
 /* ROTTA USER */
 Route::get('/user', function () {
     $user = ModelsSession::select('user_id')->get();
     $userTarget = User::where('id', '=', $user[0]['user_id'])->get();
     return response()->json($userTarget);
 });
+
