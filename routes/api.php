@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Route;
 
 
 /* ROTTA FILTRI */
+
 Route::get('apartments/filter', [FilterController::class, 'index']);
 
 /* ROTTA RICEVI MESSAGGIO */
@@ -45,14 +46,3 @@ Route::apiResource('services', ServicesController::class)->only('index');
 
 /* ROTTA SEVIZI PER APPARAMENTO SPECIFICO */
 Route::get('services/{id}/apartments', FilterServiceController::class);
-
-// Rotta per salvare l indirizzo ip
-Route::post('apartments/{apartment}/views', [ViewController::class, 'recordView']);
-
-/* ROTTA USER */
-Route::get('/user', function () {
-    $user = ModelsSession::select('user_id')->get();
-    $userTarget = User::where('id', '=', $user[0]['user_id'])->get();
-    return response()->json($userTarget);
-});
-
