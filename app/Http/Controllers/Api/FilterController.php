@@ -8,63 +8,74 @@ use Illuminate\Http\Request;
 
 class FilterController extends Controller
 {
-    /**
-     * Filter apartments resource
-     */
+
+    /* FUNZIONE PER OTTENERE UN ELENCO DI APPARTAMENTI FILTRATI */
     public function index(Request $request)
     {
 
-        //*** FILTERS DATA ***//
+        /* RECUPERO TUTTI I VALORI DELLA RICHIESTA */
         $filters = $request->all();
-        // $radius = $filters['radius'] ?? 20000;
+
+
+        /* IMPOSTO IL RAGGIO A 20KM SE NON SPECIFICO */
         $radius = $filters['radius'] ?? 20000;
 
-        // Check Required parameters
+
+        /* VERIFICO SE NELLA RICHIESTA SONO PRESENTI LATITUDINE E LONGITUDINE */
         if (!isset($filters['lat']) || !isset($filters['lon'])) return response('Latitude and Longitude are required.', 400);
 
 
-        //*** GET APARTMENTS WITH FILTERS ***//
-        // Get apartments fields and calculate distance
+        /* CALCOLO LA DISTANZA TRA LATITUDINE E LONGITUDINE FORNITE DALL'UTENTE, PER FILTRARE GLI APPARTAMENTI ENTRO IL RAGGIO SPECIFICO */
         $query = Apartment::selectRaw("*, ST_Distance_Sphere(POINT({$filters['lon']}, {$filters['lat']}), POINT( `longitude`, `latitude`)) AS `distance`");
 
-        // Get all visible apartments
+
+        /* APPARTAMENTI SOLO PUBBLICATI */
         $query->where('is_visible', 1);
 
-        // Get all services
+
+        /* PASSO I SERVIZI */
         $query->with('services');
 
-        // Filtro "min rooms"
+
+        /* CONDIZIONE PER IL NUMERO DI STANZE */
         if (isset($filters['rooms'])) {
             $query->where('rooms', '>=', $filters['rooms']);
         }
 
-        // Filtro "min beds"
+
+        /* CONDIZIONE PER NUMERO DI LETTI */
         if (isset($filters['beds'])) {
             $query->where('beds', '>=', $filters['beds']);
         }
 
-        // Filtro "services"
+
+        /* CONDIZIONE PER I SERVIZI */
         if ($request->has('services')) {
+            /* CREO ARRAY DI ID */
             $serviceIds = explode(',', $request->services);
+            /* CICLO SUGLI ARRAY */
             foreach ($serviceIds as $serviceId) {
+                /* CONTROLLO CHE GLI ID SIANO CORRISPONDENTI */
                 $query->whereHas('services', function ($q) use ($serviceId) {
                     $q->where('services.id', $serviceId);
                 });
             }
         }
 
-        // Filter by distance
+
+        /* DISTANZA */
         $query->having('distance', '<', $radius);
 
 
-        // // Ordering
+        /* ORIDINO GLI APPARTAMENTI IN BASE ALLA DISTANZA */
         $query->orderBy('distance');
-        // $query->orderBy('created_at', 'desc');
 
-        // Apply query and get apartments
+
+        /* OTTENGO GLI APPARTMANETI CON EVENTUALI FILTRI */
         $apartments = $query->get();
 
-
+        
+        /* RESTITUISCO GLI APPARATMENTI TROVATI */
         return $apartments;
     }
 }

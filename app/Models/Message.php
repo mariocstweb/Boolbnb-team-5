@@ -18,6 +18,8 @@ class Message extends Model
         /* UN SOLO APPARTAMENTO */
         return $this->belongsTo(Apartment::class);
     }
+
+    /* FUZNIONE PER FORMATTARE LA DATA */
     public function getDate($date_field, $format = 'd/m/y H:i')
     {
         return Carbon::create($this->$date_field)

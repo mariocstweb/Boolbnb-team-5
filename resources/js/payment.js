@@ -74,7 +74,9 @@ braintree.dropin.create({
     });
 });
 
-document.addEventListener("DOMContentLoaded", function() {
+
+/* COSA SERVE ???? */
+/* document.addEventListener("DOMContentLoaded", function() {
     const sponsorRadios = document.querySelectorAll('input[name="sponsor"]');
     const expirationDateElement = document.getElementById('expiration-date');
 
@@ -86,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function() {
             expirationDateElement.textContent = expirationDate.toLocaleString(); // Aggiorna la visualizzazione della data di scadenza
         });
     });
-});
+}); */
 
 
 

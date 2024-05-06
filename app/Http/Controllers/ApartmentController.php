@@ -358,129 +358,116 @@ class ApartmentController extends Controller
         return view('admin.apartments.sponsor', compact('apartment', 'sponsors', 'clientToken'));
     }
 
-    // public function sponsorize(Request $request, String $id)
-    // {
 
-    //     // Get apartment with end date data
-    //     $apartment = Apartment::withMax(['sponsors' => function ($query) {
-    //         $query->where('apartment_sponsor.expiration_date', '>=', date("Y-m-d H:i:s"));
-    //     }], 'apartment_sponsor.expiration_date')->find($id);
-
-
-    //     // Check if apartment already has an active sponsor
-    //     if ($apartment->sponsors()->where('expiration_date', '>=', now())->exists()) {
-    //         return to_route('admin.apartments.index')->with('message', "L'appartamento ha già un abbonamento attivo.")->with('type', 'danger');
-    //     }
-
-    //     // Get all request inputs
-    //     $data = $request->all();
-
-    //     // Get Promotion Chosen Data
-    //     $sponsor = Sponsor::find($data['sponsor']);
-
-
-    //     // Make transaction
-    //     $gateway = new \Braintree\Gateway(config('braintree'));
-
-    //     $payment = $gateway->transaction()->sale([
-    //         'amount' => $sponsor->price,
-    //         'paymentMethodNonce' => $data['payment_method_nonce'],
-    //         'options' => [
-    //             'submitForSettlement' => True
-    //         ]
-    //     ]);
-
-
-    //     // Payment success
-    //     if ($payment->success) {
-
-    //         // Calculate pivot table fields data
-    //         $start_date = $apartment->promotions_max_apartment_promotionend_date ?? date('Y-m-d H:i:s'); // start promotion from active promotion or now
-    //         $expiration_date = date('Y-m-d H:i:s', strtotime("+ $sponsor->duration hours", strtotime($start_date))); // end prootion based on start date and promotion chosen
-
-    //         $apartment->sponsors()->attach($sponsor->id, ['start_date' => $start_date, 'expiration_date' => $expiration_date]);
-
-
-    //         return to_route('admin.apartments.index')->with('message', "Promozione $sponsor->label attivata sul boolbnb $apartment->title. Totale pagato: $sponsor->price €.")->with('type', 'success');
-    //     }
-
-    //     // Payment failed
-    //     return to_route('admin.apartments.index')->with('message', "Il pagamento non è andato a buon fine.")->with('type', 'danger');
-    // }
-
+    /* SPONSORIZZAZZIONE DELL'APPARATAMENTO */
     public function sponsorize(Request $request, String $id)
     {
 
-        // Get apartment with end date data
+        /* RECUPERO L'APPARATAMENTO CON LO SPONSOR CON DATA PIU' TARDIVA DI SCADENZA */
         $apartment = Apartment::withMax(['sponsors' => function ($query) {
-            $query->where(
-                'apartment_sponsor.expiration_date',
-                '>=',
-                date("d-m-Y H:i:s")
-            );
-        }], 'apartment_sponsor.expiration_date')->find($id);
 
-        // Get all request inputs
+            /* FILTRO GLI APPARATEMNTI CHE ANNO LO SPONSOR ATTIVO E DATA DI SCADENZA */
+            $query->where('apartment_sponsor.expiration_date', '>=', date("d-m-Y H:i:s"));
+        }], 'apartment_sponsor.expiration_date')->find($id); // SELEZIONI IN BASE ALL'ID SPECIFICO
+
+
+        /* RECUERO I DATI DELLA RICGIESTA */
         $data = $request->all();
 
-        // Get Promotion Chosen Data
+
+        /* RECUEPRO LO PSONSOR SELEZIONATO */
         $sponsor = Sponsor::find($data['sponsor']);
 
 
-        // Make transaction
+        /* UTILIZZANDO L'OGETTO DI GETEWAY DI BRAINTREE UTILIZO LA LORO CONFIGURAZIONE */
         $gateway = new \Braintree\Gateway(config('braintree'));
 
+
+        /* TRANSIZIONE DI PAGAMENTO ATTRAVERSO BRAINTREE */
         $payment = $gateway->transaction()->sale([
-            'amount' => $sponsor->price,
-            'paymentMethodNonce' => $data['payment_method_nonce'],
+            'amount' => $sponsor->price, // PREZZO SPONSOR
+            'paymentMethodNonce' => $data['payment_method_nonce'], // METODO DI PAGAMENTO
             'options' => [
-                'submitForSettlement' => True
+                'submitForSettlement' => True // TRASIZIONE IMMEDIATA
             ]
         ]);
-        // Payment success
+
+
+        /* SE IL PAGAMENTO E' RIUSCITO */
         if ($payment->success) {
+
+            /* CONTROLLO SE L'APPARTAMENTO HA GIA' UNO SPONSOR */
             if ($apartment->sponsors()->where('expiration_date', '>=', now())->exists()) {
-                // If there is already an active sponsorship, update the expiration date
+
+                /* CERCO LO SPONSOR ATTUALMENTE ATTIVO */
                 $currentSponsor = $apartment->sponsors()->orderBy('expiration_date', 'desc')->first();
+
+                /* CALCOLA LA DATA DELLE SPONSOR ED EVENTUALE AGGIORNAMENTO NEL CASO DI UNO NUOVO */
                 $newExpirationDate = Carbon::parse($currentSponsor->pivot->expiration_date)->addHours($sponsor->duration);
+
+                /* AGGIORNO ENTRY PIVOT DELLA RELAZIONE TRA APPARATEMNTO E SPONSOR E AGGIURNO LA DATA DI SCADENZA */
                 $apartment->sponsors()->updateExistingPivot($currentSponsor->id, ['expiration_date' => $newExpirationDate]);
+
+
+                /* ALTRIMENTI AGGIUNGI UN SPONSOR NUOVO */
             } else {
-                // If there is no active sponsorship, attach the new sponsorship
-                $start_date = now(); // Start promotion from now
-                $expiration_date = $start_date->copy()->addHours($sponsor->duration); // End promotion based on start date and duration of chosen sponsorship
+
+
+                /* DATA DI INZIO DELLA SPONSORIZZAZIONE */
+                $start_date = now();
+
+
+                /* CALCOLO DELLA DATA DI SCADENZA AGGIUNGENDO LA DATA DI INZIO */
+                $expiration_date = $start_date->copy()->addHours($sponsor->duration);
+
+
+                /* ATTACO ALLA TABELLA PONTE SIA LA DATA DI SCADENZA CHE QUELLA D'INIZIO */
                 $apartment->sponsors()->attach($sponsor->id, ['start_date' => $start_date, 'expiration_date' => $expiration_date]);
             }
 
+
+            /* RESTITUISCO MESSAGGIO DI SUCCESSO */
             return redirect()->route('admin.apartments.index')->with('message', "Promozione $sponsor->label attivata sul boolbnb $apartment->title. Totale pagato: $sponsor->price €.")->with('type', 'success');
         }
-        // Payment failed
+
+
+        /* RESTITUISCO MESSAGGIO DI ERRORE */
         return to_route('admin.apartments.index')->with('message', "Il pagamento non è andato a buon fine.")->with('type', 'danger');
     }
 
+
+    /* FUNZIONE STATISTICHE */
     public function statistics(Apartment $apartment)
     {
-        // Check if authorized
+        
+        /* VERIFICO SE L'UTENTE E' AUTENTICATO ED PROPRETARIO DELL'APPARTAMENTO */
         if (Auth::id() !== $apartment->user_id) {
-            return to_route('admin.apartments.index', $apartment)->with('alert-type', 'warning')->with('alert-message', 'Non sei autorizzato!');
+
+            /* MESSAGGIO DI NON AUTORIZZATO */
+            return to_route('admin.apartments.index', $apartment)->with('type', 'warning')->with('message', 'Non sei autorizzato!');
         }
 
-        // Prepare variables
+        
+        /* ARRAY PER IL CONTEGGIO DI MESSAGGI E VISSUALIZZAZIONI PER MESE E ANNO */
         $month_views = array_fill(0, 12, 0);
         $month_messages = array_fill(0, 12, 0);
         $year_views = [];
         $year_messages = [];
 
-        // Get Current Year Views and Messages
+        
+        /* FILTRO I MESSAGGI E VISUSLIZZAZIONI DELL'ULTIMO ANNO */
         $current_year_views = $apartment->views->where('time_of_view', '>=', date('Y-m-d H:i:s', strtotime('-1 year')));
         $current_year_messages = $apartment->messages->where('created_at', '>=', date('Y-m-d H:i:s', strtotime('-1 year')));
 
 
-        // Calculate data
+        /* CALCOLO LE VISSUALIZZAZIONI PER MESE DELL'ULTIMO ANNO */
         foreach ($current_year_views as $view) {
             $month = date("m", strtotime($view->time_of_view));
             $month_views[$month - 1]++;
         }
 
+
+        /* CALCOLO LE VISSUALIZZAZIONI TOTALI PER ANNO */
         foreach ($apartment->views as $view) {
             $year = date("Y", strtotime($view->time_of_view));
             if (isset($year_views[$year])) {
@@ -490,11 +477,15 @@ class ApartmentController extends Controller
             }
         }
 
+        
+        /* CALCOLO I MESSAGGI PER MESE DELL'ULTIMO ANNO */
         foreach ($current_year_messages as $message) {
             $month = date("m", strtotime($message->created_at));
             $month_messages[$month - 1]++;
         }
 
+
+        /* CALCOLO I MESSAGI TOTALI PER ANNO */
         foreach ($apartment->messages as $message) {
             $year = date("Y", strtotime($message->created_at));
             if (isset($year_messages[$year])) {
@@ -505,15 +496,7 @@ class ApartmentController extends Controller
         }
 
 
+        /* RESTUTUISCO I DATI DELLE STATICHE */
         return view('admin.apartments.statistics', compact('month_views', 'apartment', 'year_views', 'month_messages', 'year_messages'));
-    }
-
-
-    /**
-     * Show Promotions info.
-     */
-    public function premium()
-    {
-        return view('admin.apartments.premium');
     }
 }

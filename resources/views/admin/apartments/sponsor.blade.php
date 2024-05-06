@@ -51,7 +51,7 @@
                 </div>
             @endforeach
             <input type="hidden" name="sponsor" id="sponsor" value="{{$sponsor->id}}">
-    
+            {{-- MODALE PAGAMENTO --}}
             @include('sponsor.includes.payment')
         </div>
     </form>

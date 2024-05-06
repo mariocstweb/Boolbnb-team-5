@@ -13,8 +13,12 @@ class MessageController extends Controller
      */
     public function index()
     {
+
+        /* RECUEPRO I MESSAGGI ASSOCIATI AGLI APPARAMENTI DELL'UTENTE AUTENTICATO */
         $messages = Message::whereRelation('apartment', 'user_id', Auth::id())->get();
 
+
+        /* RESTITUISCI IN PAGINA */
         return view('admin.messages.index', compact('messages'));
     }
 
@@ -23,6 +27,8 @@ class MessageController extends Controller
      */
     public function create()
     {
+
+        /* CREO UNA NUOVA ISTANZA PER EVENTUALI ERRORI */
         $message = new Message();
 
         return view('admin.messages.create', compact('message'));
@@ -33,6 +39,8 @@ class MessageController extends Controller
      */
     public function store(Request $request)
     {
+
+        /* RECUPERO I DATI E FACCIO LA VALIDAZIONE */
         $data = $request->validate(
             [
                 'name' => 'required',
@@ -47,46 +55,20 @@ class MessageController extends Controller
             ]
         );
 
-        // Insert message
+        
+        /* CREO UNA NUOVA ISTANZA */
         $message = new Message();
 
+
+        /* POPOLO L'OGGETTO CON I VALORI DELL'ARRAY DATA */
         $message->fill($data);
 
-        // Save message
+        
+        /* SALVATAGGIO */
         $message->save();
 
-        return to_route('admin.messages.index')->with('alert-message', 'Messaggio creato con successo')->with('alert-type', 'success');
-    }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Message $message)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Message $message)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Message $message)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Message $message)
-    {
-        //
+        /* RSTITUISCO IN PAGINA */
+        return to_route('admin.messages.index')->with('message', 'Messaggio creato con successo')->with('type', 'success');
     }
 }

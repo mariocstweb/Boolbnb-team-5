@@ -14,52 +14,64 @@ class DashboardController extends Controller
 {
     public function __invoke()
     {
-        // Imposta la localizzazione su italiano
+
+        /* IMPOSTO LA LINGUA IN ITALIANO */
         Carbon::setLocale('it');
 
-        // Recupera tutti gli appartamenti dell'utente loggato
+
+        /* RECUEPRO GLI APPARATEMNTI DELL'UTENTE AUTENTICATO */
         $apartments = Apartment::where('user_id', Auth::id())->get();
 
-        // Inizializza le variabili per le statistiche totali
+
+        /* CREO VARIABILI DA MANIPOLARE PER MESSAGGI E VISSULIAZZAZIONI */
         $totalMessages = 0;
         $totalViews = 0;
 
-        // Cicla attraverso gli appartamenti per calcolare le statistiche totali
+
+        /* CICLO SUGLI APPARAMENTI */
         foreach ($apartments as $apartment) {
-            // Aggiungi il conteggio dei messaggi dell'appartamento ai totali
+
+            /* TOTLALE DI TUTTI I MESSAGGI DEGLI APPARTAMENTI */
             $totalMessages += $apartment->messages()->count();
 
-            // Aggiungi il conteggio delle visualizzazioni dell'appartamento ai totali
+            /* TOTLALE DI TUTTE LE VISSUALIZZAZZIONI DEGLI APPARTAMENTI */
             $totalViews += $apartment->views()->count();
         }
 
-        // Recupera i dati delle visualizzazioni totali per i mesi
-        $month_views = []; // Inizializza l'array vuoto per i dati delle visualizzazioni per i mesi
 
-        // Cicla attraverso i mesi dell'anno
+        /* CREO ARRAY DA MANIPOLARE PER MEMORIZZARE IL NUMERO DI VISSULAIZZAZIONI PER OGNI MESI DI TUTTI GLI APPARAEMNTI */
+        $month_views = [];
+
+        /* CICLO PER 12 INCREMENTANDO DI 1 OGBI GIRO */
         for ($month = 1; $month <= 12; $month++) {
-            // Recupera il numero totale di visualizzazioni per il mese corrente
+
+            /* QUERY PER CONTARE IL NUMERO DI VISSUALIZZAZZIONI PER IL MESE CORRENTE E PER GLI APPARAMENTI DELL'UTENTE AUTENTICATO */
             $viewsCount = View::whereMonth('created_at', $month)
                 ->whereIn('apartment_id', $apartments->pluck('id'))
                 ->count();
-            // Aggiungi il conteggio delle visualizzazioni all'array dei dati dei mesi
+
+
+            /* AGGIUNGI ALL'ARRAY IL NUEMRO DI VISSUALIZZAZZIONI */
             $month_views[] = $viewsCount;
         }
 
-        // Recupera i dati dei messaggi totali per i mesi
-        $month_messages = []; // Inizializza l'array vuoto per i dati dei messaggi per i mesi
+        /* CREO ARRAY DA MANIPOLARE PER MEMORIZZARE IL NUMERO DI MESSAGGI PER OGNI MESI DI TUTTI GLI APPARAEMNTI */
+        $month_messages = [];
 
-        // Cicla attraverso i mesi dell'anno
+        /* CICLO PER 12 INCREMENTANDO DI 1 OGBI GIRO */
         for ($month = 1; $month <= 12; $month++) {
-            // Recupera il numero totale di messaggi per il mese corrente
+
+            /* QUERY PER CONTARE IL NUMERO DI MESSAGGI PER IL MESE CORRENTE E PER GLI APPARAMENTI DELL'UTENTE AUTENTICATO */
             $messagesCount = Message::whereMonth('created_at', $month)
                 ->whereIn('apartment_id', $apartments->pluck('id'))
                 ->count();
-            // Aggiungi il conteggio dei messaggi all'array dei dati dei mesi
+
+            /* AGGIUNGI ALL'ARRAY IL NUEMRO DI MESSAGGI */
             $month_messages[] = $messagesCount;
         }
 
-        // return view('welcome', compact('totalMessages', 'totalViews', 'month_views', 'month_messages'));
+
+        /* RESTITUSCI I DATI */
         return view('welcome', compact('apartments', 'totalMessages', 'totalViews', 'month_views', 'month_messages'));
     }
 }

@@ -96,6 +96,7 @@
     }
 }
 
+/* MAPPA */
 .map-box {
     height: 600px;
     width: 100%;
@@ -104,7 +105,13 @@
     align-items: center;
 }
 
+/* RECIPIENTE MAPPA */
 #mapModal {
     height: 1000px;
-    width: 1000px;
+    width: 100%;
+}
+
+/* CARD DELLA SPONSORIZZAZIONE ATTIVA */
+.bg-card {
+    background-color: rgb(249, 234, 150);
 }
