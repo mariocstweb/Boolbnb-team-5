@@ -36,6 +36,13 @@ class Apartment extends Model
         return $this->hasMany(Message::class)->orderByDesc('created_at');
     }
 
+    /* RELAZIONE CON IL MODELLO FOTO*/
+    public function photo()
+    {
+        /* MOLTE FOTO */
+        return $this->hasMany(Photo::class)->orderByDesc('created_at');
+    }
+
 
     /* RELAZIONE CON IL MODELLO SPONSOR */
     public function sponsors()
