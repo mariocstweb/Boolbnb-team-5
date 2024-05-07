@@ -39,7 +39,7 @@ class ApartmentsController extends Controller
     {
 
         /* RECUPERO L'APPARTMENTO CON ID SPECIFICO, E PASSO I SERVIZI CORRELLATI */
-        $apartment = Apartment::with('services')->find($id);
+        $apartment = Apartment::with('services', 'photo')->find($id);
         /* MESSAGGIO DI 404 SE L'APPARTMANETO NON ESISTE */
         if (!$apartment) return response(null, 404);
 

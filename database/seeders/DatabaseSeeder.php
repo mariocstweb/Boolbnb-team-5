@@ -22,9 +22,9 @@ class DatabaseSeeder extends Seeder
             'email' => 'bool@gmail.com',
         ]);
 
-        
+
         /* RECUPERI VALORI FATTI NEL SEEDER */
-        $this->call([ApartmentSeeder::class, ServiceSeeder::class, SponsorSeeder::class]);
+        $this->call([ApartmentSeeder::class, ServiceSeeder::class, SponsorSeeder::class, PhotoSeeder::class]);
 
 
         /* VALORI FAKE */
