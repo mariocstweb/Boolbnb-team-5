@@ -10,11 +10,11 @@ const mapContainer = document.getElementById('map');
 /* FUNZIONE PER GESTIRE IL CLICK */
 function handleMapButtonClick() {
 
-    /* SE ESEISTE */
+    /* SE ESISTE */
     if (mapContainer) {
 
 
-        /* RECUEPRO CORDINATATE DAL DATASET */
+        /* RECUEPRO COORDINATATE DAL DATASET */
         const lat = mapContainer.dataset.latitude;
         const lon = mapContainer.dataset.longitude;
 
