@@ -17,7 +17,7 @@
     <h1 class="mb-5">Statistiche dell'appartamento</h1>
     <div class="row mb-5 row-gap-3">
         <h2>Visualizzazioni</h2>
-        <div class="col-6">
+        <div class="col col-lg-6">
             {{-- CARD VISUALIZZAZZIONI MENSILI --}}
             <div class="card p-3">
                 <div class="d-flex justify-content-between align-items-center mb-3">
@@ -29,7 +29,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-6">
+        <div class="col col-lg-6">
             {{-- CARD VISUALIZZAZZIONI ANNUALE --}}
             <div class="card p-3">
                 <div class="d-flex justify-content-between align-items-center mb-3">
@@ -44,7 +44,7 @@
             </div>
         </div>
         <h2 class="mt-5">Messaggi</h2>
-        <div class="col-6">
+        <div class="col col-lg-6">
             {{-- CARD MESSAGGI MENSILI --}}
             <div class="card p-3">
                 <div class="d-flex justify-content-between align-items-center mb-3">
@@ -56,7 +56,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-6">
+        <div class="col col-lg-6">
             {{-- CARD MESSAGGI ANNUALI --}}
             <div class="card p-3">
                 <div class="d-flex justify-content-between align-items-center mb-3">
