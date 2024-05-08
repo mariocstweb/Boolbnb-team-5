@@ -46,7 +46,7 @@ class ApartmentController extends Controller
 
 
         /* PAGINAZIONE */
-        $apartments = $query->paginate(3);
+        $apartments = $query->paginate(5);
 
 
         /* RECUEPRO TUTTI I RECORD DALLA TABELLA SPONSOR */
