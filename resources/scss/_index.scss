@@ -35,3 +35,22 @@ ul {
   padding: 8px 15px;
   border-radius: 15px;
 }
+
+.dropdown-toggle::after {
+  display: none;
+}
+
+.dropdown-menu {
+  min-width: 50px;
+}
+
+
+@media screen and (max-width: 768px) {
+  .badge-sponsor {
+    width: 40px;
+  }
+
+  .date {
+    font-size: 12px;
+  }
+}

@@ -27,11 +27,15 @@
         </form>
         <div>
             {{-- AGGIUNGI APPARTAMENTO --}}
-            <a href="{{ route('admin.apartments.create') }}" class="btn bg-hover me-2 text-white p-2"><i
-                    class="fa-solid fa-house-medical ms-1"></i> Aggiungi appartamento</a>
+            <a href="{{ route('admin.apartments.create') }}" class="btn bg-hover text-white p-2">
+                <i class="fa-solid fa-house-medical mx-1"></i>
+                 <span class="d-none d-lg-inline">Aggiungi appartamento</span>
+            </a>
             {{-- VAI AL CESTINO --}}
-            <a class="btn c-main p-2 bg-hover-rev" href="{{ route('admin.apartments.trash') }}"><i
-                    class="fa-regular fa-trash-can"></i> Cestino</a>
+            <a class="btn c-main p-2 bg-hover-rev" href="{{ route('admin.apartments.trash') }}">
+                <i class="fa-regular fa-trash-can mx-1"></i>
+                 <span class="d-none d-lg-inline">Cestino</span>
+            </a>
         </div>
     </div>
     {{-- SE IL CONTEGGIO DEGLI APPARTAMENTI E' MAGGIORE DI 0 --}}
@@ -40,12 +44,12 @@
         <table class="table table-hover">
             <thead class="border-top">
                 <tr>
-                    <th scope="col">Anteprima</th>
+                    <th scope="col" class="d-none d-lg-table-cell">Anteprima</th>
                     <th scope="col">ID</th>
-                    <th scope="col">Nome Appartamento</th>
+                    <th scope="col">Nome <span class="d-none d-md-inline">Appartamento</span></th>
                     <th scope="col">Pubblicato</th>
-                    <th scope="col">Sponsorizzazione</th>
-                    <th scope="col">Scadenza Sponsor</th>
+                    <th scope="col">Promo</th>
+                    <th scope="col">Scadenza</th>
                     <th scope="col">Azioni</th>
                 </tr>
             </thead>
@@ -54,7 +58,7 @@
                     <tr>
 
                         {{-- COVER --}}
-                        <td><img src="{{ $apartment->cover }}" alt="{{ $apartment->title }}"
+                        <td class="d-none  d-lg-table-cell"><img src="{{ $apartment->cover }}" alt="{{ $apartment->title }}"
                                 class="img-fluid table-img rounded-1"></td>
 
                         {{-- ID --}}
@@ -74,20 +78,20 @@
                             @forelse ($apartment->sponsors as $sponsor)
                                 <div class="badge-sponsor text-center d-flex align-items-center gap-2 justify-content-center"
                                     style="background-image: linear-gradient(to left,{{ $sponsor->premium }})">
-                                    <i class="fa-solid fa-award"></i> Premium
+                                    <i class="fa-solid fa-award"></i> <span class="d-none d-md-inline">Premium</span>
                                 </div>
 
                                 {{-- ALTRIMENTI --}}
                             @empty
                                 <a href="{{ route('admin.apartments.sponsor', $apartment->id) }}"
-                                    class="btn bg-hover text-white p-2">Sponsorizza</a>
+                                    class="btn bg-hover text-white"><i class="d-md-none fa-solid fa-cart-shopping"></i><span class="d-none d-md-inline">Sponsorizza</span></a>
                             @endforelse
                         </td>
 
                         {{-- DATA DI SCADENZA SPONSOR --}}
                         <td>
                             @forelse ($apartment->sponsors()->where('apartment_id', $apartment->id)->get() as $sponsor)
-                                <strong><small><i class="fa-regular fa-clock me-2"></i>{{ \Carbon\Carbon::parse($sponsor->pivot->expiration_date)->format('d/m/y H:m') }}</small></strong>
+                                <strong><small class="date"><i class="d-none d-md-inline fa-regular fa-clock me-2"></i>{{ \Carbon\Carbon::parse($sponsor->pivot->expiration_date)->format('d/m/y H:m') }}</small></strong>
                                 
                             @empty
                                 <span>-</span>
@@ -96,8 +100,8 @@
                         </td>
 
                         {{-- AZIONI --}}
-                        <td>
-                            <div class="d-flex justify-content-between">
+                        <td class="">
+                            <div class="d-none d-md-flex justify-content-between">
                                 <div class="d-flex align-items-center justify-content-center gap-2">
                                     {{-- CESTINO (ELIMINA) --}}
                                     <form method="POST" action="{{ route('admin.apartments.destroy', $apartment->id) }}"
@@ -117,6 +121,37 @@
                                 </div>
                                 {{-- VAI AL DETTAGLIO --}}
                                 <a href="{{ route('admin.apartments.show', $apartment->id) }}" class="btn"><i
+                                        class="fa-solid fa-chevron-right"></i></a>
+                            </div>
+                            <div class="d-flex d-md-none">
+
+                                <div class="dropdown">
+                                    <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fa-solid fa-gear"></i>
+                                    </button>
+                                    <ul class="dropdown-menu p-2 ">
+                                        <li > {{-- CESTINO (ELIMINA) --}}
+                                            <form method="POST" action="{{ route('admin.apartments.destroy', $apartment->id) }}"
+                                                data-bs-toggle="modal" data-bs-target="#modal"
+                                                data-apartment="{{ $apartment->title }}" class="del-form">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn bg-icon"><i
+                                                        class="fa-regular fa-trash-can"></i></button>
+                                            </form>
+                                        </li>
+                                        <li class="my-2">{{-- MODIFICA --}}
+                                            <a href="{{ route('admin.apartments.edit', $apartment->id) }}" class="btn bg-icon"><i
+                                                    class="fa-regular fa-pen-to-square"></i></a>
+                                        </li>
+                                        <li>{{-- STATISTICHE --}}
+                                            <a href="{{ route('admin.apartments.statistics', $apartment->id) }}"
+                                                class="btn bg-icon"><i class="fa-solid fa-chart-line"></i></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                {{-- VAI AL DETTAGLIO --}}
+                                <a href="{{ route('admin.apartments.show', $apartment->id) }}" class="btn "><i
                                         class="fa-solid fa-chevron-right"></i></a>
                             </div>
                         </td>
