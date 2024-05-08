@@ -11,11 +11,11 @@
 @section('content')
 
     <h1 class="mt-5 mb-5">Pannello di controllo</h1>
-    <div class="row mb-5">
-        <div class="col">
+    <div class="row row-gap-3 mb-5">
+        <div class="col-8 col-lg-4 offset-2 offset-lg-0">
             {{-- CARD APPARTAMENTI IN GESTIONE --}}
-            <div class="card p-3">
-                <h3>Appartamenti in gestione</h3>
+            <div class="card align-items-center p-3">
+                <h4 class="mb-2">Appartamenti totali</h4>
                 <div>
                     <span class="dashbutton me-2"><i class="fa-solid fa-house"></i></span>
                     {{-- TOTALE APPARTAMENTI --}}
@@ -23,10 +23,10 @@
                 </div>
             </div>
         </div>
-        <div class="col">
+        <div class="col-8 col-lg-4 offset-2 offset-lg-0">
             {{-- CARD MESSAGGI TOTALI --}}
-            <div class="card p-3">
-                <h3>Messaggi totali</h3>
+            <div class="card align-items-center p-3">
+                <h4 class="mb-2">Messaggi totali</h4>
                 <div>
                     <span class="dashbutton me-2"><i class="fa-solid fa-envelope-open-text"></i></span>
                     {{-- TOTALE MESSAGGI --}}
@@ -34,10 +34,10 @@
                 </div>
             </div>
         </div>
-        <div class="col">
+        <div class="col-8 col-lg-4 offset-2 offset-lg-0">
             {{-- CARD VISUALIZZAZIONI TOTALI --}}
-            <div class="card p-3">
-                <h3>Visualizzazioni totali</h3>
+            <div class="card align-items-center p-3">
+                <h4 class="mb-2">Visualizzazioni totali</h4>
                 <div>
                     <span class="dashbutton me-2"><i class="fa-regular fa-eye"></i></span>
                     {{-- TOTALE VISUALIZZAZIONI --}}
@@ -47,8 +47,8 @@
         </div>
     </div>
     <h1 class="mb-5">Statistiche</h1>
-    <div class="row">
-        <div class="col-6">
+    <div class="row row-gap-3">
+        <div class="col col-md-6">
             {{-- CARD VISUALIZZAZIONI TOTALI--}}
             <div class="card p-3">
                 <div class="d-flex justify-content-between align-items-center mb-3">
@@ -60,7 +60,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-6">
+        <div class="col col-md-6">
             {{-- CARD MESSAGGI MENSILI --}}
             <div class="card p-3">
                 <div class="d-flex justify-content-between align-items-center mb-3">
