@@ -8,7 +8,7 @@
                 <span id="link-logo">boolbnb</span>
             </div>
         </a>
-        <div class="d-flex align-items-center gap-2">
+        <div class="d-flex align-items-center gap-3">
             {{-- MESSAGGI FUORI DROPDOWN --}}
             @auth
             <a class="nav-link d-md-none bg-gray @if (Route::is('admin.messages*')) active @endif"
@@ -72,6 +72,7 @@
                             <i class="fa-regular fa-circle-user"></i>
                             {{-- NOME UTENTE --}}
                             {{ Auth::user()->name }}
+                            <i class="fa-solid fa-chevron-down ms-1"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             {{-- PROFILO --}}
