@@ -6,12 +6,12 @@
 
     
 
-        <div class="card p-3 m-3 shadow">
+        
             {{-- TITOLO --}}
-            <h2>Lista Messaggi</h2>
+            <h2 class="mt-5">Lista Messaggi</h2>
 
             {{-- TABELLA --}}
-            <table class="table table-white table-hover  mt-5">
+            <table class="table table-white table-hover mt-5 shadow border">
     
                 {{-- HEADER TABELLA --}}
                 <thead>
@@ -30,7 +30,7 @@
                     @forelse ($messages as $message)
                         <tr>
                             {{-- ID --}}
-                            <th scope="row">{{ $message->id }}</th>
+                            <th >{{ $message->id }}</th>
     
                             {{-- TITOLO--}}
                             <td>{{ $message->name }}</td>
@@ -50,15 +50,11 @@
     
                         {{-- ALTRIMENTI --}}
                     @empty
-                        <tr>
-                            <td class="text-center" colspan="7">
-                                <h3>Non ci sono messaggi</h3>
-                            </td>
-                        </tr>
+                           <h3>Non ci sono messaggi</h3>
                     @endforelse
                 </tbody>
             </table>
-        </div>
+        
 
     
 
