@@ -33,7 +33,7 @@
         <div class="row">
             {{-- CICLO SU GLI SPONSOR --}}
             @foreach ($sponsors as $sponsor)
-                <div class="col">
+                <div class="col-sm-12 col-md-6 col-lg-4 g-3">
                     <div class="card text-white p-3 border-0 rounded-4"
                         style="background-image: linear-gradient(to left,{{ $sponsor->color }})">
                         <div class="card-body">

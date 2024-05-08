@@ -1,4 +1,4 @@
-{{-- NAVABAR --}}
+{{-- NAVBAR --}}
 <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
     <div class="container">
         {{-- LOGO --}}
@@ -8,17 +8,37 @@
                 <span id="link-logo">boolbnb</span>
             </div>
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <div class="d-flex align-items-center gap-2">
+            {{-- MESSAGGI FUORI DROPDOWN --}}
+            @auth
+            <a class="nav-link d-md-none bg-gray @if (Route::is('admin.messages*')) active @endif"
+                            href="{{ route('admin.messages.index') }}"><i class="fa-regular fa-bell"></i></a>
+            @endauth
+             {{-- UTENTI NON AUTENTICATI --}}
+            @guest
+             {{-- ACCEDI --}}
+             
+                 <a class="btn bg-hover text-white" href="{{ route('welcome') }}">{{ __('Accedi') }}</a>
+             
+             {{-- CONTROLLO DELLA ROTTA REGISTRATI --}}
+             @if (Route::has('register'))
+                 
+                     <a class="btn c-main btn-sec" href="{{ route('register') }}">{{ __('Registrati') }}</a>
+                 
+             @endif
+            @endguest
+            @auth
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav me-auto">
 
 
                 {{-- SOLO UTENTI AUTENTICATI --}}
-                @auth
                     <li class="nav-item mx-2">
                         {{-- PANNELLO DI CONTROLLO --}}
                         <a class="nav-link @if (Route::is('welcome') || Route::is('admin.statistic*')) active @endif"
@@ -38,22 +58,11 @@
                 <!-- Authentication Links -->
 
 
-                {{-- UTENTI NON AUTENTICATI --}}
-                @guest
-                    {{-- ACCEDI --}}
-                    <li class="nav-item">
-                        <a class="btn bg-hover text-white" href="{{ route('welcome') }}">{{ __('Accedi') }}</a>
-                    </li>
-                    {{-- CONTROLLO DELLA ROTTA REGISTRATI --}}
-                    @if (Route::has('register'))
-                        <li class="nav-item ms-1">
-                            <a class="btn c-main btn-sec" href="{{ route('register') }}">{{ __('Registrati') }}</a>
-                        </li>
-                    @endif
-                @else
+
+                @auth
                     <li class="nav-item mx-2">
-                        {{-- APPARTAMENTI --}}
-                        <a class="nav-link @if (Route::is('admin.messages*')) active @endif"
+                        {{-- MESSAGGI --}}
+                        <a class="nav-link d-sm-none d-md-block @if (Route::is('admin.messages*')) active @endif"
                             href="{{ route('admin.messages.index') }}"><i class="fa-regular fa-bell"></i></a>
                     </li>
                     {{-- DROPDOWN --}}
@@ -78,7 +87,7 @@
                             </form>
                         </div>
                     </li>
-                @endguest
+                @endauth
 
 
             </ul>
