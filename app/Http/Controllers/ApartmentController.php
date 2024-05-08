@@ -46,7 +46,7 @@ class ApartmentController extends Controller
 
 
         /* PAGINAZIONE */
-        $apartments = $query->paginate(3);
+        $apartments = $query->paginate(5);
 
 
         /* RECUEPRO TUTTI I RECORD DALLA TABELLA SPONSOR */
@@ -104,10 +104,10 @@ class ApartmentController extends Controller
         /* ASSEGNO LL'APARTAMENTO ID DELL'UTENTE  AUTENTICATO PER INDICARE CHE GLI APPARTIENE */
         $apartment->user_id = Auth::id();
 
-        if (Arr::exists($data, 'cover')) {
-            $img_url = Storage::putFile('cover', $data['cover']);
-            $apartment->cover = $img_url;
-        }
+        // if (Arr::exists($data, 'cover')) {
+        //     $img_url = Storage::putFile('cover', $data['cover']);
+        //     $apartment->cover = $img_url;
+        // }
 
         /* SALVO INFORMAZIONI */
         $apartment->save();

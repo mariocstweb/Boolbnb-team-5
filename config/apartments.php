@@ -4,10 +4,10 @@
 
 return $apartments = [
   [
-    'title' => 'Villa Splendida',
+    'title' => 'Villa Le Rose',
     'user_id' => 1,
     'description' => 'Elegante villa con giardino privato e vista panoramica sulla città. Spazi ampi e luminosi, arredamento di lusso e atmosfera raffinata.',
-    'cover' => 'https://a0.muscache.com/im/pictures/miso/Hosting-588249405861606627/original/bc3147ad-c8db-4a04-adc1-98a6fe3e8524.jpeg?im_w=1200',
+    'cover' => 'https://a0.muscache.com/im/pictures/miso/Hosting-908520646530600248/original/d2486b1f-656a-431e-86cb-6ed887ded5a8.jpeg?im_w=1200',
     'is_visible' => true,
     'rooms' => 3,
     'beds' => 4,
@@ -17,7 +17,7 @@ return $apartments = [
     'latitude' => 41.8837,
     'longitude' => 12.4861
   ],
-  ['title' => 'Mansarda Chic', 'user_id' => 1, 'description' => 'Incantevole mansarda nel cuore di Roma, con terrazza panoramica e vista sui tetti della città. Ideale per una vacanza romantica.', 'cover' => 'https://th.bing.com/th/id/OIP.-943Oexp4i-7jxNDzRA6iQHaFL?rs=1&pid=ImgDetMain', 'is_visible' => true, 'rooms' => 1, 'beds' => 1, 'bathrooms' => 1, 'sqm' => 50, 'address' => 'Via Giulia 20, Roma, Italia', 'latitude' => 41.8962, 'longitude' => 12.4689],
+  ['title' => 'Villa Infinity', 'user_id' => 1, 'description' => 'Incantevole mansarda nel cuore di Roma, con terrazza panoramica e vista sui tetti della città. Ideale per una vacanza romantica.', 'cover' => 'https://a0.muscache.com/im/pictures/prohost-api/Hosting-957819679097220222/original/53afb9d5-777e-46bf-b657-36cd979bddc8.jpeg?im_w=1200', 'is_visible' => true, 'rooms' => 1, 'beds' => 1, 'bathrooms' => 1, 'sqm' => 50, 'address' => 'Via Giulia 20, Roma, Italia', 'latitude' => 41.8962, 'longitude' => 12.4689],
   ['title' => 'Appartamento Storico', 'user_id' => 1, 'description' => 'Accogliente appartamento in un palazzo storico nel centro di Roma. Arredamento classico e atmosfera suggestiva, a pochi passi dai principali monumenti.', 'cover' => 'https://www.maxlisiphotographer.com/wp-content/uploads/2020/06/MG_8550-HDR.jpg', 'is_visible' => true, 'rooms' => 2, 'beds' => 3, 'bathrooms' => 2, 'sqm' => 80, 'address' => 'Via del Corso 15, Roma, Italia', 'latitude' => 41.8954, 'longitude' => 12.4765],
   ['title' => 'Loft Moderno', 'user_id' => 1, 'description' => 'Spazioso loft dal design contemporaneo, con ampie vetrate e terrazza con vista sulla città. Perfetto per chi ama lo stile minimalista.', 'cover' => 'https://th.bing.com/th/id/OIP.cq4_gAAMIv9MJLyvzTn2KQHaFQ?rs=1&pid=ImgDetMain', 'is_visible' => true, 'rooms' => 1, 'beds' => 2, 'bathrooms' => 1, 'sqm' => 70, 'address' => 'Via Veneto 30, Roma, Italia', 'latitude' => 41.9055, 'longitude' => 12.4884],
   ['title' => 'Casa Panoramica', 'user_id' => 1, 'description' => 'Panoramica casa con vista su Piazza di Spagna e Trinità dei Monti. Arredo moderno e comfort di alto livello, ideale per una vacanza di lusso.', 'cover' => 'https://th.bing.com/th/id/OIP.QY6Hk7p44uOrIp__hyYh0AHaDb?rs=1&pid=ImgDetMain', 'is_visible' => true, 'rooms' => 2, 'beds' => 4, 'bathrooms' => 3, 'sqm' => 120, 'address' => 'Piazza di Spagna 5, Roma, Italia', 'latitude' => 41.9054, 'longitude' => 12.4823],

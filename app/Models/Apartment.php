@@ -86,8 +86,8 @@ class Apartment extends Model
         return $this->messages()->count();
     }
 
-    public function image(): CastsAttribute
-    {
-        return CastsAttribute::make(fn ($value) => $value && app('request')->is('api/*') ? url('storage/' . $value) : $value);
-    }
+    // public function image(): CastsAttribute
+    // {
+    //     return CastsAttribute::make(fn ($value) => $value && app('request')->is('api/*') ? url('storage/' . $value) : $value);
+    // }
 }
