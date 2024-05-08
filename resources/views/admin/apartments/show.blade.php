@@ -21,7 +21,7 @@
         <a href="{{ route('admin.apartments.edit', $apartment->id) }}" class="btn bg-hover text-white p-2"><i
                 class="fa-regular fa-pen-to-square me-2"></i> Modifica</a>
     </div>
-    <div class="row mt-5">
+    <div class="row mt-5 gap-4">
         <div class="col">
             <section id="detail">
                 <div class="card rounded-4   p-4">

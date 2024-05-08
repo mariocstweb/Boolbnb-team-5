@@ -10,8 +10,24 @@
         </a>
         <div class="d-flex align-items-center gap-2">
             {{-- MESSAGGI FUORI DROPDOWN --}}
+            @auth
             <a class="nav-link d-md-none bg-gray @if (Route::is('admin.messages*')) active @endif"
                             href="{{ route('admin.messages.index') }}"><i class="fa-regular fa-bell"></i></a>
+            @endauth
+             {{-- UTENTI NON AUTENTICATI --}}
+            @guest
+             {{-- ACCEDI --}}
+             
+                 <a class="btn bg-hover text-white" href="{{ route('welcome') }}">{{ __('Accedi') }}</a>
+             
+             {{-- CONTROLLO DELLA ROTTA REGISTRATI --}}
+             @if (Route::has('register'))
+                 
+                     <a class="btn c-main btn-sec" href="{{ route('register') }}">{{ __('Registrati') }}</a>
+                 
+             @endif
+            @endguest
+            @auth
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                 <span class="navbar-toggler-icon"></span>
@@ -23,7 +39,6 @@
 
 
                 {{-- SOLO UTENTI AUTENTICATI --}}
-                @auth
                     <li class="nav-item mx-2">
                         {{-- PANNELLO DI CONTROLLO --}}
                         <a class="nav-link @if (Route::is('welcome') || Route::is('admin.statistic*')) active @endif"
@@ -43,19 +58,8 @@
                 <!-- Authentication Links -->
 
 
-                {{-- UTENTI NON AUTENTICATI --}}
-                @guest
-                    {{-- ACCEDI --}}
-                    <li class="nav-item mt-1 me-1">
-                        <a class="btn bg-hover text-white" href="{{ route('welcome') }}">{{ __('Accedi') }}</a>
-                    </li>
-                    {{-- CONTROLLO DELLA ROTTA REGISTRATI --}}
-                    @if (Route::has('register'))
-                        <li class="nav-item mt-1">
-                            <a class="btn c-main btn-sec" href="{{ route('register') }}">{{ __('Registrati') }}</a>
-                        </li>
-                    @endif
-                @else
+
+                @auth
                     <li class="nav-item mx-2">
                         {{-- MESSAGGI --}}
                         <a class="nav-link d-sm-none d-md-block @if (Route::is('admin.messages*')) active @endif"
@@ -83,7 +87,7 @@
                             </form>
                         </div>
                     </li>
-                @endguest
+                @endauth
 
 
             </ul>
