@@ -22,7 +22,7 @@ class ApartmentsController extends Controller
 
 
         /* METTO IN ORDINE PER DATA DI CREAZIONE E SPONSOR GLI APPARTAMENTI E PASSO I SERVIZI E GlI SPONSOR RELAZIONATI TRAMITE MODELLO */
-        $apartments = $query->with('services', 'sponsors')
+        $apartments = $query->where('is_visible', true)->with('services', 'sponsors')
             ->leftJoin('apartment_sponsor', 'apartments.id', '=', 'apartment_sponsor.apartment_id')
             ->orderByRaw('apartment_sponsor.apartment_id IS NULL')
             ->latest()
