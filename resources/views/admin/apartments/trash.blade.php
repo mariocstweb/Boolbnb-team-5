@@ -37,9 +37,6 @@
                     <th scope="col" class="text-start">Anteprima</th>
                     <th scope="col">Titolo</th>
                     <th scope="col">Pubblicato</th>
-                    <th scope="col">Sponsorizzazione</th>
-                    <th scope="col">Data Creazione</th>
-                    <th scope="col">Ultima Midifica</th>
                     <th scope="col">
                     </th>
                 </tr>
@@ -58,26 +55,6 @@
                         <td class="text-start fs-4">{!! $apartment->is_visible
                             ? '<i class="fa-solid fa-circle-check text-success"></i>'
                             : '<i class="fa-solid fa-circle-xmark text-danger"></i>' !!}</td>
-
-                        {{-- SPONSORIZZAZZIONE --}}
-                        <td>
-                            {{-- CICLO CHE HA COME CONDIZIONE DI VERIFICARE SE GLI SPONSOR SONO ASSOCIATIO AGLI APPARTAMENTI --}}
-                            @forelse ($apartment->sponsors as $sponsor)
-                                <div class="badge-sponsor text-center"
-                                    style="background-image: linear-gradient(to left,{{ $sponsor->color }})">
-                                    {{ $sponsor->label }}</div>
-                                {{-- ALTRIMENTI --}}
-                            @empty
-                                <a href="{{ route('admin.sponsors.index') }}"
-                                    class="btn bg-hover text-white p-2">Sponsorizza</a>
-                            @endforelse
-                        </td>
-
-                        {{-- DATA CREAZIONE --}}
-                        <td>{{ $apartment->created_at }}</td>
-
-                        {{-- DATA DI MODIFICA --}}
-                        <td>{{ $apartment->updated_at }}</td>
                         <td>
                             <div class="d-flex justify-content-end align-items-center gap-1">
                                 {{-- RIPRISTINA SINGOLO APPARTAMENTO --}}
