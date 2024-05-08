@@ -22,7 +22,7 @@
                 class="fa-regular fa-pen-to-square me-2"></i> Modifica</a>
     </div>
     <div class="row mt-5">
-        <div class="col-8">
+        <div class="col">
             <section id="detail">
                 <div class="card rounded-4   p-4">
                     {{-- TITOLO APPARTAMENTO --}}
@@ -31,7 +31,7 @@
                         {{-- BOTTONE MAPPA --}}
                         <button type="button" id="map-button" class="bg-hover text-white btn" data-bs-toggle="modal"
                         data-bs-target="#mapModal">
-                        <span class="d-none d-sm-inline">Mostra la mappa</span> <i class="fa-solid fa-map ms-1"></i>
+                        <span class="d-none d-md-inline">Mostra la mappa</span> <i class="fa-solid fa-map ms-1"></i>
                         </button>
                     </div>
                     {{-- IMMAGINE DI COPERTINA --}}
@@ -129,7 +129,7 @@
             </section>
             
         </div>
-        <div class="col-4">
+        <div class="col col-lg-4">
             <section id="services">
                 <div class="card rounded-4 p-3">
                     <div class="card-body">
