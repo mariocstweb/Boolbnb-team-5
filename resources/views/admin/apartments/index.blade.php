@@ -58,7 +58,7 @@
                     <tr>
 
                         {{-- COVER --}}
-                        <td class="d-none  d-lg-table-cell"><img src="{{ $apartment->cover }}" alt="{{ $apartment->title }}"
+                        <td class="d-none  d-lg-table-cell"><img src="{{ Vite::asset('public/storage/' . $apartment->cover) }}" alt=""
                                 class="img-fluid table-img rounded-1"></td>
 
                         {{-- ID --}}
