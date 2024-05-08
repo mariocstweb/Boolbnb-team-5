@@ -1,6 +1,6 @@
 <section id="login-form">
     <div class="row" id="row-login">
-        <div class="col-7 d-flex justify-content-center align-items-center">
+        <div class="col d-flex justify-content-center align-items-center">
             <div class="row justify-content-center">
                 <div class="col">
                     {{-- CARD LOGIN --}}
@@ -78,7 +78,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-5 text-end" id="img-login">
+        <div class="col d-none d-lg-block text-end" id="img-login">
         </div>
     </div>
 </section>
