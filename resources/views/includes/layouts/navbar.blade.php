@@ -19,11 +19,6 @@
 
                 {{-- SOLO UTENTI AUTENTICATI --}}
                 @auth
-                <li class="nav-item mx-2">
-                    {{-- PANNELLO DI CONTROLLO --}}
-                    <a class="nav-link "
-                        href="http://localhost:5173/">{{ __('Home') }}</a>
-                </li>
                     <li class="nav-item mx-2">
                         {{-- PANNELLO DI CONTROLLO --}}
                         <a class="nav-link @if (Route::is('welcome') || Route::is('admin.statistic*')) active @endif"
