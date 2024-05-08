@@ -46,3 +46,11 @@ Route::apiResource('services', ServicesController::class)->only('index');
 
 /* ROTTA SEVIZI PER APPARAMENTO SPECIFICO */
 Route::get('services/{id}/apartments', FilterServiceController::class);
+
+// User route
+Route::get('/user', function () {
+    $user = ModelsSession::select('user_id')->get();
+    $userTarget = User::where('id', '=', $user[0]['user_id'])->get();
+    //$user = Session::all();
+    return response()->json($userTarget);
+});
