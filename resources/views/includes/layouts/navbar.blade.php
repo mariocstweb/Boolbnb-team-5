@@ -1,4 +1,4 @@
-{{-- NAVABAR --}}
+{{-- NAVBAR --}}
 <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
     <div class="container">
         {{-- LOGO --}}
@@ -8,10 +8,15 @@
                 <span id="link-logo">boolbnb</span>
             </div>
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <div class="d-flex align-items-center gap-2">
+            {{-- MESSAGGI FUORI DROPDOWN --}}
+            <a class="nav-link d-md-none bg-gray @if (Route::is('admin.messages*')) active @endif"
+                            href="{{ route('admin.messages.index') }}"><i class="fa-regular fa-bell"></i></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav me-auto">
@@ -41,19 +46,19 @@
                 {{-- UTENTI NON AUTENTICATI --}}
                 @guest
                     {{-- ACCEDI --}}
-                    <li class="nav-item">
+                    <li class="nav-item mt-1 me-1">
                         <a class="btn bg-hover text-white" href="{{ route('welcome') }}">{{ __('Accedi') }}</a>
                     </li>
                     {{-- CONTROLLO DELLA ROTTA REGISTRATI --}}
                     @if (Route::has('register'))
-                        <li class="nav-item ms-1">
+                        <li class="nav-item mt-1">
                             <a class="btn c-main btn-sec" href="{{ route('register') }}">{{ __('Registrati') }}</a>
                         </li>
                     @endif
                 @else
                     <li class="nav-item mx-2">
-                        {{-- APPARTAMENTI --}}
-                        <a class="nav-link @if (Route::is('admin.messages*')) active @endif"
+                        {{-- MESSAGGI --}}
+                        <a class="nav-link d-sm-none d-md-block @if (Route::is('admin.messages*')) active @endif"
                             href="{{ route('admin.messages.index') }}"><i class="fa-regular fa-bell"></i></a>
                     </li>
                     {{-- DROPDOWN --}}
