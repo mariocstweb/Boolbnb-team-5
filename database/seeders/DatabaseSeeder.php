@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\User::factory()->create([
             'name' => 'boolbnb',
             'email' => 'bool@gmail.com',
+
         ]);
 
 
