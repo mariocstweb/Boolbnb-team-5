@@ -6,7 +6,7 @@
 
     <section id="login-form">
         <div class="row" id="row-login">
-            <div class="col-7 d-flex justify-content-center align-items-center">
+            <div class="col-lg-7 col-sm-12 d-flex justify-content-center align-items-center">
                 <div class="row justify-content-center">
                     <div class="col">
                         {{-- CARD REGISTRAZIONE --}}

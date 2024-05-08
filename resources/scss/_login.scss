@@ -25,3 +25,10 @@
   height: calc(100vh - 30px);
 }
 
+
+@media screen and (max-width: 1200px) {
+  .col-5{
+    display: none;
+  }
+  
+}

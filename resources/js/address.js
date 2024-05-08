@@ -175,16 +175,51 @@ saveButton.addEventListener('click', () => {
 
 
 
+const users =[
+{
+name: 'Sam', age: 34
+},
+{
+name: 'Ami', age: 28
+},
+{
+name: 'Bill', age: 40
+},
+
+];
+
+let youngestUser = users[0];
+
+for(let i = 0; i < users.lenght; i++){
+    const user = users[i];
+    if(user.age < youngestUser.age){
+        youngestUser = user;
+    }
+}
+
+console.log(youngestUser.name)
+
+const foo = 'hello';
+const bar = 'world';
+
+setTimeout(function(){
+    console.log(foo);
+}, 1000)
+
+console.log(bar);
 
 
+const person = {
+    name: 'John',
+    age: 30,
+    address:{
+        street: '123 Main st',
+        state: 'CA'
+    }
+};
 
-
-
-
-
-
-
-
+person.address.city = 'Anycity';
+console.log(person.address.street);
 
 
 
