@@ -235,7 +235,10 @@ class ApartmentController extends Controller
      */
     public function destroy(Apartment $apartment)
     {
-
+        // Trova l'appartamento
+        $apartment = Apartment::findOrFail($apartment->id);
+        $apartment->is_visible = false;
+        $apartment->save();
         /* ELIMINAZIONE SOFT */
         $apartment->delete();
 
