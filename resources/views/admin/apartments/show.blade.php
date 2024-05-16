@@ -36,7 +36,8 @@
                     </div>
                     {{-- IMMAGINE DI COPERTINA --}}
                     <div class="thumb-img">
-                        <img src="{{ $apartment->cover }}" alt="{{ $apartment->title }}" class="img-fluid">
+                        {{-- <img src="{{ $apartment->cover }}" alt="{{ $apartment->title }}" class="img-fluid"> --}}
+                        <img src="{{ Vite::asset('public/storage/' . $apartment->cover) }}" alt="" class="img-fluid table-img rounded-1">
                     </div>
                     <div class="card-body">
                         {{-- DESCRIZIONE APPARTAMENTO --}}

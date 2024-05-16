@@ -104,10 +104,10 @@ class ApartmentController extends Controller
         /* ASSEGNO LL'APARTAMENTO ID DELL'UTENTE  AUTENTICATO PER INDICARE CHE GLI APPARTIENE */
         $apartment->user_id = Auth::id();
 
-        // if (Arr::exists($data, 'cover')) {
-        //     $img_url = Storage::putFile('cover', $data['cover']);
-        //     $apartment->cover = $img_url;
-        // }
+        if (Arr::exists($data, 'cover')) {
+            $img_url = Storage::putFile('cover', $data['cover']);
+            $apartment->cover = $img_url;
+        }
 
         /* SALVO INFORMAZIONI */
         $apartment->save();
