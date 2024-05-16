@@ -193,42 +193,44 @@ class ApartmentController extends Controller
      */
     public function update(UpdateApartmentRequest $request, Apartment $apartment)
     {
-
         /* INFORMAZIONI SUI DATI DI VALIDAZIONE */
         $data = $request->validated();
 
-
-        /* POPOLO L'OGGETTO CON I VALORI DELL'ARRAY DATA */
-        $apartment->fill($data);
-
-
-        /* CONTROLLO SE NELL'ARRAY DATA ESTISTE LA CHIAVE 'IS_VISIBLE' */
-        $apartment->is_visible = array_key_exists('is_visible', $data);
-
-
-        /* AGGIORNO INFORMAZIONI */
-        $apartment->update($data);
-
-
-        /* VERIFICO SE ESISTE NELL'ARRAY LA CHIAVE SERVICES, SE ESTISTE */
-        if (Arr::exists($data, 'services')) {
-
-            /* SINCRONIZZO I RECORD DELL'APPARTAMENTO AI RECORD DEI SERVIZI*/
-            $apartment->services()->sync($data['services']);
-
-            /*  ALTRIMENTI SE NON ESISTE E HA UNA RELAZIONE CHIAMATA 'SERVICES' */
-        } elseif (!Arr::exists($data, 'services') && $apartment->has('services')) {
-
-            /* DISSOCIA I RECORD DELL'APPARTAMENTO AI RECORD DEI SERVIZI */
-            $apartment->services()->detach($data['services']);
+        if (Arr::has($data, 'cover')) {
+            if ($apartment->cover) Storage::delete($apartment->cover);
+            $img_url = Storage::putFile('cover', $data['cover']);
+            $apartment->cover = $img_url;
         }
 
+        /* Rimuovi la chiave 'cover' dall'array $data prima di aggiornare l'oggetto Apartment */
+        $dataWithoutCover = Arr::except($data, ['cover']);
+
+        /* POPOLO L'OGGETTO CON I VALORI DELL'ARRAY DATA */
+        $apartment->fill($dataWithoutCover);
+
+        /* CONTROLLO SE NELL'ARRAY DATA ESISTE LA CHIAVE 'IS_VISIBLE' */
+        $apartment->is_visible = array_key_exists('is_visible', $data);
+
+        /* AGGIORNO INFORMAZIONI */
+        $apartment->update($dataWithoutCover);
+
+        /* VERIFICO SE ESISTE NELL'ARRAY LA CHIAVE SERVICES, SE ESISTE */
+        if (Arr::exists($data, 'services')) {
+            /* SINCRONIZZO I RECORD DELL'APPARTAMENTO AI RECORD DEI SERVIZI */
+            $apartment->services()->sync($data['services']);
+        } else {
+            /* SE NON ESISTE E HA UNA RELAZIONE CHIAMATA 'SERVICES', DISSOCIA I RECORD */
+            if ($apartment->has('services')) {
+                $apartment->services()->detach();
+            }
+        }
 
         /* RESTITUISCO IN PAGINA */
         return to_route('admin.apartments.show', $apartment->id)
             ->with('type', 'warning')
             ->with('message', "'$apartment->title' modificato con successo.");
     }
+
 
     /**
      * Remove the specified resource from storage.

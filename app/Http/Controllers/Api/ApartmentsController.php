@@ -36,9 +36,6 @@ class ApartmentsController extends Controller
             return $apartment;
         });
 
-
-
-
         /* RESTITUISCO I DATI DEGLI APPARTAMENTI IN JSON */
         return response()->json($apartments);
     }
