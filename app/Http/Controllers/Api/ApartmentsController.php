@@ -28,6 +28,16 @@ class ApartmentsController extends Controller
             ->latest()
             ->get();
 
+        // Modifica l'URL della copertina per ogni appartamento se esiste
+        $apartments->transform(function ($apartment) {
+            if ($apartment->cover) {
+                $apartment->cover = url('storage/' . $apartment->cover);
+            }
+            return $apartment;
+        });
+
+
+
 
         /* RESTITUISCO I DATI DEGLI APPARTAMENTI IN JSON */
         return response()->json($apartments);
@@ -61,6 +71,10 @@ class ApartmentsController extends Controller
         // Aggiorna la data dell'ultima visita
         if ($lastVisit) {
             $lastVisit->update(['created_at' => Carbon::now()]);
+        }
+
+        if ($apartment->cover) {
+            $apartment->cover = url('storage/' . $apartment->cover);
         }
 
 
