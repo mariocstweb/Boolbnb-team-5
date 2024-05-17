@@ -13,12 +13,9 @@
     {{-- UTENTE NON AUTENTICATO --}}
     @guest
 
-    @section('title', 'Login')
-
     @section('login-form')
-        {{-- INCLUDO LOGIN --}}
         @include('auth.login')
     @endsection
-@endguest
+    @endguest
 
 @endsection

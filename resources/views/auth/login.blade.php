@@ -1,3 +1,9 @@
+@extends('layouts.app')
+
+@section('title', 'Accedi')
+
+@section('login-form')
+
 <section id="login-form">
     <div class="row" id="row-login">
         <div class="col d-flex justify-content-center align-items-center">
@@ -82,3 +88,4 @@
         </div>
     </div>
 </section>
+@endsection

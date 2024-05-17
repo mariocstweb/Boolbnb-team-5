@@ -40,7 +40,7 @@
                 <li class="nav-item mx-2">
                     {{-- PANNELLO DI CONTROLLO --}}
                     <a class="nav-link"
-                        href="{{ url('http://localhost:5173/') }}">{{ __('Home') }}</a>
+                        href="{{ url('http://localhost:5174/') }}">{{ __('Home') }}</a>
                 </li>
 
                 {{-- SOLO UTENTI AUTENTICATI --}}
