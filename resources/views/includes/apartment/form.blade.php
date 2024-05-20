@@ -196,7 +196,8 @@
                 {{-- PREVIEW IMMAGINE --}}
                 <div class="col">
                     <div class="mt-3">
-                        <img style="width: 225px; height: 225px" src="{{ old('cover', $apartment->cover) ? $apartment->cover : 'https://marcolanci.it/boolean/assets/placeholder.png' }}"
+                        
+                        <img style="width: 225px; height: 225px" src="{{ old('cover', $apartment->cover) ?  Vite::asset('public/storage/' . $apartment->cover)  : 'https://marcolanci.it/boolean/assets/placeholder.png' }}"
                             class="img-fluid rounded-3" alt="{{ $apartment->cover ? $apartment->title : 'preview' }}"
                             id='preview'>
                     </div>

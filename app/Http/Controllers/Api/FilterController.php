@@ -74,7 +74,15 @@ class FilterController extends Controller
         /* OTTENGO GLI APPARTMANETI CON EVENTUALI FILTRI */
         $apartments = $query->get();
 
-        
+        // Modifica l'URL della copertina per ogni appartamento se esiste
+        $apartments->transform(function ($apartment) {
+            if ($apartment->cover) {
+                $apartment->cover = url('storage/' . $apartment->cover);
+            }
+            return $apartment;
+        });
+
+
         /* RESTITUISCO GLI APPARATMENTI TROVATI */
         return $apartments;
     }
